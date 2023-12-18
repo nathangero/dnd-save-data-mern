@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from './App.jsx'
+
 import './index.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+
+import App from './App.jsx'
 import Error from "./pages/Error.jsx";
 import Home from "./pages/Home.jsx";
+import Campaigns from "./pages/Campaigns.jsx"
+import Characters from "./pages/Characters.jsx"
+import Sessions from "./pages/Sessions.jsx"
 
 const router = createBrowserRouter([
   {
@@ -17,7 +22,19 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
-      }
+      },
+      {
+        path: "/campaigns",
+        element: <Campaigns />
+      },
+      {
+        path: "/characters",
+        element: <Characters />
+      },
+      {
+        path: "/sessions",
+        element: <Sessions />
+      },
     ]
   }
 ])

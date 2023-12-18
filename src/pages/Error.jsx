@@ -7,7 +7,7 @@ export default function Error() {
     <>
       <div className="text-center">
         <h1>Oops! This page does not exist</h1>
-        <Link to={"/"}>Take be home please.</Link>
+        <Link to="/">Take be home please.</Link>
       </div>
     </>
   )
