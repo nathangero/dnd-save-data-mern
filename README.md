@@ -1,4 +1,28 @@
-# React + Vite
+# D&D Save Data
+
+## Description
+
+
+
+## Learning Points
+
+
+
+## Images
+
+
+
+## Credits
+
+
+
+### Resources
+
+[D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
+
+
+
+### React + Vite Setup
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
