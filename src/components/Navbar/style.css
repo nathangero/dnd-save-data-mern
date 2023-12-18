@@ -1,0 +1,16 @@
+nav img {
+  background-color: white;
+  color: white;
+}
+
+.nav-link {
+  color: black;
+}
+
+
+@media screen and (max-width: 480px) {
+
+  #side-menu {
+    width: 80%;
+  }
+}
