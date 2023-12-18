@@ -10,9 +10,11 @@ export default function Nav() {
 
   return (
     <>
-      <header className="d-inline-flex">
-        <div className="nav nav-tabs border-0">
-          <div className="container-fluid">
+      <header className="">
+
+
+        <nav className="nav nav-tabs justify-content-start">
+          <div className="mx-2 mt-1">
             <button className="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="side-menu">
               <i className="bi bi-list fs-1"></i>
             </button>
@@ -34,55 +36,48 @@ export default function Nav() {
                 </ul>
               </div>
             </div>
-
           </div>
-        </div>
 
-        <nav className="nav navbar-expand nav-tabs">
-          <div className="container-fluid px-0">
-            <div id="nav-menu" className="collapse navbar-collapse justify-content-end">
-              <ul className="list-unstyled list-group list-group-horizontal px-0 mx-0">
-                <li className="">
-                  <Link
-                    to="/campaigns"
-                    className={
-                      useLocation().pathname === "/campaigns" ?
-                        "nav-link active" :
-                        "nav-link"
-                    }
-                  >
-                    Campaigns
-                  </Link>
-                </li>
+          <ul className="list-unstyled list-group list-group-horizontal fs-5 px-0 mx-0">
+            <li className="">
+              <Link
+                to="/campaigns"
+                className={
+                  useLocation().pathname === "/campaigns" ?
+                    "nav-link active" :
+                    "nav-link"
+                }
+              >
+                Campaigns
+              </Link>
+            </li>
 
-                <li className="">
-                  <Link
-                    to="/characters"
-                    className={
-                      useLocation().pathname === "/characters" ?
-                        "nav-link active" :
-                        "nav-link"
-                    }
-                  >
-                    Characters
-                  </Link>
-                </li>
+            <li className="">
+              <Link
+                to="/characters"
+                className={
+                  useLocation().pathname === "/characters" ?
+                    "nav-link active" :
+                    "nav-link"
+                }
+              >
+                Characters
+              </Link>
+            </li>
 
-                <li className="">
-                  <Link
-                    to="/sessions"
-                    className={
-                      useLocation().pathname === "/sessions" ?
-                        "nav-link active" :
-                        "nav-link"
-                    }
-                  >
-                    Sessions
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+            <li className="">
+              <Link
+                to="/sessions"
+                className={
+                  useLocation().pathname === "/sessions" ?
+                    "nav-link active" :
+                    "nav-link"
+                }
+              >
+                Sessions
+              </Link>
+            </li>
+          </ul>
         </nav>
       </header>
     </>
@@ -90,10 +85,3 @@ export default function Nav() {
 }
 
 
-{/* <Link
-  to="/"
-  className="nav-brand text-start"
->
-  <img src="/icons8-dungeons-and-dragons-480 copy.svg" className="me-3" width="40" alt="website logo of a D&D dragon made by icons8" />
-
-</Link> */}
