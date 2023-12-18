@@ -10,10 +10,8 @@ export default function Nav() {
 
   return (
     <>
-      <header className="">
-
-
-        <nav className="nav nav-tabs justify-content-start">
+      <header>
+        <nav className="nav nav-tabs justify-content-between">
           <div className="mx-2 mt-1">
             <button className="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="side-menu">
               <i className="bi bi-list fs-1"></i>
