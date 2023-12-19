@@ -20,6 +20,7 @@
 
 [D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
 
+[Vite with .env](https://vitejs.dev/guide/env-and-mode)
 
 
 ### React + Vite Setup
