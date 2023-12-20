@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { auth } from '../firebase.js';
 
 import './index.css'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,12 +9,14 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 
-import App from './App.jsx'
+import App from './App.jsx';
 import Error from "./pages/Error.jsx";
-import Home from "./pages/Home.jsx";
-import Campaigns from "./pages/Campaigns.jsx"
-import Characters from "./pages/Characters.jsx"
-import Sessions from "./pages/Sessions.jsx"
+import Campaigns from "./pages/Campaigns.jsx";
+import Characters from "./pages/Characters.jsx";
+import Sessions from "./pages/Sessions.jsx";
+import Login from "./pages/Login.jsx";
+
+const user = auth.currentUser;
 
 const router = createBrowserRouter([
   {
@@ -21,10 +24,6 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Error />,
     children: [
-      {
-        index: true,
-        element: <Home />
-      },
       {
         path: "/campaigns",
         element: <Campaigns />
@@ -43,6 +42,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    {user ?
+      <RouterProvider router={router} /> :
+      <Login />
+    }
+
   </React.StrictMode>,
 )
