@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 
 export default function Login() {
 
@@ -14,33 +15,41 @@ export default function Login() {
   const [signupPassword, setSignupPassword] = useState('');
 
   const onChangeLoginEmail = ({ target }) => {
-    setLoginEmail(target.value)
+    setLoginEmail(target.value);
   }
 
   const onChangeLoginPassword = ({ target }) => {
-    setLoginPassword(target.value)
+    setLoginPassword(target.value);
   }
 
   const onChangeSignupUsername = ({ target }) => {
-    setSignupUsername(target.value)
+    setSignupUsername(target.value);
   }
 
   const onChangeSignupEmail = ({ target }) => {
-    setSignupEmail(target.value)
+    setSignupEmail(target.value);
   }
 
   const onChangeSignupPassword = ({ target }) => {
-    setSignupPassword(target.value)
+    setSignupPassword(target.value);
   }
 
-  const onClickToggleLoginPassword = () => {
-    setShowLoginPassword(!showLoginPassword)
+  const toggleLoginPassword = () => {
+    setShowLoginPassword(!showLoginPassword);
   }
 
-  const onClickToggleSignupPassword = () => {
-    setShowSignupPassword(!showSignupPassword)
+  const toggleSignupPassword = () => {
+    setShowSignupPassword(!showSignupPassword);
   }
 
+  const toggleSignup = () => {
+    setSignup(!showSignup);
+  }
+
+  const toggleModalResetPassword = () => {
+    console.log("@toggleModalResetPassword")
+    // Show bootstrap modal
+  }
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -71,9 +80,13 @@ export default function Login() {
               onChange={onChangeLoginPassword}
               placeholder="******"
             />
-            <button className="btn mx-0" onClick={onClickToggleLoginPassword}><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+            <button className="btn mx-0" onClick={toggleLoginPassword}><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
         </form>
+        
+        <br />
+        <p className="text-center">Need an account? <a className="" onClick={toggleSignup}>Signup here</a></p>
+        <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword}>Click here</a></p>
       </>
     )
   }
@@ -100,17 +113,22 @@ export default function Login() {
             placeholder="test@example.com"
           />
 
-
-          <label htmlFor="signup-password" className="text-end">Password:</label>
-          <input
-            id="signup-password"
-            type={showSignupPassword ? "text" : "password"}
-            className="form-control"
-            value={signupPassword}
-            onChange={onChangeSignupPassword}
-            placeholder="******"
-          />
+          <p htmlFor="signup-password" className="mb-0">Password:</p>
+          <div className="container-fluid d-inline-flex border rounded px-0">
+            <input
+              id="signup-password"
+              type={showSignupPassword ? "text" : "password"}
+              className="form-control border-0"
+              value={signupPassword}
+              onChange={onChangeSignupPassword}
+              placeholder="******"
+            />
+            <button className="btn mx-0" onClick={toggleSignupPassword}><i className={showSignupPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+          </div>
         </form>
+
+        <br />
+        <p className="text-center">Already have an account? <a className="" onClick={toggleSignup}>Login here</a></p>
       </>
     )
   }
@@ -118,7 +136,7 @@ export default function Login() {
   return (
     <>
       <div className="d-flex flex-column align-items-center">
-        <h1 className="">D&D Save Data</h1>
+        <h1 className="text-center">D&D Save Data</h1>
         <img src="/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
         <div className="container-fluid">
 
