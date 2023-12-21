@@ -1,8 +1,12 @@
 
 import { useState } from "react";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login() {
+
+  const state = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [showSignup, setSignup] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);

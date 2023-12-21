@@ -1,4 +1,4 @@
 export const initialState = {
   user: {},
-  characters: [],
+  characters: {},
 }

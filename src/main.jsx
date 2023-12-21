@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+import StoreProvider from "./redux/GlobalState";
 
 import App from './App.jsx';
 import Error from "./pages/Error.jsx";
@@ -42,10 +43,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {user ?
-      <RouterProvider router={router} /> :
-      <Login />
-    }
+    <StoreProvider>
+      {user ?
+        <RouterProvider router={router} /> :
+        <Login />
+      }
+    </StoreProvider>
 
   </React.StrictMode>,
 )

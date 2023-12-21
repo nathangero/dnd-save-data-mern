@@ -12,38 +12,38 @@ export const CHARACTER_ACTIONS = {
 export const characterReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHARACTER_ACTIONS.CREATE:
+      console.log("@character create");
       
       return {
         ...state,
-        characters: []
       }
 
     case CHARACTER_ACTIONS.GET:
+      console.log("@character get");
       
       return {
         ...state,
-        characters: []
       }
 
     case CHARACTER_ACTIONS.EDIT:
+      console.log("@character edit");
       
       return {
         ...state,
-        characters: []
       }
 
     case CHARACTER_ACTIONS.DELETE:
+      console.log("@character delete");
       
       return {
         ...state,
-        characters: []
       }
 
     case CHARACTER_ACTIONS.BACKUP:
+      console.log("@character backup");
       
       return {
         ...state,
-        characters: []
       }
 
     default:
