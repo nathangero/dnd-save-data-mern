@@ -5,9 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "cd client && npm i && cd ../server && npm i"
+    "install": "cd client && npm i && cd ../server && npm i",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+    "watch": "cd server && nodemon ./server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  }
 }
