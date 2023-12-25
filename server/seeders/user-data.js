@@ -1,8 +1,12 @@
 const usersData = [
   {
-    "_id": "1",
-    "username": "tester1"
+    _id: "1",
+    username: "tester1"
   },
+  {
+    _id: "dzWqul52fsbxshNPYm7hnBR1dH83",
+    username: "Nathan"
+  }
 ]
 
 const usersDataBad = [

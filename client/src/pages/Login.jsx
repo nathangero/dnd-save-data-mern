@@ -115,7 +115,7 @@ export default function Login() {
         </form>
 
         <br />
-        <p className="text-center">Need an account? <a className="" onClick={toggleSignup} type="button">Signup here</a></p>
+        <p className="text-center">Need an account? <a className="" onClick={toggleSignup} type="button">Sign up here</a></p>
         <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword} type="button">Click here</a></p>
       </>
     )

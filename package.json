@@ -3,20 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "cd client && npm i && cd ../server && npm i",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
-    "watch": "cd server && nodemon ./server.js",
+    "watch": "cd server && node --watch ./server.js",
     "seed": "cd server/seeders && node seeds.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.3.1",
+    "firebase": "^10.7.1"
   }
 }

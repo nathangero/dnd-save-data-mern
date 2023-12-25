@@ -1,12 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.css"
 import { auth } from "../../../../firebase";
+import ROUTES from "../../utils/routes"
 
 export default function Nav() {
+
+  const navigate = useNavigate();
 
   const onClickLogout = async (e) => {
     e.preventDefault();
     auth.signOut();
+    navigate(ROUTES.HOME);
   }
 
   return (

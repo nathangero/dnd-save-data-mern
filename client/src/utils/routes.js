@@ -1,6 +1,7 @@
 const ROUTES = {
   CAMPAIGNS: "/campaigns",
   CHARACTERS: "/characters",
+  HOME: "/",
   SESSIONS: "/sessions"
 }
 

@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { auth } from "./firebase.js";
+import { auth } from "../../firebase.js";
 
 export const authMiddleware = function ({ req }) {
   // let token = req.body.token || req.query.token || req.headers.authorization;
