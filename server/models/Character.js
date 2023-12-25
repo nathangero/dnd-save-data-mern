@@ -1,18 +1,17 @@
 const { Schema, model } = require("mongoose");
-const deathSavesSchema = require("./characterSubSchemas/DeathSaves");
-const equipmentSchema = require("./characterSubSchemas/Equipment");
-const equipmentSchema = require("./characterSubSchemas/Equipment");
-const featureTraitSchema = require("./characterSubSchemas/FeatureTrait");
-const hpSchema = require("./characterSubSchemas/Hp");
-const languageSchema = require("./characterSubSchemas/Language");
-const proficiencySchema = require("./characterSubSchemas/Proficiency");
-const savingThrowSchema = require("./characterSubSchemas/Proficiency");
-const scoreSchema = require("./characterSubSchemas/AbilityScore");
-const skillSchema = require("./characterSubSchemas/Skill");
-const spellSlotSchema = require("./characterSubSchemas/Proficiency");
-const spellSchema = require("./characterSubSchemas/Proficiency");
-const treasureSchema = require("./characterSubSchemas/Proficiency");
-const weaponSchema = require("./characterSubSchemas/Proficiency");
+const AbilityScore = require("./characterSubSchemas/AbilityScore");
+const DeathSaves = require("./characterSubSchemas/DeathSaves");
+const Equipment = require("./characterSubSchemas/Equipment");
+const FeatureTrait = require("./characterSubSchemas/FeatureTrait");
+const Hp = require("./characterSubSchemas/Hp");
+const Language = require("./characterSubSchemas/Language");
+const Proficiency = require("./characterSubSchemas/Proficiency");
+const SavingThrow = require("./characterSubSchemas/Proficiency");
+const Skill = require("./characterSubSchemas/Skill");
+const SpellSlot = require("./characterSubSchemas/Proficiency");
+const Spell = require("./characterSubSchemas/Proficiency");
+const Treasure = require("./characterSubSchemas/Proficiency");
+const Weapon = require("./characterSubSchemas/Proficiency");
 
 const characterSchema = new Schema({
   alignment: {
@@ -35,15 +34,15 @@ const characterSchema = new Schema({
     trim: true
   },
   deathSaves: {
-    type: deathSavesSchema,
+    type: DeathSaves,
     required: true
   },
   equipment: {
-    type: [equipmentSchema],
+    type: [Equipment],
     required: true
   },
   featureTraits: {
-    type: [featureTraitSchema],
+    type: [FeatureTrait],
     required: true
   },
   gold: {
@@ -51,7 +50,7 @@ const characterSchema = new Schema({
     required: true
   },
   hp: {
-    type: hpSchema,
+    type: Hp,
     required: true
   },
   inspriation: {
@@ -59,7 +58,7 @@ const characterSchema = new Schema({
     required: true
   },
   languages: {
-    type: [languageSchema],
+    type: [Language],
     required: true
   },
   level: {
@@ -72,7 +71,7 @@ const characterSchema = new Schema({
     trim: true
   },
   proficiencies: {
-    type: [proficiencySchema],
+    type: [Proficiency],
     required: true
   },
   race: {
@@ -80,15 +79,15 @@ const characterSchema = new Schema({
     required: true
   },
   savingThrows: {
-    type: [savingThrowSchema],
+    type: [SavingThrow],
     required: true
   },
   scores: {
-    type: [scoreSchema],
+    type: [AbilityScore],
     required: true
   },
   skills: {
-    type: [skillSchema],
+    type: [Skill],
     required: true
   },
   speed: {
@@ -101,11 +100,11 @@ const characterSchema = new Schema({
     trim: true
   },
   spellSlots: {
-    type: [spellSlotSchema],
+    type: [SpellSlot],
     required: true
   },
   spells: {
-    type: [spellSchema],
+    type: [Spell],
     required: true
   },
   timeCreated: {
@@ -113,11 +112,11 @@ const characterSchema = new Schema({
     default: Date.now
   },
   treasures: {
-    type: [treasureSchema],
+    type: [Treasure],
     required: true
   },
   weapons: {
-    type: [weaponSchema],
+    type: [Weapon],
     required: true
   }
 });
