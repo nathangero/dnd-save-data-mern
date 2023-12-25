@@ -5,14 +5,17 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { auth } from "../../server/utils/firebase.js";
+import { auth } from "../../firebase.js";
+import ROUTES from "./utils/routes.js";
 
 import './App.css'
 import StoreProvider from "./redux/GlobalState";
 import Nav from "./components/Navbar";
 import { Outlet } from "react-router";
+import Login from "./pages/Login.jsx";
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -38,41 +41,54 @@ function App() {
   const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(true);
 
-  auth.onAuthStateChanged(async (user) => {
-    console.log("@onAuthStateChanged");
-    if (user.uid) {
-      setUserId(user.uid);
-      setLoading(false)
-    }
-  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      console.log("@onAuthStateChanged");
+      if (user?.uid) {
+        setUserId(user.uid);
+        setLoading(false);
+        navigate(ROUTES.CHARACTERS);
+      } else {
+        setUserId('');
+        setLoading(false);
+      }
+    });
+  }, [])
 
   const renderLoggedIn = () => {
     return (
       <>
-        <ApolloProvider client={client}>
-          <StoreProvider>
-            <Nav />
-            <Outlet />
-          </StoreProvider>
-        </ApolloProvider>
+        <Nav />
+        <Outlet />
       </>
     )
   }
 
   const renderLogin = () => {
+    return (<Login />)
+  }
+
+  if (loading) {
     return (
       <>
-        <h1>Login screen</h1>
+        <h1 className="text-center">Loading...</h1>
       </>
     )
   }
 
   return (
     <>
-      {userId ?
-        renderLoggedIn() :
-        renderLogin()
-      }
+      <ApolloProvider client={client}>
+        <StoreProvider>
+          {userId ?
+            renderLoggedIn() :
+            renderLogin()
+          }
+        </StoreProvider>
+      </ApolloProvider>
+
     </>
   )
 }

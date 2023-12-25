@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import "./style.css"
+import { auth } from "../../../../firebase";
 
 export default function Nav() {
 
   const onClickLogout = async (e) => {
     e.preventDefault();
-    console.log("@onClickLogout")
+    auth.signOut();
   }
 
   return (
