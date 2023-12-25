@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const DeathSaves = new Schema({
+const DeathSaves = new Schema({
   failures: {
     type: Number,
     require: true
@@ -11,4 +11,4 @@ export const DeathSaves = new Schema({
   },
 });
 
-export { DeathSaves };
+export default DeathSaves;

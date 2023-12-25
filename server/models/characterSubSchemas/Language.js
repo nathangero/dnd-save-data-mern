@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Language = new Schema({
+const Language = new Schema({
   name: {
     type: String,
     require: true,
@@ -13,4 +13,4 @@ export const Language = new Schema({
   }
 });
 
-export { Language };
+export default Language;

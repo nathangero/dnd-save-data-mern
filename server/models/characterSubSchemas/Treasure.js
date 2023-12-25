@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Treasure = new Schema({
+const Treasure = new Schema({
   amount: {
     type: Number,
     require: true
@@ -14,4 +14,4 @@ export const Treasure = new Schema({
   },
 });
 
-export { Treasure };
+export default Treasure;

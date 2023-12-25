@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const AbilityScores = new Schema({
+const AbilityScores = new Schema({
   cha: {
     type: Number,
     required: true
@@ -27,4 +27,4 @@ export const AbilityScores = new Schema({
   },
 });
 
-export { AbilityScores };
+export default AbilityScores;

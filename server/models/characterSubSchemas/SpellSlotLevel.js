@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
-import SpellSlot from "./SpellSlot";
+import SpellSlot from "./SpellSlot.js";
 
-export const SpellSlotLevel = new Schema({
+const SpellSlotLevel = new Schema({
   level_1: {
     type: SpellSlot,
     require: true
@@ -40,4 +40,4 @@ export const SpellSlotLevel = new Schema({
   }
 });
 
-export { SpellSlotLevel };
+export default SpellSlotLevel;

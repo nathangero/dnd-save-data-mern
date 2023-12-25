@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Proficiency = new Schema({
+const Proficiency = new Schema({
   description: {
     type: String,
   },
@@ -10,4 +10,4 @@ export const Proficiency = new Schema({
   },
 });
 
-export { Proficiency };
+export default Proficiency;

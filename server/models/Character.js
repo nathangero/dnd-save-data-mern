@@ -1,17 +1,17 @@
-const { Schema, model } = require("mongoose");
-import AbilityScores from "./characterSubSchemas/AbilityScores";
-import DeathSaves from "./characterSubSchemas/DeathSaves";
-import Equipment from "./characterSubSchemas/Equipment";
-import FeatureTrait from "./characterSubSchemas/FeatureTrait";
-import Hp from "./characterSubSchemas/Hp";
-import Language from "./characterSubSchemas/Language";
-import Proficiency from "./characterSubSchemas/Proficiency";
-import SavingThrows from "./characterSubSchemas/SavingThrows";
-import Skills from "./characterSubSchemas/Skills";
-import SpellSlotLevel from "./characterSubSchemas/SpellSlotLevel";
-import SpellLevel from "./characterSubSchemas/SpellLevel";
-import Treasure from "./characterSubSchemas/Treasure";
-import Weapon from "./characterSubSchemas/Weapon";
+import { Schema, model } from "mongoose";
+import AbilityScores from "./characterSubSchemas/AbilityScores.js";
+import DeathSaves from "./characterSubSchemas/DeathSaves.js";
+import Equipment from "./characterSubSchemas/Equipment.js";
+import FeatureTrait from "./characterSubSchemas/FeatureTrait.js";
+import Hp from "./characterSubSchemas/Hp.js";
+import Language from "./characterSubSchemas/Language.js";
+import Proficiency from "./characterSubSchemas/Proficiency.js";
+import SavingThrows from "./characterSubSchemas/SavingThrows.js";
+import Skills from "./characterSubSchemas/Skills.js";
+import SpellSlotLevel from "./characterSubSchemas/SpellSlotLevel.js";
+import SpellLevel from "./characterSubSchemas/SpellLevel.js";
+import Treasure from "./characterSubSchemas/Treasure.js";
+import Weapon from "./characterSubSchemas/Weapon.js";
 
 
 export const characterSchema = new Schema({

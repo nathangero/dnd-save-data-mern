@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Spell = new Schema({
+const Spell = new Schema({
   castingTime: {
     type: Number,
     require: true
@@ -26,4 +26,4 @@ export const Spell = new Schema({
   },
 });
 
-export { Spell };
+export default Spell;

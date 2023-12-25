@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const FeatureTrait = new Schema({
+const FeatureTrait = new Schema({
   actionType: {
     type: String,
   },
@@ -21,4 +21,4 @@ export const FeatureTrait = new Schema({
   }
 });
 
-export { FeatureTrait };
+export default FeatureTrait;

@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Equipment = new Schema({
+const Equipment = new Schema({
   amount: {
     type: Number,
     require: true
@@ -14,4 +14,4 @@ export const Equipment = new Schema({
   },
 });
 
-export { Equipment };
+export default Equipment;

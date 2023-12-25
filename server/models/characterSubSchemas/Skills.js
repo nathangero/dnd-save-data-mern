@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Skills = new Schema({
+const Skills = new Schema({
   acrobatics: {
     type: Boolean,
     required: true
@@ -75,4 +75,4 @@ export const Skills = new Schema({
   },
 });
 
-export { Skills };
+export default Skills;

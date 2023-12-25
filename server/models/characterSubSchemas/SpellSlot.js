@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const SpellSlot = new Schema({
+const SpellSlot = new Schema({
   current: {
     type: Number,
     require: true
@@ -11,4 +11,4 @@ export const SpellSlot = new Schema({
   }
 });
 
-export { SpellSlot };
+export default SpellSlot;

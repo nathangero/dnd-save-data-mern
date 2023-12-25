@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export const Hp = new Schema({
+const Hp = new Schema({
   current: {
     type: Number,
     require: true
@@ -27,4 +27,4 @@ export const Hp = new Schema({
   }
 });
 
-export { Hp };
+export default Hp;

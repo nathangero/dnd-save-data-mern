@@ -16,4 +16,4 @@ const usersDataBad = [
   }
 ]
 
-module.exports = { usersData, usersDataBad }
+export { usersData, usersDataBad }
