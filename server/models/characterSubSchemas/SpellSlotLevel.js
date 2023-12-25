@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
-const SpellSlot = require("./SpellSlot");
+import { Schema } from "mongoose";
+import SpellSlot from "./SpellSlot";
 
-const SpellSlotLevel = new Schema({
+export const SpellSlotLevel = new Schema({
   level_1: {
     type: SpellSlot,
     require: true
@@ -40,4 +40,4 @@ const SpellSlotLevel = new Schema({
   }
 });
 
-module.exports = SpellSlotLevel;
+export { SpellSlotLevel };

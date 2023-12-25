@@ -1,4 +1,4 @@
-const Character = require("./Character");
-const User = require("./User");
+import Character from "./Character";
+import User from "./User";
 
-module.exports = { Character, User }
+export { Character, User };

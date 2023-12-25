@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const SpellSlot = new Schema({
+export const SpellSlot = new Schema({
   current: {
     type: Number,
     require: true
@@ -11,4 +11,4 @@ const SpellSlot = new Schema({
   }
 });
 
-module.exports = SpellSlot;
+export { SpellSlot };

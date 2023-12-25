@@ -1,19 +1,20 @@
 const { Schema, model } = require("mongoose");
-const AbilityScores = require("./characterSubSchemas/AbilityScores");
-const DeathSaves = require("./characterSubSchemas/DeathSaves");
-const Equipment = require("./characterSubSchemas/Equipment");
-const FeatureTrait = require("./characterSubSchemas/FeatureTrait");
-const Hp = require("./characterSubSchemas/Hp");
-const Language = require("./characterSubSchemas/Language");
-const Proficiency = require("./characterSubSchemas/Proficiency");
-const SavingThrows = require("./characterSubSchemas/SavingThrows");
-const Skills = require("./characterSubSchemas/Skills");
-const SpellSlotLevel = require("./characterSubSchemas/SpellSlotLevel");
-const SpellLevel = require("./characterSubSchemas/SpellLevel");
-const Treasure = require("./characterSubSchemas/Treasure");
-const Weapon = require("./characterSubSchemas/Weapon");
+import AbilityScores from "./characterSubSchemas/AbilityScores";
+import DeathSaves from "./characterSubSchemas/DeathSaves";
+import Equipment from "./characterSubSchemas/Equipment";
+import FeatureTrait from "./characterSubSchemas/FeatureTrait";
+import Hp from "./characterSubSchemas/Hp";
+import Language from "./characterSubSchemas/Language";
+import Proficiency from "./characterSubSchemas/Proficiency";
+import SavingThrows from "./characterSubSchemas/SavingThrows";
+import Skills from "./characterSubSchemas/Skills";
+import SpellSlotLevel from "./characterSubSchemas/SpellSlotLevel";
+import SpellLevel from "./characterSubSchemas/SpellLevel";
+import Treasure from "./characterSubSchemas/Treasure";
+import Weapon from "./characterSubSchemas/Weapon";
 
-const characterSchema = new Schema({
+
+export const characterSchema = new Schema({
   alignment: {
     type: String,
     require: true,
@@ -113,4 +114,4 @@ const characterSchema = new Schema({
 });
 
 const Character = model("Character", characterSchema);
-module.exports = Character;
+export { Character };

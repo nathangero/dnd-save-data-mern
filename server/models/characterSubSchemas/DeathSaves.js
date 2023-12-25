@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const DeathSaves = new Schema({
+export const DeathSaves = new Schema({
   failures: {
     type: Number,
     require: true
@@ -11,4 +11,4 @@ const DeathSaves = new Schema({
   },
 });
 
-module.exports = DeathSaves;
+export { DeathSaves };

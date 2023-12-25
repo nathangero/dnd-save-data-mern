@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const Equipment = new Schema({
+export const Equipment = new Schema({
   amount: {
     type: Number,
     require: true
@@ -14,4 +14,4 @@ const Equipment = new Schema({
   },
 });
 
-module.exports = Equipment;
+export { Equipment };

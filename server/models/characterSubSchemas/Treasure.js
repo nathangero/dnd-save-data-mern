@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const Treasure = new Schema({
+export const Treasure = new Schema({
   amount: {
     type: Number,
     require: true
@@ -14,4 +14,4 @@ const Treasure = new Schema({
   },
 });
 
-module.exports = Treasure;
+export { Treasure };

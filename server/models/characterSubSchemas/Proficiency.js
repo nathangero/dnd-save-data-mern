@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const Proficiency = new Schema({
+export const Proficiency = new Schema({
   description: {
     type: String,
   },
@@ -10,4 +10,4 @@ const Proficiency = new Schema({
   },
 });
 
-module.exports = Proficiency;
+export { Proficiency };

@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const Weapon = new Schema({
+export const Weapon = new Schema({
   amount: {
     type: Number,
     require: true
@@ -33,4 +33,4 @@ const Weapon = new Schema({
   }
 });
 
-module.exports = Weapon;
+export { Weapon };

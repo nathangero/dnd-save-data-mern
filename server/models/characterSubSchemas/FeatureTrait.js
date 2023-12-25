@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const FeatureTrait = new Schema({
+export const FeatureTrait = new Schema({
   actionType: {
     type: String,
   },
@@ -21,4 +21,4 @@ const FeatureTrait = new Schema({
   }
 });
 
-module.exports = FeatureTrait;
+export { FeatureTrait };

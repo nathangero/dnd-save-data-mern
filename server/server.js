@@ -1,10 +1,12 @@
-const express = require("express");
-const { ApolloServer } = require("@apollo/server");
-const { expressMiddleware } = require("@apollo/server/express4");
-const { typeDefs, resolvers } = require("./schema");
-const { authMiddleware } = require("./utils/auth.js");
-const path = require("path");
-const db = require('./config/connection');
+import express from "express";
+import mongoose from 'mongoose';
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import typeDefs from "./schema/typeDefs.js";
+import resolvers from "./schema/resolvers.js";
+import { authMiddleware } from "./utils/auth.js";
+import path from "path";
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -31,12 +33,16 @@ const startApolloServer = async () => {
     });
   }
 
-  db.once('open', () => {
+  mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/dndSaveData'
+  )
+
+  mongoose.connection.once("open", () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
     });
-  });
+  })
 }
 
 startApolloServer();

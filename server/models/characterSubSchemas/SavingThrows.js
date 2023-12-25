@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
-const SavingThrow = new Schema({
+export const SavingThrow = new Schema({
   cha: {
     type: Boolean,
     required: true
@@ -27,4 +27,4 @@ const SavingThrow = new Schema({
   },
 });
 
-module.exports = SavingThrow;
+export { SavingThrow };
