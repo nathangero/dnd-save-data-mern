@@ -1,21 +1,24 @@
-import { ObjectId } from "bson";
 import Character from "../models/Character.js";
 import User from "../models/User.js";
+import { ErrorAuthentication } from "../../server/utils/auth.js"
 
 const resolvers = {
   Query: {
     getMe: async (parent, args, context) => {
-      console.log("@getMe");
-
-      console.log("context:", context);
-      
       try {
-        const user = await User.findOne({
-          _id: "dzWqul52fsbxshNPYm7hnBR1dH83"
-        })
-        .populate("characters");
+        if (!context.user) {
+          console.log("no user found");
+          throw ErrorAuthentication;
+        } else {
+          console.log("context.user:", context.user);
+        }
 
-        // console.log("user:", user);
+        const user = await User.findOne({
+          _id: context.user
+        })
+          .populate("characters");
+
+        if (user) console.log("got user")
         return user
       } catch (error) {
         console.log("couldn't load user");

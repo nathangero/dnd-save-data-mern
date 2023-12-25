@@ -1,10 +1,3 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,31 +9,19 @@ import StoreProvider from "./redux/GlobalState";
 import Nav from "./components/Navbar";
 import { Outlet } from "react-router";
 import Login from "./pages/Login.jsx";
+import { useLazyQuery } from "@apollo/client";
+import { GET_ME } from "./utils/queries.js";
+import { useDispatch } from "react-redux";
+import { USER_ACTIONS } from "./redux/reducers/userReducer.js";
 
-const httpLink = createHttpLink({
-  uri: '/graphql'
-});
-
-const authLink = setContext((_, { headers }) => {
-  // const token = localStorage.getItem('id_token');
-  return {
-    headers: {
-      ...headers,
-      // authorization: token ? `Bearer ${token}` : ''
-    }
-  }
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-})
 
 function App() {
 
   const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(true);
 
+  const [getMe, { data: userData }] = useLazyQuery(GET_ME);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,6 +29,7 @@ function App() {
       console.log("@onAuthStateChanged");
       if (user?.uid) {
         setUserId(user.uid);
+        await getMe();
         setLoading(false);
         navigate(ROUTES.CHARACTERS);
       } else {
@@ -55,7 +37,21 @@ function App() {
         setLoading(false);
       }
     });
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (userData.getMe) {
+      console.log("userData:", userData.getMe);
+      saveUserInfo();
+    }
+  }, [userData]);
+
+  const saveUserInfo = () => {
+    dispatch({
+      type: USER_ACTIONS.LOGIN,
+      payload: userData.getMe
+    })
+  }
 
   const renderLoggedIn = () => {
     return (
@@ -80,15 +76,12 @@ function App() {
 
   return (
     <>
-      <ApolloProvider client={client}>
-        <StoreProvider>
-          {userId ?
-            renderLoggedIn() :
-            renderLogin()
-          }
-        </StoreProvider>
-      </ApolloProvider>
-
+      <StoreProvider>
+        {userId ?
+          renderLoggedIn() :
+          renderLogin()
+        }
+      </StoreProvider>
     </>
   )
 }
