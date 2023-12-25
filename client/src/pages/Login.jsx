@@ -106,7 +106,7 @@ export default function Login() {
               onChange={onChangeLoginPassword}
               placeholder="******"
             />
-            <button className="btn mx-0" onClick={toggleLoginPassword}><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+            <button className="btn mx-0" onClick={toggleLoginPassword} type="button" ><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
 
           <div className="text-center mt-3">
@@ -115,8 +115,8 @@ export default function Login() {
         </form>
 
         <br />
-        <p className="text-center">Need an account? <a className="" onClick={toggleSignup}>Signup here</a></p>
-        <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword}>Click here</a></p>
+        <p className="text-center">Need an account? <a className="" onClick={toggleSignup} type="button">Signup here</a></p>
+        <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword} type="button">Click here</a></p>
       </>
     )
   }
@@ -155,7 +155,7 @@ export default function Login() {
               onChange={onChangeSignupPassword}
               placeholder="******"
             />
-            <button className="btn mx-0" onClick={toggleSignupPassword}><i className={showSignupPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+            <button className="btn mx-0" onClick={toggleSignupPassword} type="button"><i className={showSignupPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
 
           <div className="text-center mt-3">
@@ -164,7 +164,7 @@ export default function Login() {
         </form>
 
         <br />
-        <p className="text-center">Already have an account? <a className="" onClick={toggleSignup}>Login here</a></p>
+        <p className="text-center">Already have an account? <a className="" onClick={toggleSignup} type="button" >Login here</a></p>
       </>
     )
   }
