@@ -14,7 +14,7 @@ import Treasure from "./characterSubSchemas/Treasure.js";
 import Weapon from "./characterSubSchemas/Weapon.js";
 
 
-export const characterSchema = new Schema({
+const characterSchema = new Schema({
   alignment: {
     type: String,
     require: true,
@@ -114,4 +114,4 @@ export const characterSchema = new Schema({
 });
 
 const Character = model("Character", characterSchema);
-export { Character };
+export default Character;
