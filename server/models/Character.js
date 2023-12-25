@@ -1,15 +1,15 @@
 const { Schema, model } = require("mongoose");
-const AbilityScore = require("./characterSubSchemas/AbilityScore");
+const AbilityScores = require("./characterSubSchemas/AbilityScores");
 const DeathSaves = require("./characterSubSchemas/DeathSaves");
 const Equipment = require("./characterSubSchemas/Equipment");
 const FeatureTrait = require("./characterSubSchemas/FeatureTrait");
 const Hp = require("./characterSubSchemas/Hp");
 const Language = require("./characterSubSchemas/Language");
 const Proficiency = require("./characterSubSchemas/Proficiency");
-const SavingThrow = require("./characterSubSchemas/Proficiency");
-const Skill = require("./characterSubSchemas/Skill");
+const SavingThrows = require("./characterSubSchemas/SavingThrows");
+const Skills = require("./characterSubSchemas/Skills");
 const SpellSlotLevel = require("./characterSubSchemas/SpellSlotLevel");
-const Spell = require("./characterSubSchemas/Spell");
+const SpellLevel = require("./characterSubSchemas/SpellLevel");
 const Treasure = require("./characterSubSchemas/Treasure");
 const Weapon = require("./characterSubSchemas/Weapon");
 
@@ -73,15 +73,15 @@ const characterSchema = new Schema({
     require: true
   },
   savingThrows: {
-    type: [SavingThrow],
+    type: SavingThrows,
     require: true
   },
   scores: {
-    type: [AbilityScore],
+    type: AbilityScores,
     require: true
   },
   skills: {
-    type: [Skill],
+    type: Skills,
     require: true
   },
   speed: {
@@ -96,7 +96,7 @@ const characterSchema = new Schema({
     type: [SpellSlotLevel],
   },
   spells: {
-    type: [Spell],
+    type: [SpellLevel],
   },
   timeCreated: {
     type: Date,
@@ -108,6 +108,8 @@ const characterSchema = new Schema({
   weapons: {
     type: [Weapon],
   }
+}, {
+  id: true
 });
 
 const Character = model("Character", characterSchema);
