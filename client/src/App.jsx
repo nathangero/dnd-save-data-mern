@@ -1,6 +1,7 @@
 import './App.css'
-import { Outlet } from "react-router"
+import StoreProvider from "./redux/GlobalState"
 import Nav from "./components/Navbar"
+import { Outlet } from "react-router"
 
 import {
   ApolloClient,
@@ -32,10 +33,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <>
-      <ApolloProvider client={client}>
-        <Nav />
-        <Outlet />
-      </ApolloProvider>
+      <StoreProvider>
+        <ApolloProvider client={client}>
+          <Nav />
+          <Outlet />
+        </ApolloProvider>
+      </StoreProvider>
     </>
   )
 }
