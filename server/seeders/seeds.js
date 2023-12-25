@@ -11,7 +11,7 @@ connection.once('open', async () => {
   // Save all the characters so we can use their character.id when seeding users
   const characters = await seedCharacters();
   
-  // await seedUsers(characters);
+  await seedUsers(characters);
 
   console.log("----- COMPLETED SEEDING -----");
   process.exit(0);
@@ -27,11 +27,12 @@ async function seedUsers(characters) {
   for (const user of usersData) {
     try {
       // Randomly assign a characterId to a user
-      const randomCharacter = characters[Math.floor(Math.random() * characters.length)].id;
+      const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
+      // console.log("randomCharacter:", randomCharacter);
       user.characters = [randomCharacter];
 
       const newUser = await User.create(user);
-      console.log("user:", newUser);
+      // console.log("user:", newUser);
     } catch (error) {
       // console.log("COULDN'T create user:", user)
       console.error(error)
@@ -51,8 +52,6 @@ async function seedUsers(characters) {
   // }
 
   console.log("----- USERS SEEDED -----\n")
-  // console.log("users:", newUsers);
-  return newUsers
 }
 
 async function seedCharacters() {
@@ -69,8 +68,8 @@ async function seedCharacters() {
   for (const character of characterData) {
     try {
       const newCharacter = await Character.create(character);
-      console.log("created character:", newCharacter);
-      newCharacters.push(newCharacter.id);
+      // console.log("created character:", newCharacter);
+      newCharacters.push(newCharacter._id);
     } catch (error) {
       // console.log("COULDN'T create post:", post)
       console.error(error)
@@ -89,5 +88,6 @@ async function seedCharacters() {
   //   console.log()
   // }
 
-  console.log("----- CHARACTERS SEEDED -----\n")
+  console.log("----- CHARACTERS SEEDED -----\n");
+  return newCharacters;
 }
