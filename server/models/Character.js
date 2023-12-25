@@ -93,7 +93,7 @@ const characterSchema = new Schema({
     trim: true
   },
   spellSlots: {
-    type: [SpellSlotLevel],
+    type: SpellSlotLevel,
   },
   spells: {
     type: [SpellLevel],

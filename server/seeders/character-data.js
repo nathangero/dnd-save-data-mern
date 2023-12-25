@@ -96,9 +96,16 @@ const characterData = [
     },
     speed: 30,
     spellCastStat: "wis",
-    spellSlots: [
-
-    ],
+    spellSlots: {
+      level_1: {
+        current: 5,
+        max: 5
+      },
+      level_2: {
+        current: 3,
+        max: 3
+      }
+    },
     spells: [
 
     ],
