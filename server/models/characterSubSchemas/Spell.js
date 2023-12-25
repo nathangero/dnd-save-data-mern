@@ -1,11 +1,30 @@
 const { Schema, model } = require("mongoose");
-const SpellLevel = require("./SpellLevel");
+const Treasure = require("./Treasure");
 
 const Spell = new Schema({
-  level: {
-    type: SpellLevel,
+  castingTime: {
+    type: Number,
+    require: Treasure
+  },
+  description: {
+    type: String,
+  },
+  duration: {
+    type: Number,
+    require: Treasure
+  },
+  durationType: {
+    type: String,
     require: true
-  }
+  },
+  name: {
+    type: String,
+    require: true
+  },
+  range: {
+    type: Number,
+    require: Treasure
+  },
 });
 
-module.exports = SpellLevel;
+module.exports = Spell;

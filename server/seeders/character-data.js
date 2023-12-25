@@ -106,9 +106,36 @@ const characterData = [
         max: 3
       }
     },
-    spells: [
-
-    ],
+    spells: {
+      cantrips: [
+        {
+          "castingTime": 2,
+          "description": "blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff ",
+          "duration": 23,
+          "durationType": "seconds",
+          "range": 32,
+          "name": "asdf"
+        },
+        {
+          "castingTime": 11,
+          "description": "does something cool does something cool does something cool does something cool does something cool does something cool does something cool does something cool ",
+          "duration": 0,
+          "durationType": "instant",
+          "range": 111,
+          "name": "fdsa"
+        }
+      ],
+      "level_1": [
+        {
+          "castingTime": 22,
+          "description": "makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win makes me win ",
+          "duration": 22,
+          "durationType": "seconds",
+          "range": 222,
+          "name": "jkl",
+        }
+      ]
+    },
     treasures: [
       {
         amount: 23,

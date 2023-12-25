@@ -96,7 +96,7 @@ const characterSchema = new Schema({
     type: SpellSlotLevel,
   },
   spells: {
-    type: [SpellLevel],
+    type: SpellLevel,
   },
   timeCreated: {
     type: Date,
