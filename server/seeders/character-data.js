@@ -39,13 +39,13 @@ const characterData = [
       temp: 0,
     },
     inspiration: 1,
-    langauges: [
+    languages: [
       {
-        _id: "Orcish",
+        name: "Orcish",
         proficiency: "Spoken"
       },
       {
-        _id: "Common",
+        name: "Common",
         proficiency: "Fluent"
       }
     ],

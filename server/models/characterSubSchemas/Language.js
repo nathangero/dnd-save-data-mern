@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const Language = new Schema({
-  _id: {
+  name: {
     type: String,
     require: true,
     trim: true
