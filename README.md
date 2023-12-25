@@ -6,7 +6,7 @@
 
 ## Learning Points
 
-
+* MongoDB structure has small differences to Firebase Realtime Database, but it's different enough where I have to restructure the data specifically for MongoDB.
 
 ## Images
 
