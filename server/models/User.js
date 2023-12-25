@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
-  _id: {
+  _id: { // These _ids will be coming from firebase auth
     type: String,
     require: true
   },

@@ -39,18 +39,6 @@ async function seedUsers(characters) {
     }
   }
 
-  // Specifically test validations
-  // for (const user of usersDataBad) {
-  //   try {
-  //     await User.create(user);
-  //     console.log("created user:", user)
-  //   } catch (error) {
-  //     console.log("COULDN'T create user:", user)
-  //     console.error(error)
-  //   }
-  //   console.log()
-  // }
-
   console.log("----- USERS SEEDED -----\n")
 }
 
@@ -75,18 +63,6 @@ async function seedCharacters() {
       console.error(error)
     }
   }
-
-  // Specifically test validations
-  // for (const post of postsDataBad) {
-  //   try {
-  //     await Post.create(post);
-  //     console.log("created post:", post)
-  //   } catch (error) {
-  //     console.log("COULDN'T create post:", post)
-  //     console.error(error)
-  //   }
-  //   console.log()
-  // }
 
   console.log("----- CHARACTERS SEEDED -----\n");
   return newCharacters;
