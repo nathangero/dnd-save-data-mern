@@ -2,12 +2,12 @@ const { Schema, model } = require("mongoose");
 
 const DeathSaves = new Schema({
   failures: {
-    type: Int,
-    required: true
+    type: Number,
+    require: true
   },
   successes: {
-    type: Int,
-    required: true
+    type: Number,
+    require: true
   },
 });
 

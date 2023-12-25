@@ -8,104 +8,95 @@ const Language = require("./characterSubSchemas/Language");
 const Proficiency = require("./characterSubSchemas/Proficiency");
 const SavingThrow = require("./characterSubSchemas/Proficiency");
 const Skill = require("./characterSubSchemas/Skill");
-const SpellSlot = require("./characterSubSchemas/Proficiency");
-const Spell = require("./characterSubSchemas/Proficiency");
-const Treasure = require("./characterSubSchemas/Proficiency");
-const Weapon = require("./characterSubSchemas/Proficiency");
+const SpellSlotLevel = require("./characterSubSchemas/SpellSlotLevel");
+const Spell = require("./characterSubSchemas/Spell");
+const Treasure = require("./characterSubSchemas/Treasure");
+const Weapon = require("./characterSubSchemas/Weapon");
 
 const characterSchema = new Schema({
   alignment: {
     type: String,
-    required: true,
+    require: true,
     trim: true
   },
   armor: {
-    type: Int,
-    required: true,
+    type: Number,
+    require: true,
   },
   background: {
     type: String,
-    required: true,
+    require: true,
     trim: true
   },
   class: {
     type: String,
-    required: true,
+    require: true,
     trim: true
   },
   deathSaves: {
     type: DeathSaves,
-    required: true
+    require: true
   },
   equipment: {
     type: [Equipment],
-    required: true
   },
   featureTraits: {
     type: [FeatureTrait],
-    required: true
   },
   gold: {
-    type: Int,
-    required: true
+    type: Number,
   },
   hp: {
     type: Hp,
-    required: true
+    require: true
   },
   inspriation: {
-    type: Int,
-    required: true
+    type: Number,
   },
   languages: {
     type: [Language],
-    required: true
   },
   level: {
-    type: Int,
-    required: true
+    type: Number,
+    require: true
   },
   name: {
     type: String,
-    required: true,
+    require: true,
     trim: true
   },
   proficiencies: {
-    type: [Proficiency],
-    required: true
+    type: [Proficiency]
   },
   race: {
     type: String,
-    required: true
+    require: true
   },
   savingThrows: {
     type: [SavingThrow],
-    required: true
+    require: true
   },
   scores: {
     type: [AbilityScore],
-    required: true
+    require: true
   },
   skills: {
     type: [Skill],
-    required: true
+    require: true
   },
   speed: {
-    type: Int,
-    required: true
+    type: Number,
+    require: true
   },
   spellCastStat: {
     type: String,
-    required: true,
     trim: true
   },
   spellSlots: {
-    type: [SpellSlot],
-    required: true
+    type: [SpellSlotLevel],
   },
   spells: {
     type: [Spell],
-    required: true
   },
   timeCreated: {
     type: Date,
@@ -113,11 +104,9 @@ const characterSchema = new Schema({
   },
   treasures: {
     type: [Treasure],
-    required: true
   },
   weapons: {
     type: [Weapon],
-    required: true
   }
 });
 
