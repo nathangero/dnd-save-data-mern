@@ -20,7 +20,6 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_ACTIONS.LOGIN:
-      console.log("@user login");
       return {
         ...state,
         user: action.user
@@ -34,7 +33,6 @@ export const reducer = (state = initialState, action) => {
       }
 
     case USER_ACTIONS.LOGOUT:
-      console.log("@user logout");
       return {
         ...state,
         user: null

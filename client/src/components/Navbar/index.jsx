@@ -2,15 +2,21 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.css"
 import { auth } from "../../../../firebase";
 import ROUTES from "../../utils/routes"
+import { useDispatch } from "react-redux";
+import { USER_ACTIONS } from "../../redux/reducer";
 
 export default function Nav() {
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onClickLogout = async (e) => {
     e.preventDefault();
-    auth.signOut();
-    navigate(ROUTES.HOME);
+
+    dispatch({ type: USER_ACTIONS.LOGOUT }); // Make user state null
+    auth.signOut(); // Remove Firebase user credentials
+    
+    navigate(ROUTES.HOME); // Move use back to home page to allow signing in again
   }
 
   return (

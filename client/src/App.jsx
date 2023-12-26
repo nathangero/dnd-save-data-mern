@@ -2,40 +2,15 @@ import './App.css'
 import Nav from "./components/Navbar";
 import { Outlet } from "react-router";
 
-// import {
-//   ApolloClient,
-//   InMemoryCache,
-//   ApolloProvider,
-//   createHttpLink,
-// } from '@apollo/client';
-// import { setContext } from '@apollo/client/link/context';
 import { auth } from "../../firebase.js";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ROUTES from "./utils/routes.js";
 import { useLazyQuery } from "@apollo/client";
 import { GET_ME } from "./utils/queries.js";
 import { USER_ACTIONS } from "./redux/reducer.js";
 
-// const httpLink = createHttpLink({
-//   uri: '/graphql'
-// });
-
-// const authLink = setContext((_, { headers }) => {
-//   const token = auth.currentUser?.uid;
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : ''
-//     }
-//   }
-// });
-
-// const client = new ApolloClient({
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache()
-// })
+import ROUTES from "./utils/routes.js";
 
 function App() {
 
@@ -86,7 +61,7 @@ function App() {
 
   return (
     <>
-        {user ?
+        {user ? // Only show Nav bar if the user is logged in
           <Nav /> :
           null
         }
