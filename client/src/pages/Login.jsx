@@ -66,10 +66,18 @@ export default function Login() {
     }
   }
 
-  const onSubmitSignup = (e) => {
+  const onSubmitSignup = async (e) => {
     e.preventDefault();
 
+    try {
+      await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      if (!auth.currentUser) throw("couldn't sign up");
 
+      // TODO: Create user document in db with Firebase uid
+    } catch (error) {
+      console.log("couldn't sign up");
+      console.error(error);
+    }
   }
 
   const renderLogin = () => {

@@ -26,17 +26,19 @@ function App() {
   // Sets the Firebase auth listener. Determines if the user should be logged in or not
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      console.log("@onAuthStateChanged");
+      // console.log("@onAuthStateChanged");
       if (user?.uid) {
-        console.log("user is logged in")
+        // Get user info before removing "Loading" text
         await getMe();
         setLoading(false);
       } else {
+        // Just remove the "Loading" text right away
         setLoading(false);
       }
     });
   }, []);
 
+  // When the user information has been retrieved, save it into the store state
   useEffect(() => {
     if (userData) {
       // console.log("userData.getMe:", userData.getMe);
