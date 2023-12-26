@@ -4,7 +4,7 @@ import { auth } from "../../../firebase.js";
 import { useLazyQuery } from "@apollo/client";
 import { GET_ME } from "../utils/queries.js";
 import { useDispatch } from "react-redux";
-import { USER_ACTIONS } from "../redux/reducers/userReducer.js";
+import { USER_ACTIONS } from "../redux/reducer.js";
 
 import ROUTES from "../utils/routes.js";
 
@@ -42,13 +42,13 @@ export default function Home() {
   //   }
   // }, [userData]);
 
-  if (loading) {
-    return (
-      <>
-        <h1 className="text-center">Loading...</h1>
-      </>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <h1 className="text-center">Loading...</h1>
+  //     </>
+  //   )
+  // }
 
   return (
     <>

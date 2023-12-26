@@ -19,6 +19,35 @@ import StoreProvider from "./redux/GlobalState";
 
 import ROUTES from "./utils/routes.js";
 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { auth } from "../../firebase.js";
+
+const httpLink = createHttpLink({
+  uri: '/graphql'
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = auth.currentUser?.uid;
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+})
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,7 +81,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StoreProvider>
-      <RouterProvider router={router} />
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </StoreProvider>
   </React.StrictMode>,
 )

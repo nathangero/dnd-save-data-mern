@@ -3,18 +3,8 @@ import { useEffect, useState } from "react";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../../firebase.js"
-import { useDispatch, useSelector } from "react-redux";
-import { USER_ACTIONS } from "../redux/reducers/userReducer.js";
-import { useLazyQuery } from "@apollo/client";
-import { GET_ME } from "../utils/queries.js";
-import { useNavigate } from "react-router-dom";
-import ROUTES from "../utils/routes.js";
 
 export default function Login() {
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [getMe, { loading, data: userData }] = useLazyQuery(GET_ME);
 
   const [showSignup, setSignup] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -25,19 +15,6 @@ export default function Login() {
   const [signupUsername, setSignupUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
-
-  useEffect(() => {
-    if (userData) {
-      console.log("userData.getMe:", userData.getMe);
-      const userInfo = userData.getMe;
-      dispatch({ 
-        type: USER_ACTIONS.LOGIN,
-        user: userInfo
-      });
-
-      // navigate(ROUTES.CHARACTERS);
-    }
-  }, [userData])
 
 
   const onChangeLoginEmail = ({ target }) => {
@@ -83,8 +60,6 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       if (!auth.currentUser) throw("couldn't login");
-      
-      await getMe();
     } catch (error) {
       console.log("couldn't login");
       console.error(error);
