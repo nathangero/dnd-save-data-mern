@@ -14,6 +14,7 @@ let firebaseConfig;
 
 if (!import.meta.env?.VITE_FIREBASE_API) {
   // Run dotenv for node server
+  // Make sure the .env file is in the same directory as this file
   config();
   firebaseConfig = {
     apiKey: process.env.VITE_FIREBASE_API,
@@ -27,6 +28,7 @@ if (!import.meta.env?.VITE_FIREBASE_API) {
   }
 } else {
   // Run vite env for react frontend
+  // Make sure the .env file is in the /client directory
   firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API,
     authDomain: import.meta.env.VITE_FIREBASE_DOMAIN,
