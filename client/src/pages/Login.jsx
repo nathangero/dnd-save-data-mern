@@ -5,6 +5,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../../firebase.js";
 import { ADD_USER } from "../utils/mutations.js";
+import ROUTES from "../utils/routes.js";
 
 export default function Login() {
 
@@ -84,6 +85,9 @@ export default function Login() {
           username: signupUsername
         }
       });
+
+      // Redirect the user to the /characters page and force a refresh.
+      window.location.href = ROUTES.CHARACTERS;
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);

@@ -32,8 +32,6 @@ function App() {
         // Get user info before removing "Loading" text
         await getMe();
 
-        // Move the user to the /character page once their info has been loaded
-        navigate(ROUTES.CHARACTERS);
         setLoading(false);
       } else {
         // Just remove the "Loading" text right away
@@ -47,10 +45,13 @@ function App() {
     if (userData) {
       console.log("userData.getMe:", userData.getMe);
       const userInfo = userData.getMe;
-      dispatch({ 
+      dispatch({
         type: USER_ACTIONS.LOGIN,
         user: userInfo
       });
+      
+      // Move the user to the /character page once their info has been loaded
+      navigate(ROUTES.CHARACTERS);
     }
   }, [userData]);
 
@@ -64,11 +65,11 @@ function App() {
 
   return (
     <>
-        {user ? // Only show Nav bar if the user is logged in
-          <Nav /> :
-          null
-        }
-        <Outlet />
+      {user ? // Only show Nav bar if the user is logged in
+        <Nav /> :
+        null
+      }
+      <Outlet />
     </>
   )
 }
