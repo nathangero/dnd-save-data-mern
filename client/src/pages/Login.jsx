@@ -1,8 +1,10 @@
 
 import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../firebase.js"
+import { auth } from "../../../firebase.js";
+import { ADD_USER } from "../utils/mutations.js";
 
 export default function Login() {
 
@@ -15,6 +17,8 @@ export default function Login() {
   const [signupUsername, setSignupUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+
+  const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
 
 
   const onChangeLoginEmail = ({ target }) => {
@@ -59,7 +63,7 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      if (!auth.currentUser) throw("couldn't login");
+      if (!auth.currentUser) throw ("couldn't login");
     } catch (error) {
       console.log("couldn't login");
       console.error(error);
@@ -71,12 +75,19 @@ export default function Login() {
 
     try {
       await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
-      if (!auth.currentUser) throw("couldn't sign up");
+      if (!auth.currentUser) throw ("firebase: couldn't sign up");
+      // console.log("auth.currentUser:", auth.currentUser.uid);
 
-      // TODO: Create user document in db with Firebase uid
+      await addUser({
+        variables: {
+          _id: auth.currentUser.uid,
+          username: signupUsername
+        }
+      });
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);
+      auth.currentUser.delete(); // Delete the created user if mongodb didn't work
     }
   }
 
@@ -87,6 +98,7 @@ export default function Login() {
           <label htmlFor="login-email" className="fs-5">Email:</label>
           <input
             id="login-email"
+            type="email"
             className="form-control"
             value={loginEmail}
             onChange={onChangeLoginEmail}
@@ -126,6 +138,7 @@ export default function Login() {
           <label htmlFor="signup-username" className="fs-5">Username:</label>
           <input
             id="signup-username"
+            type="text"
             className="form-control"
             value={signupUsername}
             onChange={onChangeSignupUsername}
@@ -136,6 +149,7 @@ export default function Login() {
           <label htmlFor="signup-email" className="fs-5">Email:</label>
           <input
             id="signup-email"
+            type="email"
             className="form-control"
             value={signupEmail}
             onChange={onChangeSignupEmail}

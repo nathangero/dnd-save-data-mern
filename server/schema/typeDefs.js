@@ -103,6 +103,10 @@ const typeDefs = `
   type Query {
     getMe: User
   }
+
+  type Mutation {
+    addUser(_id: String!, username: String!): User
+  }
 `;
 
 export default typeDefs;

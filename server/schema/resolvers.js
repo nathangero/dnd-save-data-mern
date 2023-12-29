@@ -1,6 +1,7 @@
 import Character from "../models/Character.js";
 import User from "../models/User.js";
-import { ErrorAuthentication } from "../../server/utils/auth.js"
+import { ErrorAuthentication } from "../../server/utils/auth.js";
+import { ObjectId } from "bson";
 
 const resolvers = {
   Query: {
@@ -27,9 +28,18 @@ const resolvers = {
     }
   },
 
-  // Mutations: {
-
-  // }
+  Mutation: {
+    addUser: async (parent, args) => {
+      try {
+        const user = await User.create(args);
+        // console.log("new user:", user);
+        return user;
+      } catch (error) {
+        console.log("Couldn't sign up user");
+        console.error(error);
+      }
+    }
+  }
 };
 
 export default resolvers;

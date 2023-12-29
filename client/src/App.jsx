@@ -28,8 +28,12 @@ function App() {
     auth.onAuthStateChanged(async (user) => {
       // console.log("@onAuthStateChanged");
       if (user?.uid) {
+        console.log("logging in user:", user.uid);
         // Get user info before removing "Loading" text
         await getMe();
+
+        // Move the user to the /character page once their info has been loaded
+        navigate(ROUTES.CHARACTERS);
         setLoading(false);
       } else {
         // Just remove the "Loading" text right away
@@ -41,15 +45,12 @@ function App() {
   // When the user information has been retrieved, save it into the store state
   useEffect(() => {
     if (userData) {
-      // console.log("userData.getMe:", userData.getMe);
+      console.log("userData.getMe:", userData.getMe);
       const userInfo = userData.getMe;
       dispatch({ 
         type: USER_ACTIONS.LOGIN,
         user: userInfo
       });
-
-      // Move the user to the /character page once their info has been loaded
-      navigate(ROUTES.CHARACTERS);
     }
   }, [userData]);
 
