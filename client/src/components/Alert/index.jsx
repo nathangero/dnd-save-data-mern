@@ -12,7 +12,7 @@ export default function Alert(props) {
               <h5 className="modal-title">{props.title}</h5>
             </div>
             <div className="modal-body custom-modal-body">
-              <p className="modal-title text-white text-center fs-5">
+              <p className="modal-title text-center fs-5">
                 {props.body}
               </p>
             </div>
