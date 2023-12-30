@@ -8,12 +8,18 @@ import { ADD_USER } from "../utils/mutations.js";
 import ROUTES from "../utils/routes.js";
 import Alert from "../components/Alert/index.jsx";
 
+const ALERT_TYPE = {
+  INVALID_LOGIN: "invalid_login",
+  INVALID_SIGNUP_USERNAME: "invalid_signup_username",
+}
+
 export default function Login() {
 
-  let alertTitle = "";
-  let alertBody = "";
 
   const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState('');
+  const [alertBody, setAlertBody] = useState('');
+
   const [modalResetPassword, setModalResetPassword] = useState(null);
   const [didSendResetPassword, setDidSendResetPassword] = useState(false);
   const [isSendingResetPassword, setIsSendingResetPassword] = useState(false); // Shows the user text that the password reset email is sending
@@ -27,8 +33,11 @@ export default function Login() {
   const [signupUsername, setSignupUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
-  const [passwordResetEmail, setPasswordResetEmail] = useState('');
 
+  const [isSignupUsernameValid, setIsSignupUsernameValid] = useState(false);
+  const [isSignupPasswordValid, setIsSignupPasswordValid] = useState(false);
+
+  const [passwordResetEmail, setPasswordResetEmail] = useState('');
   const [isResetPasswordEmailInvalid, setIsResetPasswordEmailInvalid] = useState(false);
 
   const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
@@ -43,6 +52,12 @@ export default function Login() {
     setModalResetPassword(new Modal(modalResetPass));
   }, []);
 
+  useEffect(() => {
+    let signupButton = document.querySelector(".button-signup");
+    if (signupButton && isSignupUsernameValid && isSignupPasswordValid) signupButton.removeAttribute("disabled");
+    else if (signupButton) signupButton.setAttribute("disabled", null);
+  }, [isSignupUsernameValid, isSignupPasswordValid])
+
   const onChangeLoginEmail = ({ target }) => {
     setLoginEmail(target.value);
   }
@@ -53,6 +68,8 @@ export default function Login() {
 
   const onChangeSignupUsername = ({ target }) => {
     setSignupUsername(target.value);
+    if (target.value.length >= 3) setIsSignupUsernameValid(true);
+    else setIsSignupUsernameValid(false);
   }
 
   const onChangeSignupEmail = ({ target }) => {
@@ -61,6 +78,8 @@ export default function Login() {
 
   const onChangeSignupPassword = ({ target }) => {
     setSignupPassword(target.value);
+    if (target.value.length >= 6) setIsSignupPasswordValid(true);
+    else setIsSignupPasswordValid(false);
   }
 
   const onChangePasswordResetEmail = ({ target }) => {
@@ -79,6 +98,22 @@ export default function Login() {
     setSignup(!showSignup);
   }
 
+  const toggleModalError = (alertType) => {
+    switch (alertType) {
+      case ALERT_TYPE.INVALID_LOGIN:
+        setAlertTitle("Invalid Login");
+        setAlertBody("Email or password is invalid. Please check your credentials and try again.");
+        break;
+
+      case ALERT_TYPE.INVALID_SIGNUP_USERNAME:
+        setAlertTitle("Invalid Sign Up");
+        setAlertBody("");
+        break;
+    }
+
+    modalAlert.toggle();
+  }
+
   const toggleModalResetPassword = () => {
     setDidSendResetPassword(false);
     modalResetPassword.toggle();
@@ -93,6 +128,7 @@ export default function Login() {
     } catch (error) {
       console.log("couldn't login");
       console.error(error);
+      toggleModalError(ALERT_TYPE.INVALID_LOGIN);
     }
   }
 
@@ -117,6 +153,7 @@ export default function Login() {
       console.log("couldn't sign up");
       console.error(error);
       auth.currentUser.delete(); // Delete the created user if mongodb didn't work
+      toggleModalError(ALERT_TYPE.INVALID_SIGNUP);
     }
   }
 
@@ -190,12 +227,15 @@ export default function Login() {
             onChange={onChangeSignupUsername}
             placeholder="Billy the Kid"
           />
+          {!isSignupUsernameValid ?
+            <p className="text-danger">*Username must be between 3-30 characters</p> : null
+          }
           <br />
 
           <label htmlFor="signup-email" className="fs-5">Email:</label>
           <input
-            id="signup-email"
             type="email"
+            id="signup-email"
             className="form-control"
             value={signupEmail}
             onChange={onChangeSignupEmail}
@@ -215,9 +255,12 @@ export default function Login() {
             />
             <button className="btn mx-0" onClick={toggleSignupPassword} type="button"><i className={showSignupPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
+          {!isSignupPasswordValid ?
+            <p className="text-danger">*Password must have at least 6 characters</p> : null
+          }
 
           <div className="text-center mt-3">
-            <button className="btn theme-button fs-4 px-3" type="submit">Sign Up</button>
+            <button className="btn theme-button fs-4 px-3 button-signup" type="submit" disabled>Sign Up</button>
           </div>
         </form>
 

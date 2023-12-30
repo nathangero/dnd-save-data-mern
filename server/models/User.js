@@ -11,7 +11,7 @@ const userSchema = new Schema({
     trim: true,
     unique: true,
     minLength: 3,
-    maxLength: 100
+    maxLength: 30
   },
   characters: [
     {
