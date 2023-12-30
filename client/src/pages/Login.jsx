@@ -6,8 +6,17 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswor
 import { auth } from "../../../firebase.js";
 import { ADD_USER } from "../utils/mutations.js";
 import ROUTES from "../utils/routes.js";
+import Alert from "../components/Alert/index.jsx";
 
 export default function Login() {
+
+  let alertTitle = "";
+  let alertBody = "";
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [modalResetPassword, setModalResetPassword] = useState(null);
+  const [didSendResetPassword, setDidSendResetPassword] = useState(false);
+  const [isSendingResetPassword, setIsSendingResetPassword] = useState(false); // Shows the user text that the password reset email is sending
 
   const [showSignup, setSignup] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -18,9 +27,21 @@ export default function Login() {
   const [signupUsername, setSignupUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+  const [passwordResetEmail, setPasswordResetEmail] = useState('');
+
+  const [isResetPasswordEmailInvalid, setIsResetPasswordEmailInvalid] = useState(false);
 
   const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
 
+
+  useEffect(() => {
+    // Initialize bootstrap modals 
+    const modalError = document.querySelector(".alert-modal-error").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
+    const modalResetPass = document.querySelector(".alert-modal-reset-password").querySelector("#alertModal");
+    setModalResetPassword(new Modal(modalResetPass));
+  }, []);
 
   const onChangeLoginEmail = ({ target }) => {
     setLoginEmail(target.value);
@@ -42,6 +63,10 @@ export default function Login() {
     setSignupPassword(target.value);
   }
 
+  const onChangePasswordResetEmail = ({ target }) => {
+    setPasswordResetEmail(target.value);
+  }
+
   const toggleLoginPassword = () => {
     setShowLoginPassword(!showLoginPassword);
   }
@@ -55,8 +80,8 @@ export default function Login() {
   }
 
   const toggleModalResetPassword = () => {
-    console.log("@toggleModalResetPassword")
-    // Show bootstrap modal
+    setDidSendResetPassword(false);
+    modalResetPassword.toggle();
   }
 
   const onSubmitLogin = async (e) => {
@@ -92,6 +117,23 @@ export default function Login() {
       console.log("couldn't sign up");
       console.error(error);
       auth.currentUser.delete(); // Delete the created user if mongodb didn't work
+    }
+  }
+
+  const onSubmitResetPassword = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsSendingResetPassword(true);
+      await sendPasswordResetEmail(auth, passwordResetEmail);
+      setIsSendingResetPassword(false);
+      setPasswordResetEmail('');
+      setDidSendResetPassword(true);
+    } catch (error) {
+      setIsSendingResetPassword(false);
+      setIsResetPasswordEmailInvalid(true);
+      console.error(error);
+      console.log("couldn't send email");
     }
   }
 
@@ -185,6 +227,44 @@ export default function Login() {
     )
   }
 
+  const renderResetPassword = () => {
+    return (
+      <>
+        {didSendResetPassword ?
+          <>
+            <p>
+              Email sent! Please check your inbox.
+            </p>
+            <div className="text-end">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </> :
+          <>
+            <label className="modal-title text-center fs-5">Enter your email:</label>
+
+            <form onSubmit={onSubmitResetPassword}>
+              <input
+                type="email"
+                className="form-control"
+                value={passwordResetEmail}
+                onChange={onChangePasswordResetEmail}
+              />
+
+              {isResetPasswordEmailInvalid ? // Text notifying if the email doesn't exist in the Firebase database
+                <p className="text-danger">*Email doesn't exist</p> :
+                null
+              }
+
+              <div className="text-center mt-3">
+                <button className="btn button-negative fs-4 px-3" type="submit">Reset Password</button>
+              </div>
+            </form>
+          </>
+        }
+      </>
+    )
+  }
+
   return (
     <>
       <div className="d-flex flex-column align-items-center">
@@ -198,6 +278,33 @@ export default function Login() {
           }
         </div>
       </div>
+
+      <div className="alert-modal-error">
+        <Alert title={alertTitle} body={alertBody} centered={true} />
+      </div>
+
+      <div className="alert-modal-reset-password">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal fade" id="alertModal" tabIndex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+            <div className={"modal-dialog modal-dialog-centered"}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Password Reset</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body custom-modal-body">
+                  {isSendingResetPassword ? // Show user the password reset email is sending.
+                    <h4 className="text-center">Sending password reset email...</h4> :
+                    renderResetPassword()
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </>
   )
 }

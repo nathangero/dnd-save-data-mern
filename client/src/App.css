@@ -2,6 +2,7 @@
   --button-positive-color: #42B6E8;
   --button-positive-hover-color: #009ee1;
   --button-negative-color: #dd3528;
+  --button-negative-hover-color: #b81d12;
 }
 
 h1 {
@@ -16,6 +17,16 @@ h1 {
 .theme-button:hover {
   color: white;
   background-color: var(--button-positive-hover-color);
+}
+
+.button-negative {
+  color: white;
+  background-color: var(--button-negative-color);
+}
+
+.button-negative:hover {
+  color: white;
+  background-color: var(--button-negative-hover-color);
 }
 
 /* #root {
