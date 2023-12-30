@@ -11,6 +11,7 @@ import Alert from "../components/Alert/index.jsx";
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
   INVALID_SIGNUP_USERNAME: "invalid_signup_username",
+  INVALID_SIGNUP_EMAIL: "invalid_signup_email",
 }
 
 export default function Login() {
@@ -40,7 +41,8 @@ export default function Login() {
   const [passwordResetEmail, setPasswordResetEmail] = useState('');
   const [isResetPasswordEmailInvalid, setIsResetPasswordEmailInvalid] = useState(false);
 
-  const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
+  // const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
 
   useEffect(() => {
@@ -56,7 +58,14 @@ export default function Login() {
     let signupButton = document.querySelector(".button-signup");
     if (signupButton && isSignupUsernameValid && isSignupPasswordValid) signupButton.removeAttribute("disabled");
     else if (signupButton) signupButton.setAttribute("disabled", null);
-  }, [isSignupUsernameValid, isSignupPasswordValid])
+  }, [isSignupUsernameValid, isSignupPasswordValid]);
+
+  // useEffect(() => {
+  //   if (addUserData?.addUser && !addUserError) {
+  //     // Redirect the user to the /characters page and force a refresh.
+  //     // window.location.href = ROUTES.CHARACTERS;
+  //   }
+  // }, [addUserError, addUserData])
 
   const onChangeLoginEmail = ({ target }) => {
     setLoginEmail(target.value);
@@ -105,9 +114,14 @@ export default function Login() {
         setAlertBody("Email or password is invalid. Please check your credentials and try again.");
         break;
 
+      case ALERT_TYPE.INVALID_SIGNUP_EMAIL:
+        setAlertTitle("Invalid Sign Up");
+        setAlertBody("Email already exists");
+        break;
+
       case ALERT_TYPE.INVALID_SIGNUP_USERNAME:
         setAlertTitle("Invalid Sign Up");
-        setAlertBody("");
+        setAlertBody("Username already exists");
         break;
     }
 
@@ -140,20 +154,26 @@ export default function Login() {
       if (!auth.currentUser) throw ("firebase: couldn't sign up");
       // console.log("auth.currentUser:", auth.currentUser.uid);
 
-      await addUser({
+      const { data } = await addUser({
         variables: {
           _id: auth.currentUser.uid,
           username: signupUsername
         }
       });
 
-      // Redirect the user to the /characters page and force a refresh.
-      window.location.href = ROUTES.CHARACTERS;
+      // Checks if mongodb accepted the username
+      if (data?.addUser) {
+        // Redirect the user to the /characters page and force a refresh.
+        window.location.href = ROUTES.CHARACTERS;
+      } else {
+        toggleModalError(ALERT_TYPE.INVALID_SIGNUP_USERNAME);
+        auth.currentUser.delete(); // Delete the created user if mongodb didn't work
+      }
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);
-      auth.currentUser.delete(); // Delete the created user if mongodb didn't work
-      toggleModalError(ALERT_TYPE.INVALID_SIGNUP);
+      console.log("error.code:", error.code)
+      toggleModalError(ALERT_TYPE.INVALID_SIGNUP_EMAIL);
     }
   }
 
