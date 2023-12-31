@@ -104,6 +104,12 @@ export default function Login() {
     setLoginPassword(target.value);
   }
 
+  /**
+   * Updates the `signupUsername` variable as the user types in the input field.
+   * After the user stops typing for a certain amount of milliseconds, the `checkUsernameAvailability()` function will be called.
+   * @param {Event} event 
+   * @returns null if username isn't valid
+   */
   const onChangeSignupUsername = ({ target }) => {
     const username = target.value;
     setSignupUsername(username);
@@ -416,8 +422,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-
-
     </>
   )
 }
