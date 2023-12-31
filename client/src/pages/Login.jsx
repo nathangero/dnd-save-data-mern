@@ -64,9 +64,9 @@ export default function Login() {
   // Disables Sign Up button if username and password criteria all pass
   useEffect(() => {
     let signupButton = document.querySelector(".button-signup");
-    if (signupButton && isSignupUsernameValid && !isCheckingUsernameAvailablility && isSignupUsernameAvailable && isSignupPasswordValid) signupButton.removeAttribute("disabled");
+    if (signupButton && isSignupUsernameValid && !isCheckingUsernameAvailablility && isSignupUsernameAvailable && isSignupEmailValid && isSignupPasswordValid) signupButton.removeAttribute("disabled");
     else if (signupButton) signupButton.setAttribute("disabled", null);
-  }, [isSignupUsernameValid, isCheckingUsernameAvailablility, isSignupUsernameAvailable, isSignupPasswordValid]);
+  }, [isSignupUsernameValid, isCheckingUsernameAvailablility, isSignupUsernameAvailable, isSignupEmailValid, isSignupPasswordValid]);
 
   /**
    * Checks the database if the username is available to use.
