@@ -39,6 +39,7 @@ export default function Login() {
   const [isSignupUsernameValid, setIsSignupUsernameValid] = useState(false);
   const [isCheckingUsernameAvailablility, setIsCheckingUsernameAvailablility] = useState(false);
   const [isSignupUsernameAvailable, setIsSignupUsernameAvailable] = useState(false);
+  const [isSignupEmailValid, setIsSignupEmailValid] = useState(false);
   const [isSignupPasswordValid, setIsSignupPasswordValid] = useState(false);
 
   const [passwordResetEmail, setPasswordResetEmail] = useState('');
@@ -132,6 +133,12 @@ export default function Login() {
 
   const onChangeSignupEmail = ({ target }) => {
     setSignupEmail(target.value);
+
+    // Checks if the email entered is valid
+    var regex = /^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const isValid = regex.test(target.value);
+    console.log("is email valid:", isValid);
+    setIsSignupEmailValid(isValid);
   }
 
   const onChangeSignupPassword = ({ target }) => {
@@ -317,6 +324,9 @@ export default function Login() {
             onChange={onChangeSignupEmail}
             placeholder="test@example.com"
           />
+          {!isSignupEmailValid || signupEmail.length === 0 ?
+            <p className="text-danger">*Enter a valid email</p> : null
+          }
           <br />
 
           <p htmlFor="signup-password" className="fs-5 mb-0">Password:</p>

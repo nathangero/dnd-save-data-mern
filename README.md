@@ -14,7 +14,7 @@
 
 ## Credits
 
-
+[Email RegEx](https://stackoverflow.com/questions/50747643/how-can-i-add-support-for-a-plus-sign-in-this-email-validation-regex)
 
 ### Resources
 
