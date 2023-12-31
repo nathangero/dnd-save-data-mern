@@ -136,9 +136,7 @@ export default function Login() {
 
     // Checks if the email entered is valid
     var regex = /^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    const isValid = regex.test(target.value);
-    console.log("is email valid:", isValid);
-    setIsSignupEmailValid(isValid);
+    setIsSignupEmailValid(regex.test(target.value));
   }
 
   const onChangeSignupPassword = ({ target }) => {
