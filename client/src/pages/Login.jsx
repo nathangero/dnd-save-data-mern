@@ -1,12 +1,14 @@
+/* eslint-disable react/no-unescaped-entities */
 
 import { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../../firebase.js";
 import { ADD_USER } from "../utils/mutations.js";
 import ROUTES from "../utils/routes.js";
 import Alert from "../components/Alert/index.jsx";
+import { CHECK_USER } from "../utils/queries.js";
 
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
@@ -15,7 +17,6 @@ const ALERT_TYPE = {
 }
 
 export default function Login() {
-
 
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState('');
@@ -36,13 +37,18 @@ export default function Login() {
   const [signupPassword, setSignupPassword] = useState('');
 
   const [isSignupUsernameValid, setIsSignupUsernameValid] = useState(false);
+  const [isCheckingUsernameAvailablility, setIsCheckingUsernameAvailablility] = useState(false);
+  const [isSignupUsernameAvailable, setIsSignupUsernameAvailable] = useState(false);
   const [isSignupPasswordValid, setIsSignupPasswordValid] = useState(false);
 
   const [passwordResetEmail, setPasswordResetEmail] = useState('');
   const [isResetPasswordEmailInvalid, setIsResetPasswordEmailInvalid] = useState(false);
 
+  const [timeoutId, setTimeoutId] = useState(null);
+
   // const [addUser, { error: addUserError, data: addUserData }] = useMutation(ADD_USER);
   const [addUser] = useMutation(ADD_USER);
+  const [checkUser] = useLazyQuery(CHECK_USER);
 
 
   useEffect(() => {
@@ -54,18 +60,41 @@ export default function Login() {
     setModalResetPassword(new Modal(modalResetPass));
   }, []);
 
+  // Disables Sign Up button if username and password criteria all pass
   useEffect(() => {
     let signupButton = document.querySelector(".button-signup");
-    if (signupButton && isSignupUsernameValid && isSignupPasswordValid) signupButton.removeAttribute("disabled");
+    if (signupButton && isSignupUsernameValid && !isCheckingUsernameAvailablility && isSignupUsernameAvailable && isSignupPasswordValid) signupButton.removeAttribute("disabled");
     else if (signupButton) signupButton.setAttribute("disabled", null);
-  }, [isSignupUsernameValid, isSignupPasswordValid]);
+  }, [isSignupUsernameValid, isCheckingUsernameAvailablility, isSignupUsernameAvailable, isSignupPasswordValid]);
 
-  // useEffect(() => {
-  //   if (addUserData?.addUser && !addUserError) {
-  //     // Redirect the user to the /characters page and force a refresh.
-  //     // window.location.href = ROUTES.CHARACTERS;
-  //   }
-  // }, [addUserError, addUserData])
+  /**
+   * Checks the database if the username is available to use.
+   * If `data` is null, the username is available,
+   * else the username is taken already.
+   * @param {String} username 
+   */
+  const checkUsernameAvailability = async (username) => {
+    try {
+      const { data } = await checkUser({
+        variables: { username }
+      });
+
+      // console.log("data?.checkUser:", data?.checkUser);
+      setIsCheckingUsernameAvailablility(false);
+
+      // If the username already exists, don't let the user sign up
+      if (data?.checkUser) {
+        // console.log("username already exists");
+        setIsSignupUsernameAvailable(false);
+      } else {
+        setIsSignupUsernameAvailable(true);
+      }
+    } catch (error) {
+      // This shouldn't really run
+      console.log("Couldn't check db for username");
+      console.error(error);
+    }
+  }
 
   const onChangeLoginEmail = ({ target }) => {
     setLoginEmail(target.value);
@@ -76,9 +105,23 @@ export default function Login() {
   }
 
   const onChangeSignupUsername = ({ target }) => {
-    setSignupUsername(target.value);
-    if (target.value.length >= 3) setIsSignupUsernameValid(true);
-    else setIsSignupUsernameValid(false);
+    const username = target.value;
+    setSignupUsername(username);
+
+    if (username.length < 3 || username.length >= 30) {
+      setIsSignupUsernameValid(false);
+      return;
+    }
+
+    setIsSignupUsernameValid(true);
+
+    // Check username availability after user stops typing
+    setIsCheckingUsernameAvailablility(true);
+    setTimeoutId(clearTimeout(timeoutId)); // Prevents timer from triggering until user has completely stopped typing
+    setTimeoutId(setTimeout(async () => {
+      await checkUsernameAvailability(username);
+    }, 750)
+    );
   }
 
   const onChangeSignupEmail = ({ target }) => {
@@ -116,12 +159,12 @@ export default function Login() {
 
       case ALERT_TYPE.INVALID_SIGNUP_EMAIL:
         setAlertTitle("Invalid Sign Up");
-        setAlertBody("Email already exists");
+        setAlertBody("Email already in use.");
         break;
 
       case ALERT_TYPE.INVALID_SIGNUP_USERNAME:
         setAlertTitle("Invalid Sign Up");
-        setAlertBody("Username already exists");
+        setAlertBody("Username already exists. Please try another.");
         break;
     }
 
@@ -154,21 +197,15 @@ export default function Login() {
       if (!auth.currentUser) throw ("firebase: couldn't sign up");
       // console.log("auth.currentUser:", auth.currentUser.uid);
 
-      const { data } = await addUser({
+      await addUser({
         variables: {
           _id: auth.currentUser.uid,
           username: signupUsername
         }
       });
 
-      // Checks if mongodb accepted the username
-      if (data?.addUser) {
-        // Redirect the user to the /characters page and force a refresh.
-        window.location.href = ROUTES.CHARACTERS;
-      } else {
-        toggleModalError(ALERT_TYPE.INVALID_SIGNUP_USERNAME);
-        auth.currentUser.delete(); // Delete the created user if mongodb didn't work
-      }
+      // Redirect the user to the /characters page and force a refresh.
+      window.location.href = ROUTES.CHARACTERS;
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);
@@ -247,10 +284,23 @@ export default function Login() {
             onChange={onChangeSignupUsername}
             placeholder="Billy the Kid"
           />
-          {!isSignupUsernameValid ?
-            <p className="text-danger">*Username must be between 3-30 characters</p> : null
-          }
-          <br />
+          <div className="mt-1">
+            {!isSignupUsernameValid ? // First, show if username isn't valid
+              <p className="text-danger">*Username must be between 3-30 characters</p> :
+              <>
+                {isCheckingUsernameAvailablility ? // Second, show user mongodb is checking for the username
+                  <p className="text-secondary">Checking username availability...</p> :
+                  <>
+                    {isSignupUsernameAvailable ? // Lastly, after timer is done, show availability
+                      <p className="text-success"><i className="bi bi-check-circle"></i> Username is available</p> :
+                      <p className="text-danger"><i className="bi bi-x-circle"></i> Username is taken</p>
+                    }
+                  </>
+                }
+              </>
+
+            }
+          </div>
 
           <label htmlFor="signup-email" className="fs-5">Email:</label>
           <input

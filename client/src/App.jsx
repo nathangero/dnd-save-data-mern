@@ -43,7 +43,11 @@ function App() {
   // When the user information has been retrieved, save it into the store state
   useEffect(() => {
     if (userData) {
-      console.log("userData.getMe:", userData.getMe);
+      console.log("userData.getMe:", userData?.getMe);
+
+      // Don't send user to characters page if nothing is retrieved from the db
+      if (!userData?.getMe) return;
+
       const userInfo = userData.getMe;
       dispatch({
         type: USER_ACTIONS.LOGIN,

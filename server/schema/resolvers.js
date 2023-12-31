@@ -25,6 +25,15 @@ const resolvers = {
         console.log("couldn't load user");
         console.error(error);
       }
+    },
+    checkUser: async (parent, { username }) => {
+      try {
+        const user = User.findOne({ username });
+        console.log("user:", user);
+        return user;
+      } catch (error) {
+        console.log("couldn't search for user");
+      }
     }
   },
 

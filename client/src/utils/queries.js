@@ -64,3 +64,12 @@ query GetMe {
   }
 }
 `;
+
+export const CHECK_USER = gql`
+query CheckUser($username: String!) {
+  checkUser(username: $username) {
+    _id
+    username
+  }
+}
+`;

@@ -102,6 +102,7 @@ const typeDefs = `
 
   type Query {
     getMe: User
+    checkUser(username: String!): User
   }
 
   type Mutation {
