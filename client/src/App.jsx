@@ -28,10 +28,10 @@ function App() {
     auth.onAuthStateChanged(async (user) => {
       // console.log("@onAuthStateChanged");
       if (user?.uid) {
-        console.log("logging in user:", user.uid);
+        // console.log("logging in user:", user.uid);
+        
         // Get user info before removing "Loading" text
         await getMe();
-
         setLoading(false);
       } else {
         // Just remove the "Loading" text right away
@@ -43,7 +43,7 @@ function App() {
   // When the user information has been retrieved, save it into the store state
   useEffect(() => {
     if (userData) {
-      console.log("userData.getMe:", userData?.getMe);
+      // console.log("userData.getMe:", userData.getMe);
 
       // Don't send user to characters page if nothing is retrieved from the db
       if (!userData?.getMe) return;

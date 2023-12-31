@@ -211,9 +211,8 @@ export default function Signup() {
           placeholder="test@example.com"
         />
         {!isSignupEmailValid || signupEmail.length === 0 ?
-          <p className="text-danger">*Enter a valid email</p> : null
+          <p className="text-danger">*Enter a valid email</p> : <br />
         }
-        <br />
 
         <p htmlFor="signup-password" className="fs-5 mb-0">Password:</p>
         <div className="container-fluid d-inline-flex border rounded px-0">

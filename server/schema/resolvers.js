@@ -19,7 +19,7 @@ const resolvers = {
         })
           .populate("characters");
 
-        if (user) console.log("got user")
+        // if (user) console.log("got user")
         return user
       } catch (error) {
         console.log("couldn't load user");
@@ -29,7 +29,7 @@ const resolvers = {
     checkUser: async (parent, { username }) => {
       try {
         const user = User.findOne({ username });
-        console.log("user:", user);
+        // console.log("user:", user);
         return user;
       } catch (error) {
         console.log("couldn't search for user");
