@@ -199,6 +199,7 @@ export default function Signup() {
           value={signupUsername}
           onChange={onChangeSignupUsername}
           placeholder="Billy the Kid"
+          autoComplete="new-password"
         />
         <div className="mt-1">
           {!isSignupUsernameValid ? // First, show if username isn't valid
@@ -226,6 +227,7 @@ export default function Signup() {
           value={signupEmail}
           onChange={onChangeSignupEmail}
           placeholder="test@example.com"
+          autoComplete="new-password"
         />
         {!isSignupEmailValid || signupEmail.length === 0 ?
           <p className="text-danger">*Enter a valid email</p> : <br />
@@ -240,6 +242,7 @@ export default function Signup() {
             value={signupPassword}
             onChange={onChangeSignupPassword}
             placeholder="******"
+            autoComplete="new-password"
           />
           <button className="btn mx-0" onClick={toggleSignupPassword} type="button"><i className={showSignupPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
         </div>

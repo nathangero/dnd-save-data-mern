@@ -99,7 +99,7 @@ export default function Login() {
     } catch (error) {
       console.log("couldn't login");
       console.error(error);
-      setLoadingSpinner(false);
+      toggleLoadingSpinner();
       toggleModalError(ALERT_TYPE.INVALID_LOGIN);
     }
   }
