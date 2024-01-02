@@ -14,7 +14,11 @@ export default function Nav() {
 
     window.location.href = ROUTES.HOME; // Move use back to home page to allow signing in again
     auth.signOut(); // Remove Firebase user credentials
-    dispatch({ type: USER_ACTIONS.LOGOUT }); // Make user state null
+
+    // Delay dispatch for a smoother screen transition
+    setTimeout(() => {
+      dispatch({ type: USER_ACTIONS.LOGOUT }); // Make user state null
+    }, 500)
   }
 
   return (
