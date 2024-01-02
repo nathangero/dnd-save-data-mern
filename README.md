@@ -26,6 +26,10 @@
 
 [React Loader Spinner package](https://github.com/mhnpd/react-loader-spinner)
 
+[CSP Checker](https://csp-evaluator.withgoogle.com/)
+
+[Idea to use CSP](https://stackoverflow.com/questions/45366744/refused-to-load-the-font-datafont-woff-it-violates-the-following-content)
+
 
 ### React + Vite Setup
 

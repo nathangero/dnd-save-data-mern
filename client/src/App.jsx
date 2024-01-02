@@ -4,7 +4,8 @@ import { Outlet } from "react-router";
 
 import { auth } from "../../firebase.js";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 import { GET_ME } from "./utils/queries.js";
@@ -29,7 +30,7 @@ function App() {
     auth.onAuthStateChanged(async (user) => {
       // console.log("@onAuthStateChanged");
       if (user?.uid) {
-        console.log("logging in user:", user.uid);
+        // console.log("logging in user:", user.uid);
 
         // Get user info before removing "Loading" text
         const { data } = await getMe();
