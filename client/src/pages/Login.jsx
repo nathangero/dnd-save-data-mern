@@ -94,6 +94,7 @@ export default function Login() {
       toggleLoadingSpinner();
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       toggleLoadingSpinner();
+
       if (!auth.currentUser) throw ("couldn't login");
     } catch (error) {
       console.log("couldn't login");
@@ -241,7 +242,7 @@ export default function Login() {
       </div>
 
       <div className="loading-spinner">
-        <LoadingSpinner spinnerText={"Logging in..."}/>
+        <LoadingSpinner spinnerText={"Logging in..."} />
       </div>
     </>
   )

@@ -10,6 +10,7 @@ import { ADD_USER } from "../../utils/mutations.js";
 
 import ROUTES from "../../utils/routes.js";
 import Alert from "../Alert/index.jsx";
+import LoadingSpinner from "../LoadingSpinner/index.jsx";
 
 const ALERT_TYPE = {
   INVALID_SIGNUP_USERNAME: "invalid_signup_username",
@@ -17,6 +18,8 @@ const ALERT_TYPE = {
 }
 
 export default function Signup() {
+
+  const [loadingSpinner, setLoadingSpinner] = useState(false);
 
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState('');
@@ -43,6 +46,9 @@ export default function Signup() {
     // Initialize bootstrap modals 
     const modalError = document.querySelector(".alert-modal-error").querySelector("#alertModal");
     setModalAlert(new Modal(modalError));
+
+    const loadingSpinner = document.querySelector(".loading-spinner").querySelector("#modal-loading-spinner");
+    setLoadingSpinner(new Modal(loadingSpinner));
   }, []);
 
   // Disables Sign Up button if username and password criteria all pass
@@ -146,12 +152,21 @@ export default function Signup() {
     modalAlert.toggle();
   }
 
+  const toggleLoadingSpinner = () => {
+    loadingSpinner.toggle();
+  }
+
   const onSubmitSignup = async (e) => {
     e.preventDefault();
 
     try {
+      toggleLoadingSpinner();
       await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
-      if (!auth.currentUser) throw ("firebase: couldn't sign up");
+      if (!auth.currentUser) {
+        toggleLoadingSpinner(); // Stop spinner early
+        throw ("firebase: couldn't sign up");
+      }
+
       // console.log("auth.currentUser:", auth.currentUser.uid);
 
       await addUser({
@@ -161,12 +176,14 @@ export default function Signup() {
         }
       });
 
+      toggleLoadingSpinner(); // Stop spinner after store is updated
+
       // Redirect the user to the /characters page and force a refresh.
       window.location.href = ROUTES.CHARACTERS;
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);
-      console.log("error.code:", error.code)
+      toggleLoadingSpinner();
       toggleModalError(ALERT_TYPE.INVALID_SIGNUP_EMAIL);
     }
   }
@@ -240,6 +257,10 @@ export default function Signup() {
 
       <div className="alert-modal-error">
         <Alert title={alertTitle} body={alertBody} centered={true} />
+      </div>
+
+      <div className="loading-spinner">
+        <LoadingSpinner spinnerText={"Signing up..."}/>
       </div>
     </>
   )
