@@ -11,6 +11,8 @@ import LoadingSpinner from "../components/LoadingSpinner/index.jsx";
 
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
+  USER_NOT_FOUND: "user_not_found",
+  NETWORK_ERROR: "network_error",
 }
 
 export default function Login() {
@@ -77,6 +79,15 @@ export default function Login() {
         setAlertTitle("Invalid Login");
         setAlertBody("Email or password is invalid. Please check your credentials and try again.");
         break;
+
+      case ALERT_TYPE.NETWORK_ERROR:
+        setAlertTitle("Network Error");
+        setAlertBody("There was an issue with accessing the network. Please try again.");
+        break;
+
+      case ALERT_TYPE.USER_NOT_FOUND:
+        setAlertTitle("Invalid Login");
+        setAlertBody("This user doesn't exist.");
     }
 
     modalAlert.toggle();
@@ -100,7 +111,13 @@ export default function Login() {
       console.log("couldn't login");
       console.error(error);
       toggleLoadingSpinner();
-      toggleModalError(ALERT_TYPE.INVALID_LOGIN);
+      if (error.code === "auth/network-request-failed") {
+        toggleModalError(ALERT_TYPE.NETWORK_ERROR);
+      } else if (error.code === "auth/user-not-found") {
+        toggleModalError(ALERT_TYPE.USER_NOT_FOUND);
+      } else {
+        toggleModalError(ALERT_TYPE.INVALID_LOGIN);
+      }
     }
   }
 
