@@ -203,7 +203,7 @@ export default function Login() {
     <>
       <div className="d-flex flex-column align-items-center">
         <h1 className="text-center">D&D Save Data</h1>
-        <img src="client/dist/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
+        <img src="/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
         <div className="container-fluid">
 
           {!showSignup ?
