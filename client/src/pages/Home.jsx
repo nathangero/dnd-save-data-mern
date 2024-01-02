@@ -8,6 +8,8 @@ export default function Home() {
   return (
     <>
       <div className="text-center">
+        <h1 className="text-center">D&D Save Data</h1>
+        <img src="/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
         <h1>Welcome to D&D Save Data!</h1>
         <p>Create your D&D character using the 5e character sheet, and freely update it at anytime!</p>
         <br />

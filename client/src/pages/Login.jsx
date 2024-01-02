@@ -7,12 +7,15 @@ import { auth } from "../../../firebase.js";
 
 import Alert from "../components/Alert/index.jsx";
 import Signup from "../components/Signup/index.jsx";
+import LoadingSpinner from "../components/LoadingSpinner/index.jsx";
 
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
 }
 
 export default function Login() {
+
+  const [loadingSpinner, setLoadingSpinner] = useState(false);
 
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState('');
@@ -39,6 +42,9 @@ export default function Login() {
 
     const modalResetPass = document.querySelector(".alert-modal-reset-password").querySelector("#alertModal");
     setModalResetPassword(new Modal(modalResetPass));
+
+    const loadingSpinner = document.querySelector(".loading-spinner").querySelector("#modal-loading-spinner");
+    setLoadingSpinner(new Modal(loadingSpinner));
   }, []);
 
   const onChangeLoginEmail = ({ target }) => {
@@ -61,6 +67,10 @@ export default function Login() {
     setSignup(!showSignup);
   }
 
+  const toggleLoadingSpinner = () => {
+    loadingSpinner.toggle();
+  }
+
   const toggleModalError = (alertType) => {
     switch (alertType) {
       case ALERT_TYPE.INVALID_LOGIN:
@@ -81,11 +91,14 @@ export default function Login() {
     e.preventDefault();
 
     try {
+      toggleLoadingSpinner();
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      toggleLoadingSpinner();
       if (!auth.currentUser) throw ("couldn't login");
     } catch (error) {
       console.log("couldn't login");
       console.error(error);
+      setLoadingSpinner(false);
       toggleModalError(ALERT_TYPE.INVALID_LOGIN);
     }
   }
@@ -209,24 +222,26 @@ export default function Login() {
       </div>
 
       <div className="alert-modal-reset-password">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal fade" id="alertModal" tabIndex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-            <div className={"modal-dialog modal-dialog-centered"}>
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Password Reset</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body custom-modal-body">
-                  {isSendingResetPassword ? // Show user the password reset email is sending.
-                    <h4 className="text-center">Sending password reset email...</h4> :
-                    renderResetPassword()
-                  }
-                </div>
+        <div className="modal fade" id="alertModal" tabIndex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Password Reset</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body custom-modal-body">
+                {isSendingResetPassword ? // Show user the password reset email is sending.
+                  <h4 className="text-center">Sending password reset email...</h4> :
+                  renderResetPassword()
+                }
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="loading-spinner">
+        <LoadingSpinner spinnerText={"Logging in..."}/>
       </div>
     </>
   )

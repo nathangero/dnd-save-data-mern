@@ -22,6 +22,8 @@
 
 [Vite with .env](https://vitejs.dev/guide/env-and-mode)
 
+[React Loader Spinner package](https://github.com/mhnpd/react-loader-spinner)
+
 
 ### React + Vite Setup
 
