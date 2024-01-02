@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const Skills = new Schema({
   acrobatics: {
@@ -75,4 +75,4 @@ const Skills = new Schema({
   },
 });
 
-module.exports = Skills;
+export default Skills;

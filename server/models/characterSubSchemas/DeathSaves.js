@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const DeathSaves = new Schema({
   failures: {
@@ -11,4 +11,4 @@ const DeathSaves = new Schema({
   },
 });
 
-module.exports = DeathSaves;
+export default DeathSaves;

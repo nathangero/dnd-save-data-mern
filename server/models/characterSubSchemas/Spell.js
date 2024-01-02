@@ -1,17 +1,16 @@
-const { Schema, model } = require("mongoose");
-const Treasure = require("./Treasure");
+import { Schema } from "mongoose";
 
 const Spell = new Schema({
   castingTime: {
     type: Number,
-    require: Treasure
+    require: true
   },
   description: {
     type: String,
   },
   duration: {
     type: Number,
-    require: Treasure
+    require: true
   },
   durationType: {
     type: String,
@@ -23,8 +22,8 @@ const Spell = new Schema({
   },
   range: {
     type: Number,
-    require: Treasure
+    require: true
   },
 });
 
-module.exports = Spell;
+export default Spell;

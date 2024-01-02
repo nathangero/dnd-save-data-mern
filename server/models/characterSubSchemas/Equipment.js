@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const Equipment = new Schema({
   amount: {
@@ -14,4 +14,4 @@ const Equipment = new Schema({
   },
 });
 
-module.exports = Equipment;
+export default Equipment;

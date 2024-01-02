@@ -1,17 +1,18 @@
-const { Schema, model } = require("mongoose");
-const AbilityScores = require("./characterSubSchemas/AbilityScores");
-const DeathSaves = require("./characterSubSchemas/DeathSaves");
-const Equipment = require("./characterSubSchemas/Equipment");
-const FeatureTrait = require("./characterSubSchemas/FeatureTrait");
-const Hp = require("./characterSubSchemas/Hp");
-const Language = require("./characterSubSchemas/Language");
-const Proficiency = require("./characterSubSchemas/Proficiency");
-const SavingThrows = require("./characterSubSchemas/SavingThrows");
-const Skills = require("./characterSubSchemas/Skills");
-const SpellSlotLevel = require("./characterSubSchemas/SpellSlotLevel");
-const SpellLevel = require("./characterSubSchemas/SpellLevel");
-const Treasure = require("./characterSubSchemas/Treasure");
-const Weapon = require("./characterSubSchemas/Weapon");
+import { Schema, model } from "mongoose";
+import AbilityScores from "./characterSubSchemas/AbilityScores.js";
+import DeathSaves from "./characterSubSchemas/DeathSaves.js";
+import Equipment from "./characterSubSchemas/Equipment.js";
+import FeatureTrait from "./characterSubSchemas/FeatureTrait.js";
+import Hp from "./characterSubSchemas/Hp.js";
+import Language from "./characterSubSchemas/Language.js";
+import Proficiency from "./characterSubSchemas/Proficiency.js";
+import SavingThrows from "./characterSubSchemas/SavingThrows.js";
+import Skills from "./characterSubSchemas/Skills.js";
+import SpellSlotLevel from "./characterSubSchemas/SpellSlotLevel.js";
+import SpellLevel from "./characterSubSchemas/SpellLevel.js";
+import Treasure from "./characterSubSchemas/Treasure.js";
+import Weapon from "./characterSubSchemas/Weapon.js";
+
 
 const characterSchema = new Schema({
   alignment: {
@@ -113,4 +114,4 @@ const characterSchema = new Schema({
 });
 
 const Character = model("Character", characterSchema);
-module.exports = Character;
+export default Character;

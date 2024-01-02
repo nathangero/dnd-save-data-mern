@@ -1,5 +1,5 @@
-const { Schema, model } = require("mongoose");
-const Spell = require("./Spell");
+import { Schema } from "mongoose";
+import Spell from "./Spell.js";
 
 const SpellLevel = new Schema({
   cantrips: {
@@ -34,4 +34,4 @@ const SpellLevel = new Schema({
   }
 });
 
-module.exports = SpellLevel;
+export default SpellLevel;

@@ -14,6 +14,39 @@ import Home from "./pages/Home.jsx";
 import Campaigns from "./pages/Campaigns.jsx"
 import Characters from "./pages/Characters.jsx"
 import Sessions from "./pages/Sessions.jsx"
+import Login from "./pages/Login.jsx";
+import StoreProvider from "./redux/GlobalState";
+
+import ROUTES from "./utils/routes.js";
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { auth } from "../../firebase.js";
+
+const httpLink = createHttpLink({
+  uri: '/graphql'
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = auth.currentUser?.uid;
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+})
+
 
 const router = createBrowserRouter([
   {
@@ -23,18 +56,22 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Login />
       },
       {
-        path: "/campaigns",
+        path: ROUTES.CAMPAIGNS,
         element: <Campaigns />
       },
       {
-        path: "/characters",
+        path: ROUTES.CHARACTERS,
         element: <Characters />
       },
+      // {
+      //   path: ROUTES.LOGIN,
+      //   element: <Login />
+      // },
       {
-        path: "/sessions",
+        path: ROUTES.SESSIONS,
         element: <Sessions />
       },
     ]
@@ -43,6 +80,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <StoreProvider>
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
+    </StoreProvider>
   </React.StrictMode>,
 )

@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const AbilityScores = new Schema({
   cha: {
@@ -27,4 +27,4 @@ const AbilityScores = new Schema({
   },
 });
 
-module.exports = AbilityScores;
+export default AbilityScores;

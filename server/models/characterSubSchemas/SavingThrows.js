@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const SavingThrow = new Schema({
   cha: {
@@ -27,4 +27,4 @@ const SavingThrow = new Schema({
   },
 });
 
-module.exports = SavingThrow;
+export default SavingThrow;

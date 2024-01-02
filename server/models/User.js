@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
   _id: { // These _ids will be coming from firebase auth
@@ -11,7 +11,7 @@ const userSchema = new Schema({
     trim: true,
     unique: true,
     minLength: 3,
-    maxLength: 100
+    maxLength: 30
   },
   characters: [
     {
@@ -22,4 +22,4 @@ const userSchema = new Schema({
 });
 
 const User = model("User", userSchema);
-module.exports = User;
+export default User;

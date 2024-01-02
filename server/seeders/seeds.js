@@ -1,7 +1,8 @@
-const connection = require('../config/connection');
-const { Character, User } = require("../models");
-const { characterData } = require("./character-data");
-const { usersData } = require("./user-data");
+import connection from "../config/connection.js";
+import Character from "../models/Character.js";
+import User from "../models/User.js";
+import { characterData } from "./character-data.js";
+import { usersData } from "./user-data.js";
 
 connection.on('error', (err) => err);
 

@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const Proficiency = new Schema({
   description: {
@@ -10,4 +10,4 @@ const Proficiency = new Schema({
   },
 });
 
-module.exports = Proficiency;
+export default Proficiency;

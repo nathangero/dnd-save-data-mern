@@ -14,13 +14,15 @@
 
 ## Credits
 
-
+[Email RegEx](https://stackoverflow.com/questions/50747643/how-can-i-add-support-for-a-plus-sign-in-this-email-validation-regex)
 
 ### Resources
 
 [D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
 
 [Vite with .env](https://vitejs.dev/guide/env-and-mode)
+
+[React Loader Spinner package](https://github.com/mhnpd/react-loader-spinner)
 
 
 ### React + Vite Setup

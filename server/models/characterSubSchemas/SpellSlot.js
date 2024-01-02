@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const SpellSlot = new Schema({
   current: {
@@ -11,4 +11,4 @@ const SpellSlot = new Schema({
   }
 });
 
-module.exports = SpellSlot;
+export default SpellSlot;

@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const Treasure = new Schema({
   amount: {
@@ -14,4 +14,4 @@ const Treasure = new Schema({
   },
 });
 
-module.exports = Treasure;
+export default Treasure;

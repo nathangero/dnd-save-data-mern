@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema } from "mongoose";
 
 const Language = new Schema({
   name: {
@@ -13,4 +13,4 @@ const Language = new Schema({
   }
 });
 
-module.exports = Language;
+export default Language;

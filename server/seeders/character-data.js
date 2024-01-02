@@ -172,4 +172,4 @@ const characterDataBad = [
   }
 ]
 
-module.exports = { characterData, characterDataBad }
+export { characterData, characterDataBad }
