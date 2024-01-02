@@ -11,6 +11,7 @@ import { GET_ME } from "./utils/queries.js";
 import { USER_ACTIONS } from "./redux/reducer.js";
 
 import ROUTES from "./utils/routes.js";
+import LoadingSpinner from "./components/LoadingSpinner/index.jsx";
 
 function App() {
 
@@ -29,7 +30,7 @@ function App() {
       // console.log("@onAuthStateChanged");
       if (user?.uid) {
         // console.log("logging in user:", user.uid);
-        
+
         // Get user info before removing "Loading" text
         await getMe();
         setLoading(false);
@@ -53,7 +54,7 @@ function App() {
         type: USER_ACTIONS.LOGIN,
         user: userInfo
       });
-      
+
       // Move the user to the /character page once their info has been loaded
       navigate(ROUTES.CHARACTERS);
     }
@@ -62,7 +63,9 @@ function App() {
   if (loading) {
     return (
       <>
-        <h1 className="text-center">Loading...</h1>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh"}}>
+          <LoadingSpinner spinnerText={"Loading..."} useModal={false} />
+        </div>
       </>
     )
   }
