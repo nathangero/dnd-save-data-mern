@@ -30,6 +30,8 @@
 
 [Idea to use CSP](https://stackoverflow.com/questions/45366744/refused-to-load-the-font-datafont-woff-it-violates-the-following-content)
 
+[Terser docs](https://github.com/terser/terser)
+
 
 ### React + Vite Setup
 

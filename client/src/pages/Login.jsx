@@ -8,6 +8,7 @@ import { auth } from "../../../firebase.js";
 import Alert from "../components/Alert/index.jsx";
 import Signup from "../components/Signup/index.jsx";
 import LoadingSpinner from "../components/LoadingSpinner/index.jsx";
+import Logo from "../components/Logo/index.jsx";
 
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
@@ -220,9 +221,9 @@ export default function Login() {
     <>
       <div className="d-flex flex-column align-items-center">
         <h1 className="text-center">D&D Save Data</h1>
-        <img src="/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
-        <div className="container-fluid">
+        <Logo />
 
+        <div className="container-fluid">
           {!showSignup ?
             renderLogin() :
             <>
