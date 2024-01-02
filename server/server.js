@@ -5,8 +5,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import typeDefs from "./schema/typeDefs.js";
 import resolvers from "./schema/resolvers.js";
 import { authMiddleware } from "./utils/auth.js";
-import * as path from 'path'
-
+// import path from "path";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -26,16 +25,16 @@ const startApolloServer = async () => {
   }));
 
   if (process.env.NODE_ENV === 'production') {
-    // app.use(express.static('../client/dist'));
-    // app.get('*', (req, res) => {
-    //   res.sendFile('../client/dist/index.html');
-    // });
-
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-
+    app.use(express.static('../client/dist'));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+      res.sendFile('../client/dist/index.html');
     });
+
+    // app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    // app.get('*', (req, res) => {
+    //   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    // });
   }
 
   mongoose.connect(
