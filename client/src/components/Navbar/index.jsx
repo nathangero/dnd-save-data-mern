@@ -12,7 +12,7 @@ export default function Nav() {
   const onClickLogout = async (e) => {
     e.preventDefault();
 
-    window.location.href = ROUTES.HOME; // Move use back to home page to allow signing in again
+    window.location.href = ROUTES.LOGIN; // Move use back to home page to allow signing in again
     auth.signOut(); // Remove Firebase user credentials
 
     // Delay dispatch for a smoother screen transition

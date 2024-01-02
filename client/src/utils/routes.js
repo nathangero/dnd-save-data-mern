@@ -2,7 +2,7 @@ const ROUTES = {
   CAMPAIGNS: "/campaigns",
   CHARACTERS: "/characters",
   HOME: "/",
-  LOGIN: "/login",
+  LOGIN: "/",// "/login",
   SESSIONS: "/sessions"
 }
 

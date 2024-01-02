@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Login />
       },
       {
         path: ROUTES.CAMPAIGNS,
@@ -66,10 +66,10 @@ const router = createBrowserRouter([
         path: ROUTES.CHARACTERS,
         element: <Characters />
       },
-      {
-        path: ROUTES.LOGIN,
-        element: <Login />
-      },
+      // {
+      //   path: ROUTES.LOGIN,
+      //   element: <Login />
+      // },
       {
         path: ROUTES.SESSIONS,
         element: <Sessions />
