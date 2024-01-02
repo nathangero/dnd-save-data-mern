@@ -10,15 +10,6 @@ import { config } from "dotenv";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-try {
-  console.log("meta.VITE_TEST", import.meta.env?.VITE_TEST);
-  console.log("meta.VITE_TEST2", import.meta.env?.VITE_TEST2);
-  console.log("process.VITE_TEST", process?.env.VITE_TEST);
-  console.log("process.VITE_TEST2", process?.env.VITE_TEST2);
-} catch (error) {
-  console.error(error);
-}
-
 let firebaseConfig;
 
 if (!import.meta.env?.VITE_FIREBASE_API) {
