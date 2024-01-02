@@ -10,7 +10,8 @@
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "watch": "cd server && nodemon ./server.js",
     "seed": "cd server/seeders && node seeds.js",
-    "start": "cd client && npm run build && cd ../server && npm run start"
+    "build": "cd client && npm run build",
+    "start": "cd server && npm run start"
   },
   "keywords": [],
   "author": "",
