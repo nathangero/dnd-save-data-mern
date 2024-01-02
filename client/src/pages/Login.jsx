@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../firebase.js";
+import { auth } from "../../../firebase/firebase.js";
 
 import Alert from "../components/Alert/index.jsx";
 import Signup from "../components/Signup/index.jsx";
 import LoadingSpinner from "../components/LoadingSpinner/index.jsx";
+import Logo from "../components/Logo/index.jsx";
 
 const ALERT_TYPE = {
   INVALID_LOGIN: "invalid_login",
@@ -163,7 +164,7 @@ export default function Login() {
               onChange={onChangeLoginPassword}
               placeholder="******"
             />
-            <button className="btn mx-0" onClick={toggleLoginPassword} type="button" ><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+            <button className="btn mx-0" onClick={toggleLoginPassword} type="button" aria-label={showLoginPassword ? "Hide password" : "Show password"}><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
 
           <div className="text-center mt-3">
@@ -172,8 +173,9 @@ export default function Login() {
         </form>
 
         <br />
-        <p className="text-center">Need an account? <a className="" onClick={toggleSignup} type="button">Sign up here</a></p>
-        <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword} type="button">Click here</a></p>
+        <p className="text-center fs-5">Need an account? <button className="button-link" onClick={toggleSignup} type="button">Sign up here</button></p>
+        <p className="text-center fs-5">Forgot your password? <button className="button-link" onClick={toggleModalResetPassword} type="button">Click here</button></p>
+
       </>
     )
   }
@@ -220,15 +222,15 @@ export default function Login() {
     <>
       <div className="d-flex flex-column align-items-center">
         <h1 className="text-center">D&D Save Data</h1>
-        <img src="/icons8-dungeons-and-dragons-480 copy.svg" width={200} className="img-fluid" alt="D&D image provided by icons8" />
+        <Logo />
+        {/* <img src="/icons8-dungeons-and-dragons-48.svg" width={200} height={200} className="img-fluid" alt="dungeons and dragons image provided by icons8"/> */}
         <div className="container-fluid">
-
           {!showSignup ?
             renderLogin() :
             <>
               <Signup />
 
-              <p className="text-center">Already have an account? <a className="" onClick={toggleSignup} type="button" >Login here</a></p>
+              <p className="text-center">Already have an account? <button className="button-link" onClick={toggleSignup} type="button">Login here</button></p>
             </>
 
           }

@@ -10,7 +10,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import App from './App.jsx'
 import Error from "./pages/Error.jsx";
-import Home from "./pages/Home.jsx";
 import Campaigns from "./pages/Campaigns.jsx"
 import Characters from "./pages/Characters.jsx"
 import Sessions from "./pages/Sessions.jsx"
@@ -26,7 +25,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase/firebase.js";
 
 const httpLink = createHttpLink({
   uri: '/graphql'
