@@ -16,6 +16,8 @@
 
 [Email RegEx](https://stackoverflow.com/questions/50747643/how-can-i-add-support-for-a-plus-sign-in-this-email-validation-regex)
 
+[Vite chunking](https://github.com/vitejs/vite/discussions/9440#discussioncomment-5913798)
+
 ### Resources
 
 [D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
