@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../firebase.js";
+import { auth } from "../../../../firebase/firebase.js";
 import { CHECK_USER } from "../../utils/queries.js";
 import { ADD_USER } from "../../utils/mutations.js";
 

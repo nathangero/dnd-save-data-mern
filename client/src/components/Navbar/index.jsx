@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./style.css"
-import { auth } from "../../../../firebase";
+import { auth } from "../../../../firebase/firebase.js";
 import ROUTES from "../../utils/routes"
 import { useDispatch } from "react-redux";
 import { USER_ACTIONS } from "../../redux/reducer";

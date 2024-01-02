@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../firebase.js";
+import { auth } from "../../../firebase/firebase.js";
 
 import Alert from "../components/Alert/index.jsx";
 import Signup from "../components/Signup/index.jsx";

@@ -2,7 +2,7 @@ import './App.css'
 import Nav from "./components/Navbar";
 import { Outlet } from "react-router";
 
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase/firebase.js";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
