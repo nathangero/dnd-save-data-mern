@@ -1,16 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import compressionPlugin from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    compressionPlugin({
-      algorithm: 'gzip',
-      ext: '.gz',
-    }),
-  ],
+  plugins: [react()],
   server: {
     port: 3000,
     open: true,
