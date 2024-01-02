@@ -164,7 +164,7 @@ export default function Login() {
               onChange={onChangeLoginPassword}
               placeholder="******"
             />
-            <button className="btn mx-0" onClick={toggleLoginPassword} type="button" ><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
+            <button className="btn mx-0" onClick={toggleLoginPassword} type="button" aria-label={showLoginPassword ? "Hide password" : "Show password"}><i className={showLoginPassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"}></i></button>
           </div>
 
           <div className="text-center mt-3">
@@ -173,8 +173,9 @@ export default function Login() {
         </form>
 
         <br />
-        <p className="text-center">Need an account? <a className="" onClick={toggleSignup} type="button">Sign up here</a></p>
-        <p className="text-center">Forgot your password? <a className="" onClick={toggleModalResetPassword} type="button">Click here</a></p>
+        <p className="text-center fs-5">Need an account? <button className="button-link" onClick={toggleSignup} type="button">Sign up here</button></p>
+        <p className="text-center fs-5">Forgot your password? <button className="button-link" onClick={toggleModalResetPassword} type="button">Click here</button></p>
+
       </>
     )
   }
@@ -229,7 +230,7 @@ export default function Login() {
             <>
               <Signup />
 
-              <p className="text-center">Already have an account? <a className="" onClick={toggleSignup} type="button" >Login here</a></p>
+              <p className="text-center">Already have an account? <button className="button-link" onClick={toggleSignup} type="button">Login here</button></p>
             </>
 
           }

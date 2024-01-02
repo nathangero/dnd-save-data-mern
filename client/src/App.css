@@ -1,8 +1,17 @@
 :root {
-  --button-positive-color: #42B6E8;
-  --button-positive-hover-color: #009ee1;
+  --button-positive-color: #00b3ff;
+  --button-positive-hover-color: #0c97dd;
   --button-negative-color: #dd3528;
   --button-negative-hover-color: #b81d12;
+  --button-link-color: #008ac5;
+  --button-link-hover-color: #1c51a0;
+
+  --dark-button-positive-color: #42B6E8;
+  --dark-button-positive-hover-color: #009ee1;
+  --dark-button-negative-color: #dd3528;
+  --dark-button-negative-hover-color: #b81d12;
+  --dark-button-link-color: #2a78ed;
+  --dark-button-link-hover-color: #004ab9;
 }
 
 h1 {
@@ -27,6 +36,19 @@ h1 {
 .button-negative:hover {
   color: white;
   background-color: var(--button-negative-hover-color);
+}
+
+.button-link {
+  background: none;
+  border: none;
+  color: var(--button-link-color);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.button-link:hover {
+  color: var(--button-link-hover-color);
 }
 
 /* #root {
