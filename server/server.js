@@ -5,6 +5,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import typeDefs from "./schema/typeDefs.js";
 import resolvers from "./schema/resolvers.js";
 import { authMiddleware } from "./utils/auth.js";
+import helmet from "helmet";
 // import path from "path";
 
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,7 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
+  // app.use(helmet.contentSecurityPolicy());
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
