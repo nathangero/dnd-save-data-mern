@@ -2,6 +2,7 @@
 
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase.js";
@@ -41,6 +42,8 @@ export default function Signup() {
 
   const [addUser] = useMutation(ADD_USER);
   const [checkUser] = useLazyQuery(CHECK_USER);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize bootstrap modals 
@@ -179,7 +182,8 @@ export default function Signup() {
       toggleLoadingSpinner(); // Stop spinner after store is updated
 
       // Redirect the user to the /characters page and force a refresh.
-      window.location.href = ROUTES.CHARACTERS;
+      // window.location.href = ROUTES.CHARACTERS;
+      navigate(ROUTES.CHARACTERS);
     } catch (error) {
       console.log("couldn't sign up");
       console.error(error);
