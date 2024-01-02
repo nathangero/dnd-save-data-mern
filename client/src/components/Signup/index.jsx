@@ -109,7 +109,7 @@ export default function Signup() {
     setTimeoutId(clearTimeout(timeoutId)); // Prevents timer from triggering until user has completely stopped typing
     setTimeoutId(setTimeout(async () => {
       await checkUsernameAvailability(username);
-    }, 750)
+    }, 500)
     );
   }
 

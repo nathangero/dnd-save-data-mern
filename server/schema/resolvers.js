@@ -28,11 +28,16 @@ const resolvers = {
     },
     checkUser: async (parent, { username }) => {
       try {
-        const user = User.findOne({ username });
+        // Do a case-insensitive search of the username
+        const regex = { $regex: new RegExp(`^${username.trim()}$`, 'i') };
+        const user = await User.findOne({ username: regex });
+
         // console.log("user:", user);
         return user;
       } catch (error) {
         console.log("couldn't search for user");
+        console.error(error);
+        return {}
       }
     }
   },
