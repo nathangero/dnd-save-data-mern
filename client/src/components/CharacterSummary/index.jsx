@@ -4,7 +4,7 @@ import { Character } from "../../models/Character";
 import "./style.css";
 
 export default function CharacterSummary(props) {
-  const character = Character.prototype.fromSnapshot(props.character);
+  const character = new Character(props.character);
 
   return (
     <div className="p-2 summary">

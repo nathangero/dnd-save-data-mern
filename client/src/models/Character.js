@@ -1,90 +1,27 @@
-export function Character(
-  _id = "",
-  alignment = "",
-  armor = "",
-  background = "",
-  className = "",
-  deathSaves = {},
-  equipment = [],
-  featureTraits = [],
-  gold = 0,
-  hp = {},
-  inspriation = 0,
-  languages = [],
-  level = 1,
-  name = "",
-  proficiencies = [],
-  race = "",
-  savingThrows = {},
-  scores = {},
-  skills = {},
-  speed = 0,
-  spellCastStat = "",
-  spellSlots = {},
-  treasures = [],
-  weapons = []
-) {
-  this._id = _id
-  this.alignment = alignment
-  this.armor = armor
-  this.background = background
-  this.class = className
-  this.deathSaves = deathSaves
-  this.equipment = equipment
-  this.featureTraits = featureTraits
-  this.gold = gold
-  this.hp = hp
-  this.inspriation = inspriation
-  this.languages = languages
-  this.level = level
-  this.name = name
-  this.proficiencies = proficiencies
-  this.race = race
-  this.savingThrows = savingThrows
-  this.scores = scores
-  this.skills = skills
-  this.speed = speed
-  this.spellCastStat = spellCastStat
-  this.spellSlots = spellSlots
+export function Character(character) {
+  this._id = character._id
+  this.alignment = character.alignment
+  this.armor = character.armor
+  this.background = character.background
+  this.class = character.class
+  this.deathSaves = character.deathSaves
+  this.equipment = character.equipment
+  this.featureTraits = character.featureTraits
+  this.gold = character.gold
+  this.hp = character.hp
+  this.inspriation = character.inspriation
+  this.languages = character.languages
+  this.level = character.level
+  this.name = character.name
+  this.proficiencies = character.proficiencies
+  this.race = character.race
+  this.savingThrows = character.savingThrows
+  this.scores = character.scores
+  this.skills = character.skills
+  this.speed = character.speed
+  this.spellCastStat = character.spellCastStat
+  this.spellSlots = character.spellSlots
   this.timeCreated = Date.now
-  this.treasures = treasures
-  this.weapons = weapons
-}
-
-/**
- * 
- * @param {Object} snapshot 
- * @returns 
- */
-Character.prototype.fromSnapshot = function (snapshot) {
-  // console.log("snapshot:", snapshot);
-
-  const { _id, alignment, armor, background, class: className, deathSaves, equipment, featureTraits, gold, hp, inspriation, languages, level, name, proficiencies, race, savingThrows, scores, skills, speed, spellCastStat, spellSlots, treasures, weapons } = snapshot;
-
-  return new Character(
-    _id,
-    alignment,
-    armor,
-    background,
-    className,
-    deathSaves,
-    equipment,
-    featureTraits,
-    gold,
-    hp,
-    inspriation,
-    languages,
-    level,
-    name,
-    proficiencies,
-    race,
-    savingThrows,
-    scores,
-    skills,
-    speed,
-    spellCastStat,
-    spellSlots,
-    treasures,
-    weapons
-  );
+  this.treasures = character.treasures
+  this.weapons = character.weapons
 }
