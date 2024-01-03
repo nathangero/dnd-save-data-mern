@@ -1,10 +1,22 @@
-import { Character } from "../../models/Character";
-
 import "./style.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Character } from "../../models/Character";
 import ROUTES from "../../utils/routes";
+import CharacterInfo from "./charInfo";
+import AbilityScores from "./scores";
+import Weapons from "./weapons";
+import Treasures from "./treasures";
+import SpellSlots from "./spellSlots";
+import Spells from "./spells";
+import Skills from "./skills";
+import SavingThrows from "./savingThrows";
+import Proficiencies from "./proficiencies";
+import Languages from "./languages";
+import FeaturesTraits from "./featuresTraits";
+import Equipment from "./equipment";
+import Background from "./background";
 
 export default function CharacterPage() {
 
@@ -33,223 +45,67 @@ export default function CharacterPage() {
       </Link>
 
       <div id="character-view-background">
-        <h1>{character.name}</h1>
-        <p>{character.race}</p>
-        <p>{character.class}</p>
-        <p>{character.background}</p>
-        <p>{character.alignment}</p>
+        <Background character={character} />
       </div>
 
       <div className="character-view-base text-center w-75">
-        <div className="d-flex">
-          <h2 className="center-h2" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-base" aria-expanded="false" aria-controls="character-view-base">
-            Character Info
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <div id="character-view-base" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <CharacterInfo character={character} />
         <hr />
       </div>
 
+
       <div className="character-view-scores text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
-            Ability Scores
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <div id="character-view-scores" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <AbilityScores character={character} />
         <hr />
       </div>
 
       <div className="character-view-saving-throws text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
-            Saving Throws
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <div id="character-view-saving-throws" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <SavingThrows character={character} />
         <hr />
       </div>
 
       <div className="character-view-skills text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
-            Skills
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-skills" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Skills character={character} />
         <hr />
       </div>
 
       <div className="character-view-feature-traits text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-base">
-            Features & Traits
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-feature-traits" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <FeaturesTraits character={character} />
         <hr />
       </div>
 
       <div className="character-view-weapons text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
-            Weapons
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-weapons" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Weapons character={character} />
         <hr />
       </div>
 
       <div className="character-view-spell-slots text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-spell-slots" aria-expanded="false" aria-controls="character-view-spell-slots">
-            Spell Slots
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-spell-slots" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <SpellSlots character={character} />
         <hr />
       </div>
 
       <div className="character-view-spells text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
-            Spells
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-spells" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Spells character={character}/>
         <hr />
       </div>
 
       <div className="character-view-proficiencies text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
-            Proficiencies
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-proficiencies" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Proficiencies character={character} />
         <hr />
       </div>
 
       <div className="character-view-equipment text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-equipment" aria-expanded="false" aria-controls="character-view-equipment">
-            Equipment
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-equipment" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Equipment character={character} />
         <hr />
       </div>
 
       <div className="character-view-languages text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
-            Languages
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-languages" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Languages character={character} />
         <hr />
       </div>
 
       <div className="character-view-treasures text-center w-75">
-        <div className="d-flex">
-          <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-treasures" aria-expanded="false" aria-controls="character-view-treasures">
-            Treasures
-          </h2>
-          <button className="btn btn-secondary button-edit">Edit</button>
-
-        </div>
-
-        <div id="character-view-treasures" className="collapse show">
-          <div className="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
-
+        <Treasures character={character} />
         <hr />
       </div>
 
