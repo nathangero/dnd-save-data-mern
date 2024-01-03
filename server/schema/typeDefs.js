@@ -124,15 +124,15 @@ const typeDefs = `
 
   type SpellSlotLevel {
     _id: ID
-    level_1: [SpellSlot]
-    level_2: [SpellSlot]
-    level_3: [SpellSlot]
-    level_4: [SpellSlot]
-    level_5: [SpellSlot]
-    level_6: [SpellSlot]
-    level_7: [SpellSlot]
-    level_8: [SpellSlot]
-    level_9: [SpellSlot]
+    level_1: SpellSlot
+    level_2: SpellSlot
+    level_3: SpellSlot
+    level_4: SpellSlot
+    level_5: SpellSlot
+    level_6: SpellSlot
+    level_7: SpellSlot
+    level_8: SpellSlot
+    level_9: SpellSlot
   }
 
   type SpellSlot {

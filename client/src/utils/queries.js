@@ -97,6 +97,51 @@ query GetMe {
       spellCastStat
       spellSlots {
         _id
+        level_1 {
+          _id
+          current
+          max
+        }
+        level_2 {
+          _id
+          current
+          max
+        }
+        level_3 {
+          _id
+          current
+          max
+        }
+        level_4 {
+          _id
+          current
+          max
+        }
+        level_5 {
+          _id
+          current
+          max
+        }
+        level_6 {
+          _id
+          current
+          max
+        }
+        level_7 {
+          _id
+          current
+          max
+        }
+        level_8 {
+          _id
+          current
+          max
+        }
+        level_9 {
+          _id
+          current
+          max
+        }
       }
       spells {
         _id
