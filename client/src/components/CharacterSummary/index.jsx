@@ -5,7 +5,7 @@ import "./style.css";
 
 export default function CharacterSummary(props) {
   const character = Character.prototype.fromSnapshot(props.character);
-  console.log(character.scores)
+  console.log(character.savingThrows)
 
   return (
     <div className="p-2 summary">
@@ -19,7 +19,7 @@ export default function CharacterSummary(props) {
       
       <div className="d-flex flex-row justify-content-between">
       <p className="fs-4 m-0">HP:</p>
-      <p className="fs-4 m-0">current/max</p>
+      <p className="fs-4 m-0">{character.hp.current}/{character.hp.max}</p>
       </div>
 
     </div>

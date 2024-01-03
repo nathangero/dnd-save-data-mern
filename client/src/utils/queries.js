@@ -3,6 +3,8 @@ import { gql } from "@apollo/client";
 export const GET_ME = gql`
 query GetMe {
   getMe {
+    _id
+    username
     characters {
       _id
       alignment
@@ -16,26 +18,50 @@ query GetMe {
       }
       equipment {
         _id
+        amount
+        description
+        name
       }
       featureTraits {
         _id
+        actionType
+        description
+        name
+        traitType
+        uses
       }
       gold
       hp {
         _id
+        current
+        dieType
+        dieAmountCurrent
+        dieAmountMax
+        max
+        temp
       }
       inspriation
       languages {
         _id
+        name
+        proficiency
       }
       level
       name
       proficiencies {
         _id
+        description
+        name
       }
       race
       savingThrows {
         _id
+        cha
+        con
+        dex
+        int
+        str
+        wis
       }
       scores {
         _id
@@ -56,6 +82,7 @@ query GetMe {
       }
       spells {
         _id
+
       }
       timeCreated
       treasures {

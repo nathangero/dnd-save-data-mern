@@ -44,26 +44,50 @@ const typeDefs = `
 
   type Equipment {
     _id: ID
+    amount: Int
+    description: String
+    name: String!
   }
 
   type FeatureTrait {
     _id: ID
+    actionType: String
+    description: String
+    name: String!
+    traitType: String
+    uses: Int
   }
 
   type Hp {
     _id: ID
+    current: Int!
+    dieType: String!
+    dieAmountCurrent: Int!
+    dieAmountMax: Int!
+    max: Int!
+    temp: Int
   }
 
   type Language {
     _id: ID
+    name: String!
+    proficiency: String!
   }
 
   type Proficiency {
     _id: ID
+    description: String
+    name: String!
   }
 
   type SavingThrows {
     _id: ID
+    cha: Boolean
+    con: Boolean
+    dex: Boolean
+    int: Boolean
+    str: Boolean
+    wis: Boolean
   }
 
   type AbilityScores {
