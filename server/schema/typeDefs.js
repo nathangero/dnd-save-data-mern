@@ -82,34 +82,63 @@ const typeDefs = `
 
   type SavingThrows {
     _id: ID
-    cha: Boolean
-    con: Boolean
-    dex: Boolean
-    int: Boolean
-    str: Boolean
-    wis: Boolean
+    cha: Boolean!
+    con: Boolean!
+    dex: Boolean!
+    int: Boolean!
+    str: Boolean!
+    wis: Boolean!
   }
 
   type AbilityScores {
     _id: ID
-    cha: Int
-    con: Int
-    dex: Int
-    int: Int
-    str: Int
-    wis: Int
+    cha: Int!
+    con: Int!
+    dex: Int!
+    int: Int!
+    str: Int!
+    wis: Int!
   }
 
   type Skills {
     _id: ID
+    acrobatics: Boolean!
+    animalHandling: Boolean!
+    arcana: Boolean!
+    athletics: Boolean!
+    deception: Boolean!
+    history: Boolean!
+    insight: Boolean!
+    intimidation: Boolean!
+    investigation: Boolean!
+    medicine: Boolean!
+    nature: Boolean!
+    perception: Boolean!
+    performance: Boolean!
+    persuasion: Boolean!
+    religion: Boolean!
+    sleightOfHand: Boolean!
+    stealth: Boolean!
+    survival: Boolean!
   }
 
   type SpellSlotLevel {
     _id: ID
+    level_1: [SpellSlot]
+    level_2: [SpellSlot]
+    level_3: [SpellSlot]
+    level_4: [SpellSlot]
+    level_5: [SpellSlot]
+    level_6: [SpellSlot]
+    level_7: [SpellSlot]
+    level_8: [SpellSlot]
+    level_9: [SpellSlot]
   }
 
   type SpellSlot {
     _id: ID
+    current: Int!
+    max: Int!
   }
 
   type SpellLevel {

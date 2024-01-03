@@ -5,7 +5,7 @@ import "./style.css";
 
 export default function CharacterSummary(props) {
   const character = Character.prototype.fromSnapshot(props.character);
-  console.log(character.savingThrows)
+  console.log(character.skills)
 
   return (
     <div className="p-2 summary">
