@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+export const CHECK_USER = gql`
+query CheckUser($username: String!) {
+  checkUser(username: $username) {
+    _id
+    username
+  }
+}
+`;
+
 export const GET_ME = gql`
 query GetMe {
   getMe {
@@ -239,20 +248,21 @@ query GetMe {
       timeCreated
       treasures {
         _id
+        amount
+        description
+        name
       }
       weapons {
         _id
+        amount
+        attackDamageStat
+        category
+        description
+        dieType
+        name
+        proficient
       }
     }
-  }
-}
-`;
-
-export const CHECK_USER = gql`
-query CheckUser($username: String!) {
-  checkUser(username: $username) {
-    _id
-    username
   }
 }
 `;

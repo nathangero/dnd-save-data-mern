@@ -167,10 +167,20 @@ const typeDefs = `
 
   type Treasure {
     _id: ID
+    amount: Int!
+    description: String
+    name: String!
   }
 
   type Weapon {
     _id: ID
+    amount: Int!
+    attackDamageStat: String!
+    category: String
+    description: String
+    dieType: String!
+    name: String!
+    proficient: Boolean!
   }
 
   ######

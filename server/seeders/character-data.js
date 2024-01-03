@@ -149,7 +149,7 @@ const characterData = [
         attackDamageStat: "dex",
         category: "Simple",
         description: "Must reload after every shot. Reload takes one full action. \n\nRange: 40-80ft",
-        die: "d6",
+        dieType: "d6",
         proficient: false,
         name: "Flintlock pistol"
       },
@@ -158,7 +158,7 @@ const characterData = [
         attackDamageStat: "dex",
         category: "Simple",
         description: "Range: 150ft/300ft",
-        die: "d8",
+        dieType: "d8",
         proficient: true,
         name: "Long bow"
       }

@@ -30,7 +30,7 @@ const Weapon = new Schema({
   proficient: {
     type: Boolean,
     require: true
-  }
+  },
 });
 
 export default Weapon;
