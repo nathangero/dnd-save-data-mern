@@ -9,11 +9,12 @@ export default function CharacterSummary(props) {
   const character = new Character(props.character);
 
   return (
-    <Link
-      to={`${ROUTES.CHARACTERS}/${props.characterId}`}
-      className="link-to-page"
-    >
-      <div className="p-2 summary">
+    <div className="p-2 summary">
+      <Link
+        to={`${ROUTES.CHARACTERS}/${props.characterId}`}
+        className="link-to-page"
+      >
+
         <div className="d-flex flex-row justify-content-between">
           <h2>{character.name}</h2>
           <h3 className="fs-4 m-0">Level: {character.level}</h3>
@@ -26,8 +27,9 @@ export default function CharacterSummary(props) {
           <p className="fs-4 m-0">HP: {character.hp.current}/{character.hp.max}</p>
         </div>
 
-      </div>
-    </Link>
+      </Link>
+    </div>
+
   )
 }
 
