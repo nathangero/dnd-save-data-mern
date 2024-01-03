@@ -68,6 +68,12 @@ const typeDefs = `
 
   type AbilityScores {
     _id: ID
+    cha: Int
+    con: Int
+    dex: Int
+    int: Int
+    str: Int
+    wis: Int
   }
 
   type Skills {
