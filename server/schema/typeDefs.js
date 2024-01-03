@@ -143,10 +143,26 @@ const typeDefs = `
 
   type SpellLevel {
     _id: ID
+    cantrips: [Spell]
+    level_1: [Spell]
+    level_2: [Spell]
+    level_3: [Spell]
+    level_4: [Spell]
+    level_5: [Spell]
+    level_6: [Spell]
+    level_7: [Spell]
+    level_8: [Spell]
+    level_9: [Spell]
   }
 
   type Spell {
     _id: ID
+    castingTime: Int!
+    description: String
+    duration: Int!
+    durationType: String!
+    name: String!
+    range: Int!
   }
 
   type Treasure {

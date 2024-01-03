@@ -145,7 +145,96 @@ query GetMe {
       }
       spells {
         _id
-
+        cantrips {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_1 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_2 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_3 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_4 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_5 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_6 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_7 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_8 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
+        level_9 {
+          _id
+          castingTime
+          description
+          duration
+          durationType
+          name
+          range
+        }
       }
       timeCreated
       treasures {
