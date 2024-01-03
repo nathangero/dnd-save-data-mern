@@ -10,15 +10,14 @@ export default function CharacterSummary(props) {
     <div className="p-2 summary">
       <div className="d-flex flex-row justify-content-between">
         <h2>{character.name}</h2>
-        <p className="fs-4 m-0">Level: {character.level}</p>
+        <h3 className="fs-4 m-0">Level: {character.level}</h3>
       </div>
 
       <p className="fs-4 m-0">{character.class}</p>
-      <p className="fs-4 m-0">{character.alignment}</p>
-      
-      <div className="d-flex flex-row justify-content-between">
-      <p className="fs-4 m-0">HP:</p>
-      <p className="fs-4 m-0">{character.hp.current}/{character.hp.max}</p>
+      <p className="fs-4 m-0">{character.race}</p>
+
+      <div className="d-flex flex-row justify-content-start">
+        <p className="fs-4 m-0">HP: {character.hp.current}/{character.hp.max}</p>
       </div>
 
     </div>
