@@ -2,11 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import "./style.css"
 import { auth } from "../../../../firebase/firebase.js";
 import ROUTES from "../../utils/routes"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { USER_ACTIONS } from "../../redux/reducer";
 
 export default function Nav() {
 
+  const { username } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const onClickLogout = async (e) => {
@@ -32,7 +33,7 @@ export default function Nav() {
 
             <div id="side-menu" className="offcanvas offcanvas-start" tabIndex="-1" aria-labelledby="side-menu-label">
               <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id="side-menu-label">USER NAME</h5>
+                <h1 className="offcanvas-title" id="side-menu-label">{username}</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div className="offcanvas-body">
