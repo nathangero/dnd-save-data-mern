@@ -8,12 +8,13 @@
   <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
       base-uri 'self';
-      connect-src 'self' https://identitytoolkit.googleapis.com/ https://securetoken.googleapis.com;
+      connect-src 'self' https://identitytoolkit.googleapis.com/ https://securetoken.googleapis.com ;
       font-src 'self' https: data:;
       form-action 'self';
+      frame-src 'self' https://dnd-save-data.firebaseapp.com/;
       img-src 'self' data: icons8-dungeons-and-dragons-48.svg;
       object-src 'none';
-      script-src 'self';
+      script-src 'self' https://apis.google.com/;
       script-src-attr 'none';
       style-src 'self' https: 'unsafe-inline';
       upgrade-insecure-requests

@@ -57,7 +57,7 @@ export function Character(
  * @returns 
  */
 Character.prototype.fromSnapshot = function (snapshot) {
-  console.log("snapshot:", snapshot);
+  // console.log("snapshot:", snapshot);
 
   const { _id, alignment, armor, background, class: className, deathSaves, equipment, featureTraits, gold, hp, inspriation, languages, level, name, proficiencies, race, savingThrows, scores, skills, speed, spellCastStat, spellSlots, treasures, weapons } = snapshot;
 
