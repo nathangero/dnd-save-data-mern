@@ -16,7 +16,6 @@ import LoadingSpinner from "./components/LoadingSpinner/index.jsx";
 
 function App() {
 
-  // const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [getMe] = useLazyQuery(GET_ME);

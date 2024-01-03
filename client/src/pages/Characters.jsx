@@ -8,11 +8,10 @@ export default function Characters() {
 
   return (
     <>
-      <h1 className="text-center">Your Characters</h1>
-
+      <h1 className="text-center mb-3">Your Characters</h1>
       {characters.map((character, index) => (
         <div key={index}>
-          <CharacterSummary character={character} />
+          <CharacterSummary character={character} characterId={index}/>
           <br />
         </div>
       ))}

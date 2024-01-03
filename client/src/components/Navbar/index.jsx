@@ -55,7 +55,7 @@ export default function Nav() {
               <Link
                 to="/campaigns"
                 className={
-                  useLocation().pathname === "/campaigns" ?
+                  useLocation().pathname === ROUTES.CAMPAIGNS ?
                     "nav-link active" :
                     "nav-link"
                 }
@@ -68,7 +68,7 @@ export default function Nav() {
               <Link
                 to="/characters"
                 className={
-                  useLocation().pathname === "/characters" ?
+                  useLocation().pathname.includes(ROUTES.CHARACTERS) ?
                     "nav-link active" :
                     "nav-link"
                 }
@@ -81,7 +81,7 @@ export default function Nav() {
               <Link
                 to="/sessions"
                 className={
-                  useLocation().pathname === "/sessions" ?
+                  useLocation().pathname === ROUTES.SESSIONS ?
                     "nav-link active" :
                     "nav-link"
                 }

@@ -1,3 +1,8 @@
+.link-to-page {
+  color: black;
+  text-decoration: none;
+}
+
 .summary {
   display: flex;
   flex-direction: column;
