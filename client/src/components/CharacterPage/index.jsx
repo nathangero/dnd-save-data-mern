@@ -68,7 +68,7 @@ export default function CharacterPage() {
 
   return (
     <div className="character-page">
-      <nav className="sticky-top bg-secondary w-100">
+      <nav className="sticky-top w-100">
         <div className="py-2 menu-bar">
           <div>
             <Link
@@ -174,7 +174,7 @@ export default function CharacterPage() {
       </div>
 
       <div className="backup-character">
-
+        
       </div>
 
     </div>

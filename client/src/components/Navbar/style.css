@@ -7,6 +7,15 @@ nav img {
   color: black;
 }
 
+.nav-link:hover {
+  border-bottom: none !important;
+}
+
+.nav-link.active {
+  background-color: beige !important;
+  border-bottom: none !important;
+}
+
 
 @media screen and (max-width: 480px) {
 

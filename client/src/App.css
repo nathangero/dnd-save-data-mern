@@ -1,4 +1,7 @@
 :root {
+  --light-background: beige;
+  --dark-background: #212121;
+
   --button-positive-color: #00b3ff;
   --button-positive-hover-color: #0c97dd;
   --button-negative-color: #dd3528;
@@ -12,10 +15,18 @@
   --dark-button-negative-hover-color: #b81d12;
   --dark-button-link-color: #2a78ed;
   --dark-button-link-hover-color: #004ab9;
+
+  --bs-nav-tab-border: #dee2e6;
 }
 
 h1 {
   font-size: 2.5rem !important;
+}
+
+section.page {
+  background-color: var(--light-background);
+  height: auto !important;
+  min-height: 95vh;
 }
 
 .theme-button {

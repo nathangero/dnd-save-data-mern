@@ -2,6 +2,11 @@ hr {
   min-width: 100% !important;
 }
 
+nav {
+  
+  border-bottom: 1px solid var(--bs-nav-tab-border);
+}
+
 .character-page {
   display: flex;
   flex-direction: column;
@@ -10,6 +15,7 @@ hr {
 
 .character-page nav {
   max-height: 50px;
+  background-color: var(--light-background);
 }
 
 .section-title {
@@ -30,14 +36,20 @@ hr {
   margin: 0 auto;
 }
 
+.menu-bar .btn {
+  background-color: var(--button-positive-color);
+  border-color: var(--button-positive-color);;
+}
+
 .menu-proper {
   position: relative;
-  /* color: white; */
-  background-color: lime;
+  background-color: var(--light-background);
   text-align: left;
   width: 20%;
-  border: 3px solid black;
-  border-radius: 5px 5px 0px 5px;
+  border-left: 2px solid var(--bs-nav-tab-border);
+  border-bottom: 2px solid var(--bs-nav-tab-border);
+  /* border-right: 2px solid var(--bs-nav-tab-border); */
+  border-radius: 0px 0px 0px 5px;
   max-height: 210px;
   max-width: 220px;
   overflow-y: auto;
@@ -45,7 +57,7 @@ hr {
 }
 
 .menu-proper ul li {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid var(--bs-nav-tab-border);
   width: 100%;
   margin: 0;
   padding: 5px 7px;
