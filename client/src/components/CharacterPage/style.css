@@ -8,6 +8,10 @@ hr {
   align-items: center;
 }
 
+.character-page nav {
+  max-height: 50px;
+}
+
 .section-title {
   max-width: fit-content;
   margin: 10px auto;
@@ -16,20 +20,35 @@ hr {
 .button-edit {
   position: absolute;
   right: 100px;
+  margin-top: 10px;
 }
 
 .menu-bar {
   display: flex;
   justify-content: space-between;
   width: 75%;
+  margin: 0 auto;
 }
 
 .menu-proper {
   position: relative;
-  color: white;
-  text-align: right;
-  width: 25%;
-  right: 10px;
+  /* color: white; */
+  background-color: lime;
+  text-align: left;
+  width: 20%;
+  border: 3px solid black;
+  border-radius: 5px 5px 0px 5px;
+  max-height: 210px;
+  max-width: 220px;
+  overflow-y: auto;
+  margin-top: -4px;
+}
+
+.menu-proper ul li {
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin: 0;
+  padding: 5px 7px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -50,6 +69,8 @@ hr {
 
   .menu-bar {
     width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .menu-proper {
@@ -65,6 +86,8 @@ hr {
 
   .menu-bar {
     width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .menu-proper {

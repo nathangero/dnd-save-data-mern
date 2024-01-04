@@ -8,7 +8,7 @@ export default function FeaturesTraits(props) {
   return (
     <>
       <div className="d-flex">
-        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-base">
+        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-info">
           Features & Traits
         </h2>
         <button className="btn btn-secondary button-edit">Edit</button>
