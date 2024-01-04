@@ -37,12 +37,31 @@ export default function CharacterPage() {
 
   return (
     <div className="character-page">
-      <Link
-        to={ROUTES.CHARACTERS}
-        className="btn btn-secondary rounded-0"
-      >
-        Back to Characters
-      </Link>
+      <nav className="sticky-top bg-secondary w-100 pt-2">
+        <div className="m-auto px-2 menu-bar">
+          <p>
+            <Link
+              to={ROUTES.CHARACTERS}
+              className="btn btn-primary rounded center-h2"
+            >
+              <i className="bi bi-chevron-left"></i> Characters
+            </Link>
+          </p>
+
+          <p className="">
+            <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#menu-jump-to" aria-expanded="false" aria-controls="menu-jump-to">Jump to</button>
+          </p>
+        </div>
+
+        <div id="menu-jump-to" className="collapse">
+          <div className="d-flex justify-content-end">
+            <div className="menu-proper">
+              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            </div>
+          </div>
+        </div>
+      </nav>
+
 
       <div id="character-view-background">
         <Background character={character} />
@@ -85,7 +104,7 @@ export default function CharacterPage() {
       </div>
 
       <div className="character-view-spells text-center w-75">
-        <Spells character={character}/>
+        <Spells character={character} />
         <hr />
       </div>
 

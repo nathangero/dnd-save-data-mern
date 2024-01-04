@@ -18,9 +18,28 @@ hr {
   right: 100px;
 }
 
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+}
+
+.menu-proper {
+  position: relative;
+  color: white;
+  text-align: right;
+  width: 25%;
+  right: 10px;
+}
+
 @media screen and (max-width: 1024px) {
   .button-edit {
     right: 50px;
+  }
+
+  .menu-proper {
+    width: 25%;
+    left: 20px;
   }
 }
 
@@ -28,10 +47,28 @@ hr {
   .button-edit {
     right: 20px;
   }
+
+  .menu-bar {
+    width: 100%;
+  }
+
+  .menu-proper {
+    width: 25%;
+    left: 20px;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .button-edit {
     right: 10px;
+  }
+
+  .menu-bar {
+    width: 100%;
+  }
+
+  .menu-proper {
+    width: 50%;
+    left: 20px;
   }
 }
