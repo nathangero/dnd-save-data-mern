@@ -8,7 +8,7 @@ export default function AbilityScores(props) {
   return (
     <>
       <div className="d-flex">
-        <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
           Ability Scores
         </h2>
         <button className="btn btn-secondary button-edit">Edit</button>

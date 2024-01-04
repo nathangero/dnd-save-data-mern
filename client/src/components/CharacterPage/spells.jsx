@@ -8,7 +8,7 @@ export default function Spells(props) {
   return (
     <>
       <div className="d-flex">
-        <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
+        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
           Spells
         </h2>
         <button className="btn btn-secondary button-edit">Edit</button>

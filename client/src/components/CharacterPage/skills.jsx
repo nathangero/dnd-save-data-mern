@@ -8,7 +8,7 @@ export default function Skills(props) {
   return (
     <>
       <div className="d-flex">
-        <h2 className="" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
+        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
           Skills
         </h2>
         <button className="btn btn-secondary button-edit">Edit</button>

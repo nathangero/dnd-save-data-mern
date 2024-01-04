@@ -8,7 +8,7 @@ export default function CharacterInfo(props) {
   return (
     <>
       <div className="d-flex">
-        <h2 className="center-h2" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-base" aria-expanded="false" aria-controls="character-view-base">
+        <h2 className="section-title" type="button" data-bs-toggle="collapse" data-bs-target="#character-view-base" aria-expanded="false" aria-controls="character-view-base">
           Character Info
         </h2>
         <button className="btn btn-secondary button-edit">Edit</button>

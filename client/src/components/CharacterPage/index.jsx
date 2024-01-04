@@ -42,7 +42,7 @@ export default function CharacterPage() {
           <p>
             <Link
               to={ROUTES.CHARACTERS}
-              className="btn btn-primary rounded center-h2"
+              className="btn btn-primary rounded"
             >
               <i className="bi bi-chevron-left"></i> Characters
             </Link>
