@@ -13,6 +13,10 @@ nav {
   align-items: center;
 }
 
+.character-page section {
+  width: 60%;
+}
+
 .character-page nav {
   max-height: 50px;
   background-color: var(--light-background);
@@ -64,6 +68,7 @@ nav {
 }
 
 @media screen and (max-width: 1024px) {
+  
   .button-edit {
     right: 50px;
   }
@@ -75,6 +80,10 @@ nav {
 }
 
 @media screen and (max-width: 992px) {
+  .character-page section {
+    width: 100%;
+  }
+
   .button-edit {
     right: 20px;
   }
@@ -92,6 +101,10 @@ nav {
 }
 
 @media screen and (max-width: 768px) {
+  .character-page section {
+    width: 100%;
+  }
+
   .button-edit {
     right: 10px;
   }

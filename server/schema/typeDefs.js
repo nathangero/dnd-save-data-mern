@@ -18,7 +18,7 @@ const typeDefs = `
     featureTraits: [FeatureTrait]
     gold: Int
     hp: Hp
-    inspriation: Int
+    inspiration: Int
     languages: [Language]
     level: Int
     name: String

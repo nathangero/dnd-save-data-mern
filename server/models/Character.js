@@ -51,7 +51,7 @@ const characterSchema = new Schema({
     type: Hp,
     require: true
   },
-  inspriation: {
+  inspiration: {
     type: Number,
   },
   languages: {

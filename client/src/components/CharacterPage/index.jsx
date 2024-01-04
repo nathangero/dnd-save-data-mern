@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { Collapse } from "bootstrap/dist/js/bootstrap.min.js";
 import { Character } from "../../models/Character";
 import ROUTES from "../../utils/routes";
-import CharacterInfo from "./charInfo";
+import Background from "./Background";
+import CharacterInfo from "./CharacterInfo";
 import AbilityScores from "./scores";
 import Weapons from "./weapons";
 import Treasures from "./treasures";
@@ -17,7 +18,6 @@ import Proficiencies from "./proficiencies";
 import Languages from "./languages";
 import FeaturesTraits from "./featuresTraits";
 import Equipment from "./equipment";
-import Background from "./background";
 import { useEffect, useState } from "react";
 
 const SECTION_TITLE = {
@@ -108,70 +108,70 @@ export default function CharacterPage() {
       </nav>
 
 
-      <div id="character-view-background">
+      <section id="character-view-background" className="text-center fs-4">
         <Background character={character} />
-      </div>
+      </section>
 
-      <div className="character-view-info text-center w-75">
+      <section className="character-view-info text-center w-75">
         <CharacterInfo character={character} />
         <hr />
-      </div>
+      </section>
 
 
-      <div className="character-view-scores text-center w-75">
+      <section className="character-view-scores text-center w-75">
         <AbilityScores character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-saving-throws text-center w-75">
+      <section className="character-view-saving-throws text-center w-75">
         <SavingThrows character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-skills text-center w-75">
+      <section className="character-view-skills text-center w-75">
         <Skills character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-feature-traits text-center w-75">
+      <section className="character-view-feature-traits text-center w-75">
         <FeaturesTraits character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-weapons text-center w-75">
+      <section className="character-view-weapons text-center w-75">
         <Weapons character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-spell-slots text-center w-75">
+      <section className="character-view-spell-slots text-center w-75">
         <SpellSlots character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-spells text-center w-75">
+      <section className="character-view-spells text-center w-75">
         <Spells character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-proficiencies text-center w-75">
+      <section className="character-view-proficiencies text-center w-75">
         <Proficiencies character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-equipment text-center w-75">
+      <section className="character-view-equipment text-center w-75">
         <Equipment character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-languages text-center w-75">
+      <section className="character-view-languages text-center w-75">
         <Languages character={character} />
         <hr />
-      </div>
+      </section>
 
-      <div className="character-view-treasures text-center w-75">
+      <section className="character-view-treasures text-center w-75">
         <Treasures character={character} />
         <hr />
-      </div>
+      </section>
 
       <div className="backup-character">
         

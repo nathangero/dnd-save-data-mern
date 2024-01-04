@@ -1,6 +1,6 @@
-import "./style.css";
+// import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../models/Character";
+import { Character } from "../../../models/Character";
 
 export default function Background(props) {
   const character = new Character(props.character);

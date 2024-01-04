@@ -9,7 +9,7 @@ export function Character(character) {
   this.featureTraits = character.featureTraits
   this.gold = character.gold
   this.hp = character.hp
-  this.inspriation = character.inspriation
+  this.inspiration = character.inspiration
   this.languages = character.languages
   this.level = character.level
   this.name = character.name

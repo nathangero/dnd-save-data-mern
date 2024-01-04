@@ -49,7 +49,7 @@ query GetMe {
         max
         temp
       }
-      inspriation
+      inspiration
       languages {
         _id
         name
