@@ -3,7 +3,6 @@ hr {
 }
 
 nav {
-  
   border-bottom: 1px solid var(--bs-nav-tab-border);
 }
 
@@ -13,8 +12,8 @@ nav {
   align-items: center;
 }
 
-.character-page section {
-  width: 60%;
+section.character-view {
+  width: 90%;
 }
 
 .character-page nav {
@@ -24,13 +23,10 @@ nav {
 
 .section-title {
   max-width: fit-content;
-  margin: 10px auto;
 }
 
 .button-edit {
-  position: absolute;
-  right: 100px;
-  margin-top: 10px;
+  font-size: larger;
 }
 
 .menu-bar {
@@ -72,8 +68,12 @@ nav {
   border-bottom: none;
 }
 
-.custom-chevron {
+.button-chevron {
   font-size: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+  margin: 0;
+  /* width: 60px; */
 }
 
 @media screen and (max-width: 1024px) {

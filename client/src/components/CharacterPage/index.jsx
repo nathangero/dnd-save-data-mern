@@ -70,7 +70,6 @@ export default function CharacterPage() {
 
   const toggleSectionShowing = (sectionId) => {
     console.log("@toggleSectionShowing");
-    console.log("sectionId:", sectionId);
     switch (sectionId) {
       case SECTION_TITLE.CHARACTER_INFO:
         console.log("@CHARACTER_INFO");
@@ -133,37 +132,40 @@ export default function CharacterPage() {
         <Background character={character} />
       </section>
 
-      <section className="character-view-info text-center w-75">
-        <div className="d-flex">
-          <h2 className="section-title" type="button" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
-            Character Info
-          </h2>
-
-          {isShowingInfo ?
-            <i className="bi bi-chevron-down custom-chevron" aria-label="chevron-down"></i> :
-            <i className="bi bi-chevron-up custom-chevron" aria-label="chevron-up"></i>
-          }
+      <section className="character-view text-center px-2">
+        <div className="d-flex justify-content-between" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
+          <div className="d-flex">
+            <h2 className="section-title">
+              Character Info
+            </h2>
+            {isShowingInfo ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
 
           <button className="btn btn-secondary button-edit">Edit</button>
         </div>
 
-        <section id="character-view-info" className="collapse show fs-3 m-auto">
+        <section id="character-view-info" className="collapse show fs-3">
           <CharacterInfo character={character} />
         </section>
         <hr />
       </section>
 
 
-      <section className="character-view-scores text-center w-75">
-        <div className="d-flex">
+      <section className="character-view text-center">
+        <div className="d-flex justify-content-center">
           <h2 className="section-title" type="button" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
             Ability Scores
           </h2>
 
-          {isShowingScores ?
-            <i className="bi bi-chevron-down custom-chevron" aria-label="chevron-down"></i> :
-            <i className="bi bi-chevron-up custom-chevron" aria-label="chevron-up"></i>
-          }
+          <button className="btn button-chevron" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+            {isShowingScores ?
+              <i className="bi bi-chevron-down" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up" aria-label="chevron-up"></i>
+            }
+          </button>
 
           <button className="btn btn-secondary button-edit">Edit</button>
         </div>
@@ -174,52 +176,52 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view-saving-throws text-center w-75">
+      <section className="character-view text-center">
         <SavingThrows character={character} />
         <hr />
       </section>
 
-      <section className="character-view-skills text-center w-75">
+      <section className="character-view text-center">
         <Skills character={character} />
         <hr />
       </section>
 
-      <section className="character-view-feature-traits text-center w-75">
+      <section className="character-view text-center">
         <FeaturesTraits character={character} />
         <hr />
       </section>
 
-      <section className="character-view-weapons text-center w-75">
+      <section className="character-view text-center">
         <Weapons character={character} />
         <hr />
       </section>
 
-      <section className="character-view-spell-slots text-center w-75">
+      <section className="character-view text-center">
         <SpellSlots character={character} />
         <hr />
       </section>
 
-      <section className="character-view-spells text-center w-75">
+      <section className="character-view text-center">
         <Spells character={character} />
         <hr />
       </section>
 
-      <section className="character-view-proficiencies text-center w-75">
+      <section className="character-view text-center">
         <Proficiencies character={character} />
         <hr />
       </section>
 
-      <section className="character-view-equipment text-center w-75">
+      <section className="character-view text-center">
         <Equipment character={character} />
         <hr />
       </section>
 
-      <section className="character-view-languages text-center w-75">
+      <section className="character-view text-center">
         <Languages character={character} />
         <hr />
       </section>
 
-      <section className="character-view-treasures text-center w-75">
+      <section className="character-view text-center">
         <Treasures character={character} />
         <hr />
       </section>
