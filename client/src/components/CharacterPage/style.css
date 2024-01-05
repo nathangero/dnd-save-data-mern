@@ -12,6 +12,11 @@ nav {
   align-items: center;
 }
 
+.character-view-header {
+  display: flex;
+  justify-content: center;
+}
+
 section.character-view {
   width: 90%;
 }
@@ -77,7 +82,7 @@ section.character-view {
 }
 
 @media screen and (max-width: 1024px) {
-  .character-page section {
+  section.character-view {
     width: 80%;
   }
   
@@ -93,8 +98,13 @@ section.character-view {
 }
 
 @media screen and (max-width: 992px) {
-  .character-page section {
-    width: 100%;
+  section.character-view {
+    width: 80%;
+  }
+
+  .character-view-header {
+    display: flex;
+    justify-content: space-between;
   }
 
   .button-edit {
@@ -102,7 +112,7 @@ section.character-view {
   }
 
   .menu-bar {
-    width: 100%;
+    width: 80%;
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -115,10 +125,11 @@ section.character-view {
 }
 
 @media screen and (max-width: 767px) {
-  .character-page section {
+  section.character-view {
     width: 100%;
+    padding: 0px 10px;
   }
-
+  
   .button-edit {
     right: 10px;
   }

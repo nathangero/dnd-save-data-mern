@@ -43,8 +43,19 @@ export default function CharacterPage() {
   const { characterId } = useParams();
 
   const [jumpToMenu, setJumpToMenu] = useState(null);
+
   const [isShowingInfo, showInfo] = useState(true);
   const [isShowingScores, showScores] = useState(true);
+  const [isShowingSavingThrows, showSavingThrows] = useState(true);
+  const [isShowingSkills, showSkills] = useState(true);
+  const [isShowingFeatureTraits, showFeatureTraits] = useState(true);
+  const [isShowingWeapons, showWeapons] = useState(true);
+  const [isShowingSpellSlots, showSpellSlots] = useState(true);
+  const [isShowingSpells, showSpells] = useState(true);
+  const [isShowingProficiencies, showProficiencies] = useState(true);
+  const [isShowingEquipment, showEquipment] = useState(true);
+  const [isShowingLanguages, showLanguages] = useState(true);
+  const [isShowingTreasures, showTreasures] = useState(true);
 
   const character = new Character(characters[characterId]);
 
@@ -69,21 +80,57 @@ export default function CharacterPage() {
   }
 
   const toggleSectionShowing = (sectionId) => {
-    console.log("@toggleSectionShowing");
     switch (sectionId) {
       case SECTION_TITLE.CHARACTER_INFO:
-        console.log("@CHARACTER_INFO");
         showInfo(!isShowingInfo);
         break;
 
       case SECTION_TITLE.ABILITY_SCORES:
-        console.log("@ABILITY_SCORES");
         showScores(!isShowingScores);
         break;
 
-      default:
-        console.log("at default");
+      case SECTION_TITLE.SAVING_THROWS:
+        showSavingThrows(!isShowingSavingThrows);
         break;
+
+      case SECTION_TITLE.SKILLS:
+        showSkills(!isShowingSkills);
+        break;
+
+      case SECTION_TITLE.FEATURES_TRAITS:
+        showFeatureTraits(!isShowingFeatureTraits);
+        break;
+
+      case SECTION_TITLE.WEAPONS:
+        showWeapons(!isShowingWeapons);
+        break;
+
+      case SECTION_TITLE.SPELL_SLOTS:
+        showSpellSlots(!isShowingSpellSlots);
+        break;
+
+      case SECTION_TITLE.SPELLS:
+        showSpells(!isShowingSpells);
+        break;
+
+      case SECTION_TITLE.PROFICIENCIES:
+        showProficiencies(!isShowingProficiencies);
+        break;
+
+      case SECTION_TITLE.EQUIPMENT:
+        showEquipment(!isShowingEquipment);
+        break;
+
+      case SECTION_TITLE.LANGUAGES:
+        showLanguages(!isShowingLanguages);
+        break;
+
+      case SECTION_TITLE.TREASURES:
+        showTreasures(!isShowingTreasures);
+        break;
+
+      default:
+      // console.log("at default");
     }
   }
 
@@ -132,9 +179,9 @@ export default function CharacterPage() {
         <Background character={character} />
       </section>
 
-      <section className="character-view text-center px-2">
-        <div className="d-flex justify-content-between" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
-          <div className="d-flex">
+      <section className="character-view text-center">
+        <div className="character-view-header">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
             <h2 className="section-title">
               Character Info
             </h2>
@@ -153,19 +200,17 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-
       <section className="character-view text-center">
-        <div className="d-flex justify-content-center">
-          <h2 className="section-title" type="button" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
-            Ability Scores
-          </h2>
-
-          <button className="btn button-chevron" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+            <h2 className="section-title">
+              Ability Scores
+            </h2>
             {isShowingScores ?
-              <i className="bi bi-chevron-down" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up" aria-label="chevron-up"></i>
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
             }
-          </button>
+          </div>
 
           <button className="btn btn-secondary button-edit">Edit</button>
         </div>
@@ -177,57 +222,217 @@ export default function CharacterPage() {
       </section>
 
       <section className="character-view text-center">
-        <SavingThrows character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)} data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
+            <h2 className="section-title">
+              Saving Throws
+            </h2>
+            {isShowingSavingThrows ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-saving-throws" className="collapse show fs-3">
+          <SavingThrows character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Skills character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SKILLS)} data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
+            <h2 className="section-title">
+              Skills
+            </h2>
+            {isShowingSkills ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-skills" className="collapse show fs-3">
+          <Skills character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <FeaturesTraits character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-feature-traits">
+            <h2 className="section-title">
+              Features & Traits
+            </h2>
+            {isShowingFeatureTraits ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-feature-traits" className="collapse show fs-3">
+          <FeaturesTraits character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Weapons character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
+            <h2 className="section-title">
+              Weapons
+            </h2>
+            {isShowingWeapons ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-weapons" className="collapse show fs-3">
+          <Weapons character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <SpellSlots character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)} data-bs-toggle="collapse" data-bs-target="#character-view-spell-slots" aria-expanded="false" aria-controls="character-view-spell-slots">
+            <h2 className="section-title">
+              Spell Slots
+            </h2>
+            {isShowingSpellSlots ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-spell-slots" className="collapse show fs-3">
+          <SpellSlots character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Spells character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELLS)} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
+            <h2 className="section-title">
+              Spells
+            </h2>
+            {isShowingSpells ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-spells" className="collapse show fs-3">
+          <Spells character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Proficiencies character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)} data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
+            <h2 className="section-title">
+              Proficiencies
+            </h2>
+            {isShowingProficiencies ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-proficiencies" className="collapse show fs-3">
+          <Proficiencies character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Equipment character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)} data-bs-toggle="collapse" data-bs-target="#character-view-equipment" aria-expanded="false" aria-controls="character-view-equipment">
+            <h2 className="section-title">
+              Equipment
+            </h2>
+            {isShowingEquipment ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-equipment" className="collapse show fs-3">
+          <Equipment character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Languages character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)} data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
+            <h2 className="section-title">
+              Languages
+            </h2>
+            {isShowingLanguages ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-languages" className="collapse show fs-3">
+          <Languages character={character} />
+        </section>
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <Treasures character={character} />
+        <div className="character-view-header">
+          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.TREASURES)} data-bs-toggle="collapse" data-bs-target="#character-view-treasures" aria-expanded="false" aria-controls="character-view-treasures">
+            <h2 className="section-title">
+              Treasures
+            </h2>
+            {isShowingTreasures ?
+              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+            }
+          </div>
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-treasures" className="collapse show fs-3">
+          <Treasures character={character} />
+        </section>
         <hr />
       </section>
 
-      <div className="backup-character">
-
+      <div className="backup-character mb-5">
+        <button>backup character</button>
       </div>
 
     </div>
