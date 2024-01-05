@@ -26,8 +26,12 @@ section.character-view {
   background-color: var(--light-background);
 }
 
+/* Make titles have a uniform spaced box around them, and try to keep it center */
 .section-title {
-  max-width: fit-content;
+  min-width: 240px;
+  max-width: 300px;
+  text-align: center;
+  margin-left: 115px;
 }
 
 .button-edit {
@@ -100,6 +104,12 @@ section.character-view {
 @media screen and (max-width: 992px) {
   section.character-view {
     width: 80%;
+  }
+  
+  .section-title {
+    min-width: fit-content;
+    text-align: start;
+    margin-left: 0px;
   }
 
   .character-view-header {
