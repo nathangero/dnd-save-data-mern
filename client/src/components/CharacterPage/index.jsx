@@ -43,6 +43,8 @@ export default function CharacterPage() {
   const { characterId } = useParams();
 
   const [jumpToMenu, setJumpToMenu] = useState(null);
+  const [isShowingInfo, showInfo] = useState(true);
+  const [isShowingScores, showScores] = useState(true);
 
   const character = new Character(characters[characterId]);
 
@@ -63,6 +65,26 @@ export default function CharacterPage() {
       const sectionTop = sectionElement.getBoundingClientRect().top;
       const adjustedScrollTop = sectionTop + window.scrollY - 100;
       window.scrollTo({ top: adjustedScrollTop, behavior: 'smooth' });
+    }
+  }
+
+  const toggleSectionShowing = (sectionId) => {
+    console.log("@toggleSectionShowing");
+    console.log("sectionId:", sectionId);
+    switch (sectionId) {
+      case SECTION_TITLE.CHARACTER_INFO:
+        console.log("@CHARACTER_INFO");
+        showInfo(!isShowingInfo);
+        break;
+
+      case SECTION_TITLE.ABILITY_SCORES:
+        console.log("@ABILITY_SCORES");
+        showScores(!isShowingScores);
+        break;
+
+      default:
+        console.log("at default");
+        break;
     }
   }
 
@@ -87,7 +109,7 @@ export default function CharacterPage() {
         <div id="menu-jump-to" className="collapse">
           <div className="d-flex justify-content-end">
             <div className="menu-proper">
-              <ul className="list-unstyled fs-4" role="button">
+              <ul className="list-unstyled fs-4 mb-0" role="button">
                 <li onClick={() => scrollToSection(SECTION_TITLE.BACKGROUND)}>Background</li>
                 <li onClick={() => scrollToSection(SECTION_TITLE.CHARACTER_INFO)}>Character Info</li>
                 <li onClick={() => scrollToSection(SECTION_TITLE.ABILITY_SCORES)}>Ability Scores</li>
@@ -107,19 +129,48 @@ export default function CharacterPage() {
         </div>
       </nav>
 
-
       <section id="character-view-background" className="text-center fs-4">
         <Background character={character} />
       </section>
 
       <section className="character-view-info text-center w-75">
-        <CharacterInfo character={character} />
+        <div className="d-flex">
+          <h2 className="section-title" type="button" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
+            Character Info
+          </h2>
+
+          {isShowingInfo ?
+            <i className="bi bi-chevron-down custom-chevron" aria-label="chevron-down"></i> :
+            <i className="bi bi-chevron-up custom-chevron" aria-label="chevron-up"></i>
+          }
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-info" className="collapse show fs-3 m-auto">
+          <CharacterInfo character={character} />
+        </section>
         <hr />
       </section>
 
 
       <section className="character-view-scores text-center w-75">
-        <AbilityScores character={character} />
+        <div className="d-flex">
+          <h2 className="section-title" type="button" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+            Ability Scores
+          </h2>
+
+          {isShowingScores ?
+            <i className="bi bi-chevron-down custom-chevron" aria-label="chevron-down"></i> :
+            <i className="bi bi-chevron-up custom-chevron" aria-label="chevron-up"></i>
+          }
+
+          <button className="btn btn-secondary button-edit">Edit</button>
+        </div>
+
+        <section id="character-view-scores" className="collapse show fs-3 m-auto">
+          <AbilityScores character={character} />
+        </section>
         <hr />
       </section>
 
@@ -174,7 +225,7 @@ export default function CharacterPage() {
       </section>
 
       <div className="backup-character">
-        
+
       </div>
 
     </div>

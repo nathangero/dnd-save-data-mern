@@ -54,7 +54,7 @@ nav {
   border-bottom: 2px solid var(--bs-nav-tab-border);
   /* border-right: 2px solid var(--bs-nav-tab-border); */
   border-radius: 0px 0px 0px 5px;
-  max-height: 210px;
+  /* max-height: 210px; */
   max-width: 220px;
   overflow-y: auto;
   margin-top: -4px;
@@ -67,7 +67,19 @@ nav {
   padding: 5px 7px;
 }
 
+/* Don't have a separator at the end of the list */
+.menu-proper ul li:last-child {
+  border-bottom: none;
+}
+
+.custom-chevron {
+  font-size: 30px;
+}
+
 @media screen and (max-width: 1024px) {
+  .character-page section {
+    width: 80%;
+  }
   
   .button-edit {
     right: 50px;
@@ -76,6 +88,7 @@ nav {
   .menu-proper {
     width: 25%;
     left: 20px;
+    max-height: 310px;
   }
 }
 
@@ -97,10 +110,11 @@ nav {
   .menu-proper {
     width: 25%;
     left: 20px;
+    max-height: 310px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .character-page section {
     width: 100%;
   }
@@ -118,5 +132,6 @@ nav {
   .menu-proper {
     width: 50%;
     left: 20px;
+    max-height: 210px;
   }
 }

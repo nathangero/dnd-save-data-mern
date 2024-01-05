@@ -18,6 +18,10 @@
 
 [Vite chunking](https://github.com/vitejs/vite/discussions/9440#discussioncomment-5913798)
 
+[D&D Proficiency Bonus formula](https://rpg.stackexchange.com/a/77495)
+
+[D&D Ability Score formula](https://roll20.net/compendium/dnd5e/Ability%20Scores#content)
+
 ### Resources
 
 [D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
