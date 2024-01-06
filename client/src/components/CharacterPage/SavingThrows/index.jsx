@@ -2,7 +2,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES } from "../../../utils/enums";
-import { calcScoreMod } from "../../../utils/shared-functions";
+import { calcSavingThrow } from "../../../utils/shared-functions";
 
 export default function SavingThrows(props) {
   const character = new Character(props.character);
@@ -21,7 +21,7 @@ export default function SavingThrows(props) {
               </div>
               <p className="mb-0">{ABILITY_SCORE_NAMES[score.toUpperCase()]}</p>
             </div>
-            <b>{calcScoreMod(character.scores[score])}</b>
+            <b>{calcSavingThrow(character.scores[score], character.level, character.savingThrows[score], true)}</b>
           </li>
         ))}
       </ul>

@@ -18,7 +18,7 @@ export default function CharacterInfo(props) {
       </div>
       <div className="stat-row">
         <p>Initiative</p>
-        <b>{calcScoreMod(character.scores.dex)}</b>
+        <b>{calcScoreMod(character.scores.dex, true)}</b>
       </div>
       <div className="stat-row">
         <p>Speed (ft.)</p>
@@ -50,15 +50,15 @@ export default function CharacterInfo(props) {
       </div>
       <div className="stat-row">
         <p>Proficiency Bonus</p>
-        <b>{calcProficiencyBonus(character.level)}</b>
+        <b>{calcProficiencyBonus(character.level, true)}</b>
       </div>
       <div className="stat-row">
         <p>Passive Perception</p>
-        <b>{calcPassivePerception(character.scores.wis, character.skills.perception)}</b>
+        <b>{calcPassivePerception(character.scores.wis, character.level, character.skills.perception, true)}</b>
       </div>
       <div className="stat-row">
         <p>Spell Casting Stat</p>
-        <b>{getScoreName(character.spellCastStat)}</b>
+        <b>{getScoreName(character.spellCastStat, true)}</b>
       </div>
       <div className="stat-row">
         <p>Inspiration</p>

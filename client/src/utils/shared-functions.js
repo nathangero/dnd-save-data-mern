@@ -1,14 +1,23 @@
-export const calcProficiencyBonus = (level) => {
-  return getStatBonusSign(1 + Math.ceil(level/4));
+export const calcPassivePerception = (wis, level, proficient, showSign = false) => {
+  const bonus = proficient ? calcProficiencyBonus(level) : 0;
+  const calc = 10 + calcScoreMod(wis) + bonus;
+  return showSign ? getStatBonusSign(calc) : calc;
 }
 
-export const calcPassivePerception = (wis, level, proficient) => {
-  let bonus = proficient ? calcProficiencyBonus(level) : 0
-  return getStatBonusSign(10 + calcScoreMod(wis) + bonus)
+export const calcProficiencyBonus = (level, showSign = false) => {
+  const calc = 1 + Math.ceil(level/4);
+  return showSign ? getStatBonusSign(calc) : calc;
 }
 
-export const calcScoreMod = (score) => {
-  return getStatBonusSign(Math.floor((score - 10) / 2));
+export const calcSavingThrow = (score, level, proficient, showSign = false) => {
+  const bonus = proficient ? calcProficiencyBonus(level) : 0;
+  const calc = calcScoreMod(score) + bonus;
+  return showSign ? getStatBonusSign(calc) : calc;
+}
+
+export const calcScoreMod = (score, showSign = false) => {
+  const calc = Math.floor((score - 10) / 2);
+  return showSign ? getStatBonusSign(calc) : calc;
 }
 
 export const getScoreName = (score) => {
