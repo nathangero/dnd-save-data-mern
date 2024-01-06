@@ -13,7 +13,7 @@ import Treasures from "./treasures";
 import SpellSlots from "./spellSlots";
 import Spells from "./spells";
 import Skills from "./skills";
-import SavingThrows from "./savingThrows";
+import SavingThrows from "./SavingThrows";
 import Proficiencies from "./proficiencies";
 import Languages from "./languages";
 import FeaturesTraits from "./featuresTraits";
@@ -202,7 +202,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
             <h2 className="section-title">
               Ability Scores
             </h2>
@@ -223,7 +223,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)} data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)} data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
             <h2 className="section-title">
               Saving Throws
             </h2>
@@ -244,7 +244,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SKILLS)} data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SKILLS)} data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
             <h2 className="section-title">
               Skills
             </h2>
@@ -265,7 +265,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-feature-traits">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-feature-traits">
             <h2 className="section-title">
               Features & Traits
             </h2>
@@ -286,7 +286,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
             <h2 className="section-title">
               Weapons
             </h2>
@@ -307,7 +307,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)} data-bs-toggle="collapse" data-bs-target="#character-view-spell-slots" aria-expanded="false" aria-controls="character-view-spell-slots">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)} data-bs-toggle="collapse" data-bs-target="#character-view-spell-slots" aria-expanded="false" aria-controls="character-view-spell-slots">
             <h2 className="section-title">
               Spell Slots
             </h2>
@@ -328,7 +328,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELLS)} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SPELLS)} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
             <h2 className="section-title">
               Spells
             </h2>
@@ -349,7 +349,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)} data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)} data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
             <h2 className="section-title">
               Proficiencies
             </h2>
@@ -370,7 +370,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)} data-bs-toggle="collapse" data-bs-target="#character-view-equipment" aria-expanded="false" aria-controls="character-view-equipment">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)} data-bs-toggle="collapse" data-bs-target="#character-view-equipment" aria-expanded="false" aria-controls="character-view-equipment">
             <h2 className="section-title">
               Equipment
             </h2>
@@ -391,7 +391,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)} data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)} data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
             <h2 className="section-title">
               Languages
             </h2>
@@ -412,7 +412,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" onClick={() => toggleSectionShowing(SECTION_TITLE.TREASURES)} data-bs-toggle="collapse" data-bs-target="#character-view-treasures" aria-expanded="false" aria-controls="character-view-treasures">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.TREASURES)} data-bs-toggle="collapse" data-bs-target="#character-view-treasures" aria-expanded="false" aria-controls="character-view-treasures">
             <h2 className="section-title">
               Treasures
             </h2>

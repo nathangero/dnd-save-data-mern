@@ -15,3 +15,11 @@ export const ABILITY_SCORE_NAMES = {
   WIS: "Wisdom",
   CHA: "Charisma"
 }
+
+export const SKILL_KEYS = {
+
+}
+
+export const SKILL_NAMES = {
+  
+}

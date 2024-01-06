@@ -1,0 +1,5 @@
+.bi-p-square::before {
+  border-radius: 5px;
+  background-color: var(--button-positive-color);
+  color: white;
+}

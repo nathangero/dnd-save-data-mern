@@ -6,6 +6,21 @@ nav {
   border-bottom: 1px solid var(--bs-nav-tab-border);
 }
 
+section.character-view {
+  width: 50%;
+}
+
+.button-edit {
+  font-size: larger;
+}
+
+.button-chevron {
+  font-size: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+  margin: 0;
+}
+
 .character-page {
   display: flex;
   flex-direction: column;
@@ -17,26 +32,16 @@ nav {
   justify-content: center;
 }
 
-section.character-view {
-  width: 50%;
-}
-
 .character-page nav {
   max-height: 50px;
   background-color: var(--light-background);
 }
 
-/* Make titles have a uniform spaced box around them, and try to keep it center */
-.section-title {
-  min-width: 240px;
-  max-width: 300px;
-  text-align: center;
-  margin-left: 115px;
-}
-
-.button-edit {
-  font-size: larger;
-}
+/* .checkbox {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+} */
 
 .menu-bar {
   display: flex;
@@ -77,12 +82,17 @@ section.character-view {
   border-bottom: none;
 }
 
-.button-chevron {
-  font-size: 30px;
-  margin-right: 20px;
-  cursor: pointer;
-  margin: 0;
-  /* width: 60px; */
+/* Make titles have a uniform spaced box around them, and try to keep it center */
+.section-title {
+  min-width: 240px;
+  max-width: 300px;
+  text-align: center;
+  margin-left: 115px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 1024px) {
