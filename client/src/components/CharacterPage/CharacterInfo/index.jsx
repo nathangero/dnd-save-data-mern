@@ -10,59 +10,59 @@ export default function CharacterInfo(props) {
     <>
       <div className="stat-row">
         <p>Level</p>
-        <p>{character.level}</p>
+        <b>{character.level}</b>
       </div>
       <div className="stat-row">
         <p>Armor Class</p>
-        <p>{character.armor}</p>
+        <b>{character.armor}</b>
       </div>
       <div className="stat-row">
         <p>Initiative</p>
-        <p>{calcScoreMod(character.scores.dex)}</p>
+        <b>{calcScoreMod(character.scores.dex)}</b>
       </div>
       <div className="stat-row">
         <p>Speed (ft.)</p>
-        <p>{character.speed}</p>
+        <b>{character.speed}</b>
       </div>
       <div className="stat-row">
         <p>Current HP</p>
-        <p>{character.hp.current}/{character.hp.max}</p>
+        <b>{character.hp.current}/{character.hp.max}</b>
       </div>
       <div className="stat-row">
         <p>Temp HP</p>
-        <p>{character.hp.temp}</p>
+        <b>{character.hp.temp}</b>
       </div>
       <div className="stat-row">
         <p>HP Die Type</p>
-        <p>{character.hp.dieType}</p>
+        <b>{character.hp.dieType}</b>
       </div>
       <div className="stat-row">
         <p>HP Die Count</p>
-        <p>{character.hp.dieAmountCurrent}/{character.hp.dieAmountMax}</p>
+        <b>{character.hp.dieAmountCurrent}/{character.hp.dieAmountMax}</b>
       </div>
       <div className="stat-row">
         <p>Death Save Successes</p>
-        <p>{character.deathSaves.successes}/3</p>
+        <b>{character.deathSaves.successes}/3</b>
       </div>
       <div className="stat-row">
         <p>Death Save Failures</p>
-        <p>{character.deathSaves.failures}</p>
+        <b>{character.deathSaves.failures}/3</b>
       </div>
       <div className="stat-row">
         <p>Proficiency Bonus</p>
-        <p>{calcProficiencyBonus(character.level)}</p>
+        <b>{calcProficiencyBonus(character.level)}</b>
       </div>
       <div className="stat-row">
         <p>Passive Perception</p>
-        <p>{calcPassivePerception(character.scores.wis, character.skills.perception)}</p>
+        <b>{calcPassivePerception(character.scores.wis, character.skills.perception)}</b>
       </div>
       <div className="stat-row">
         <p>Spell Casting Stat</p>
-        <p>{getScoreName(character.spellCastStat)}</p>
+        <b>{getScoreName(character.spellCastStat)}</b>
       </div>
       <div className="stat-row">
         <p>Inspiration</p>
-        <p>{character.inspiration}</p>
+        <b>{character.inspiration}</b>
       </div>
     </>
   )

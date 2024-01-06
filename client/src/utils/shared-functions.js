@@ -1,14 +1,14 @@
 export const calcProficiencyBonus = (level) => {
-  return 1 + Math.ceil(level/4);
+  return getStatBonusSign(1 + Math.ceil(level/4));
 }
 
 export const calcPassivePerception = (wis, level, proficient) => {
   let bonus = proficient ? calcProficiencyBonus(level) : 0
-  return 10 + calcScoreMod(wis) + bonus
+  return getStatBonusSign(10 + calcScoreMod(wis) + bonus)
 }
 
 export const calcScoreMod = (score) => {
-  return Math.floor((score - 10) / 2);
+  return getStatBonusSign(Math.floor((score - 10) / 2));
 }
 
 export const getScoreName = (score) => {
@@ -30,5 +30,13 @@ export const getScoreName = (score) => {
 
     case "wis":
       return "Wisdom";
+  }
+}
+
+export const getStatBonusSign = (stat) => {
+  if (stat < 0) {
+    return stat // the negative will already be apart of the number
+  } else {
+    return "+" + stat
   }
 }

@@ -7,7 +7,7 @@ import { Character } from "../../models/Character";
 import ROUTES from "../../utils/routes";
 import Background from "./Background";
 import CharacterInfo from "./CharacterInfo";
-import AbilityScores from "./scores";
+import AbilityScores from "./AbilityScores";
 import Weapons from "./weapons";
 import Treasures from "./treasures";
 import SpellSlots from "./spellSlots";
