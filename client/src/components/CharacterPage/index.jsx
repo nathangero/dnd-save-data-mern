@@ -164,7 +164,7 @@ export default function CharacterPage() {
       </section>
 
       <section className="character-view text-center">
-        <div className="character-view-header">
+        {/* <div className="character-view-header">
           <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
             <h2 className="section-title">
               Character Info
@@ -176,11 +176,15 @@ export default function CharacterPage() {
           </div>
 
           <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
+        </div> */}
 
-        <section id="character-view-info" className="collapse show fs-3">
-          <CharacterInfo character={character} />
-        </section>
+        {/* <section id="character-view-info" className="collapse show fs-3"> */}
+          <CharacterInfo
+            character={character}
+            toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
+            isShowingInfo={isShowingInfo}
+          />
+        {/* </section> */}
         <hr />
       </section>
 
