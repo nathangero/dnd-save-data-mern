@@ -164,90 +164,38 @@ export default function CharacterPage() {
       </section>
 
       <section className="character-view text-center">
-        {/* <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
-            <h2 className="section-title">
-              Character Info
-            </h2>
-            {isShowingInfo ?
-              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-            }
-          </div>
-
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div> */}
-
-        {/* <section id="character-view-info" className="collapse show fs-3"> */}
-          <CharacterInfo
-            character={character}
-            toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
-            isShowingInfo={isShowingInfo}
-          />
-        {/* </section> */}
+        <CharacterInfo
+          character={character}
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
+          isShowingInfo={isShowingInfo}
+        />
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
-            <h2 className="section-title">
-              Ability Scores
-            </h2>
-            {isShowingScores ?
-              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-            }
-          </div>
-
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <section id="character-view-scores" className="collapse show fs-3 m-auto">
-          <AbilityScores character={character} />
-        </section>
+        <AbilityScores
+          character={character}
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)}
+          isShowingScores={isShowingScores}
+        />
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)} data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
-            <h2 className="section-title">
-              Saving Throws
-            </h2>
-            {isShowingSavingThrows ?
-              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-            }
-          </div>
-
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <section id="character-view-saving-throws" className="collapse show fs-3">
-          <SavingThrows character={character} />
-        </section>
+        <SavingThrows
+          character={character}
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)}
+          isShowingSavingThrows={isShowingSavingThrows}
+        />
         <hr />
       </section>
 
       <section className="character-view text-center">
-        <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.SKILLS)} data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
-            <h2 className="section-title">
-              Skills
-            </h2>
-            {isShowingSkills ?
-              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-            }
-          </div>
-
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
-
-        <section id="character-view-skills" className="collapse show fs-3">
-          <Skills character={character} />
-        </section>
+        <Skills
+          character={character}
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SKILLS)}
+          isShowingSkills={isShowingSkills}
+        />
         <hr />
       </section>
 
