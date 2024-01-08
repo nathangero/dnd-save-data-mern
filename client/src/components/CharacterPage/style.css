@@ -126,7 +126,7 @@ section.character-view {
 
 /* Make titles have a uniform spaced box around them, and try to keep it center */
 .section-title {
-  min-width: 240px;
+  min-width: 217px;
   max-width: 300px;
   text-align: center;
   margin-left: 115px;
