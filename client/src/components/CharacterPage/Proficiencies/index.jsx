@@ -4,24 +4,24 @@ import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
-export default function FeaturesTraits(props) {
+export default function Proficiencies(props) {
   const character = new Character(props.character);
 
   const [jumpToMenu, setMenu] = useState({});
 
   useEffect(() => {
     // Make jump to menu
-    setMenu(makeJumpToForSection(character.featureTraits));
+    setMenu(makeJumpToForSection(character.proficiencies));
   }, [])
 
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex " role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
-          <h2 className="section-title feats">
-            Features & Traits
+        <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
+          <h2 className="section-title proficiencies">
+            Proficiencies
           </h2>
-          {props.isShowingFeatureTraits ?
+          {props.isShowingProficiencies ?
             <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
             <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
           }
@@ -43,22 +43,10 @@ export default function FeaturesTraits(props) {
         </div>
       </div>
 
-      <div id="character-view-features-traits" className="collapse show">
-        {character.featureTraits?.map((item, index) => (
+      <div id="character-view-proficiencies" className="collapse show">
+        {character.proficiencies?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name}</u></h3>
-            <div className="stat-row">
-              <p>Uses</p>
-              <b>{item.uses}</b>
-            </div>
-            <div className="stat-row">
-              <p>Trait Type</p>
-              <b>{item.traitType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Action Type</p>
-              <b>{item.actionType}</b>
-            </div>
             <p className="description">{item.description}</p>
 
             <hr />
@@ -69,8 +57,8 @@ export default function FeaturesTraits(props) {
   )
 }
 
-FeaturesTraits.propTypes = {
+Proficiencies.propTypes = {
   character: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
-  isShowingFeatureTraits: PropTypes.bool,
+  isShowingProficiencies: PropTypes.bool,
 }
