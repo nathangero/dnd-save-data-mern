@@ -12,7 +12,7 @@ import Weapons from "./weapons";
 import Treasures from "./treasures";
 import SpellSlots from "./spellSlots";
 import Spells from "./spells";
-import Skills from "./skills";
+import Skills from "./Skills";
 import SavingThrows from "./SavingThrows";
 import Proficiencies from "./proficiencies";
 import Languages from "./languages";

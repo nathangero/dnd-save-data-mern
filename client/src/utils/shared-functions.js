@@ -9,7 +9,7 @@ export const calcProficiencyBonus = (level, showSign = false) => {
   return showSign ? getStatBonusSign(calc) : calc;
 }
 
-export const calcSavingThrow = (score, level, proficient, showSign = false) => {
+export const calcScoreWithProficiency = (score, level, proficient, showSign = false) => {
   const bonus = proficient ? calcProficiencyBonus(level) : 0;
   const calc = calcScoreMod(score) + bonus;
   return showSign ? getStatBonusSign(calc) : calc;

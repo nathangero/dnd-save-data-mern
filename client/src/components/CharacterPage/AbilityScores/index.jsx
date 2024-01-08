@@ -11,7 +11,7 @@ export default function AbilityScores(props) {
     <>
       {Object.values(ABILITY_SCORE_KEYS).map((score, index) => (
         <div key={index} className="stat-row">
-          <p>{ABILITY_SCORE_NAMES[score.toUpperCase()]} <i>({character.scores[score]})</i></p>
+          <p>{ABILITY_SCORE_NAMES[score]} <i>({character.scores[score]})</i></p>
           <b>{calcScoreMod(character.scores[score], true)}</b>
         </div>
       ))}
