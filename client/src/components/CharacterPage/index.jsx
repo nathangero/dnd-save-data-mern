@@ -16,7 +16,7 @@ import Skills from "./Skills";
 import SavingThrows from "./SavingThrows";
 import Proficiencies from "./proficiencies";
 import Languages from "./languages";
-import FeaturesTraits from "./featuresTraits";
+import FeaturesTraits from "./FeaturesTraits";
 import Equipment from "./equipment";
 import { useEffect, useState } from "react";
 import { SECTION_TITLE } from "../../utils/enums";
