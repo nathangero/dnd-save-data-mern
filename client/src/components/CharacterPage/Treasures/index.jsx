@@ -27,19 +27,24 @@ export default function Treasures(props) {
           }
         </div>
 
-        <div className="d-flex align-items-baseline">
-          <div className="dropdown">
-            <button className="btn dropdown-toggle button-menu-jump me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div className="dropdown">
+          <div className={props.isShowingTreasures ? "d-flex align-items-baseline" : "d-flex flex-row-reverse align-items-baseline"}>
+            <button
+              className={props.isShowingTreasures ? "btn dropdown-toggle button-menu-jump me-3" : "btn dropdown-toggle button-menu-jump me-3 hide-dropdown"}
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               Jump to
             </button>
+            <button className="btn button-edit">Edit</button>
+
             <ul className="dropdown-menu">
               {Object.keys(jumpToMenu).map((key, index) => (
                 <li key={index} className="btn dropdown-item" onClick={() => scrollToListItem(jumpToMenu[key], document, window)}>{key}</li>
               ))}
             </ul>
           </div>
-
-          <button className="btn button-edit">Edit</button>
         </div>
       </div>
 
