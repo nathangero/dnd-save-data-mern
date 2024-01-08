@@ -19,23 +19,7 @@ import Languages from "./languages";
 import FeaturesTraits from "./featuresTraits";
 import Equipment from "./equipment";
 import { useEffect, useState } from "react";
-
-const SECTION_TITLE = {
-  BACKGROUND: "character-view-background",
-  CHARACTER_INFO: "character-view-info",
-  ABILITY_SCORES: "character-view-scores",
-  SAVING_THROWS: "character-view-saving-throws",
-  SKILLS: "character-view-skills",
-  FEATURES_TRAITS: "character-view-features-traits",
-  WEAPONS: "character-view-weapons",
-  SPELL_SLOTS: "character-view-spell-slots",
-  SPELLS: "character-view-spells",
-  PROFICIENCIES: "character-view-proficiencies",
-  EQUIPMENT: "character-view-equipment",
-  LANGUAGES: "character-view-languages",
-  TREASURES: "character-view-treasures",
-  BACKUP: "backup-character",
-}
+import { SECTION_TITLE } from "../../utils/enums";
 
 export default function CharacterPage() {
 
@@ -265,7 +249,7 @@ export default function CharacterPage() {
 
       <section className="character-view text-center">
         <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-feature-traits" aria-expanded="false" aria-controls="character-view-feature-traits">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
             <h2 className="section-title">
               Features & Traits
             </h2>
@@ -278,7 +262,7 @@ export default function CharacterPage() {
           <button className="btn btn-secondary button-edit">Edit</button>
         </div>
 
-        <section id="character-view-feature-traits" className="collapse show fs-3">
+        <section id="character-view-features-traits" className="collapse show fs-3">
           <FeaturesTraits character={character} />
         </section>
         <hr />

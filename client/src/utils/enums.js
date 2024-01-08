@@ -1,3 +1,21 @@
+export const SECTION_TITLE = {
+  BACKGROUND: "character-view-background",
+  CHARACTER_INFO: "character-view-info",
+  ABILITY_SCORES: "character-view-scores",
+  SAVING_THROWS: "character-view-saving-throws",
+  SKILLS: "character-view-skills",
+  FEATURES_TRAITS: "character-view-features-traits",
+  WEAPONS: "character-view-weapons",
+  SPELL_SLOTS: "character-view-spell-slots",
+  SPELLS: "character-view-spells",
+  PROFICIENCIES: "character-view-proficiencies",
+  EQUIPMENT: "character-view-equipment",
+  LANGUAGES: "character-view-languages",
+  TREASURES: "character-view-treasures",
+  BACKUP: "backup-character",
+}
+
+
 export const ABILITY_SCORE_KEYS = {
   STR: "str",
   DEX: "dex",
