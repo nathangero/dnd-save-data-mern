@@ -248,27 +248,11 @@ export default function CharacterPage() {
       </section>
 
       <section className="character-view text-center">
-        {/* <div className="character-view-header">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
-            <h2 className="section-title">
-              Features & Traits
-            </h2>
-            {isShowingFeatureTraits ?
-              <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-              <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-            }
-          </div>
-
-          <button className="btn btn-secondary button-edit">Edit</button>
-        </div> */}
-
-        <section className="collapse show fs-3">
-          <FeaturesTraits 
-          character={character} 
-          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} 
+        <FeaturesTraits
+          character={character}
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)}
           isShowingFeatureTraits={isShowingFeatureTraits}
-          />
-        </section>
+        />
         <hr />
       </section>
 

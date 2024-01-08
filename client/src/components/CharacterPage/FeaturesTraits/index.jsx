@@ -37,7 +37,7 @@ export default function FeaturesTraits(props) {
   }
 
   return (
-    <>
+    <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
         <div className="d-flex " role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
           <h2 className="section-title">
@@ -65,7 +65,7 @@ export default function FeaturesTraits(props) {
         </div>
       </div>
 
-      <div id="character-view-features-traits">
+      <div id="character-view-features-traits" className="collapse show">
         {character.featureTraits?.map((feat, index) => (
           <div key={index} id={makeIdFromName(feat.name)}>
             <h3><u>{feat.name}</u></h3>
@@ -88,7 +88,7 @@ export default function FeaturesTraits(props) {
         ))}
       </div>
 
-    </>
+    </div>
   )
 }
 
