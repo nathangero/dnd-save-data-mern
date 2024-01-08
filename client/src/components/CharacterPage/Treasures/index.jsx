@@ -1,6 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
+import { makeIdFromName } from "../../../utils/shared-functions";
 
 export default function Treasures(props) {
   const character = new Character(props.character);
@@ -22,7 +23,14 @@ export default function Treasures(props) {
         </div>
 
         <div id="character-view-treasures" className="collapse show">
-          PLACEHOLDER
+        {character.treasures?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name} x({item.amount})</u></h3>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
         </div>
     </div>
   )
