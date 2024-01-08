@@ -20,10 +20,10 @@ section.character-view {
 }
 
 .button-edit {
-  /* font-size: large; */
   background-color: gray;
   color: white;
   padding: 5px 10px;
+  height: 40px;
 }
 
 .button-edit:hover {

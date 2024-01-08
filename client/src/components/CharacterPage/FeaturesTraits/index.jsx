@@ -49,7 +49,7 @@ export default function FeaturesTraits(props) {
           }
         </div>
 
-        <div className="d-flex">
+        <div className="d-flex align-items-baseline">
           <div className="dropdown">
             <button className="btn dropdown-toggle button-menu-jump me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Jump to
