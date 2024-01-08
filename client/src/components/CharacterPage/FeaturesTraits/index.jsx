@@ -38,9 +38,9 @@ export default function FeaturesTraits(props) {
 
   return (
     <div className="fs-3">
-      <div className="character-view-header sticky-top">
+      <div className="character-view-header sticky-top pt-1">
         <div className="d-flex " role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
-          <h2 className="section-title">
+          <h2 className="section-title feats">
             Features & Traits
           </h2>
           {props.isShowingFeatureTraits ?

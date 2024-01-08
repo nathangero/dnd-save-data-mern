@@ -9,7 +9,7 @@ export default function AbilityScores(props) {
 
   return (
     <div className="fs-3">
-      <div className="character-view-header sticky-top">
+      <div className="character-view-header sticky-top pt-1">
         <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
           <h2 className="section-title">
             Ability Scores

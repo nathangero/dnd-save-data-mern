@@ -132,6 +132,10 @@ section.character-view {
   margin-left: 115px;
 }
 
+.section-title.feats {
+  margin-left: 210px
+}
+
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -166,6 +170,10 @@ section.character-view {
     min-width: fit-content;
     text-align: start;
     margin-left: 0px;
+  }
+
+  .section-title.feats {
+    margin-left: 0;
   }
 
   .character-view-header {

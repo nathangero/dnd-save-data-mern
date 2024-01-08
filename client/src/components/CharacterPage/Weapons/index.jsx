@@ -1,18 +1,18 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../models/Character";
+import { Character } from "../../../models/Character";
 
-export default function Languages(props) {
+export default function Weapons(props) {
   const character = new Character(props.character);
 
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-          <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
+          <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
             <h2 className="section-title">
-              Languages
+              Weapons
             </h2>
-            {props.isShowingLanguages ?
+            {props.isShowingWeapons ?
               <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
               <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
             }
@@ -21,15 +21,15 @@ export default function Languages(props) {
           <button className="btn btn-secondary button-edit">Edit</button>
         </div>
 
-        <div id="character-view-languages" className="collapse show">
+        <div id="character-view-weapons" className="collapse show">
           PLACEHOLDER
         </div>
     </div>
   )
 }
 
-Languages.propTypes = {
+Weapons.propTypes = {
   character: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
-  isShowingLanguages: PropTypes.bool,
+  isShowingWeapons: PropTypes.bool,
 }
