@@ -6,12 +6,34 @@ nav {
   border-bottom: 1px solid var(--bs-nav-tab-border);
 }
 
+nav.sticky-top {
+  top: 0;
+  z-index: 9999;
+}
+
 section.character-view {
   width: 50%;
 }
 
+.btn {
+  font-size: large;
+}
+
 .button-edit {
-  font-size: larger;
+  /* font-size: large; */
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+.button-edit:hover {
+  background-color: dimgrey;
+  color: white;
+}
+
+.btn.button-edit:active {
+  background-color: slategray;
+  color: white;
 }
 
 .button-chevron {
@@ -19,6 +41,17 @@ section.character-view {
   margin-right: 20px;
   cursor: pointer;
   margin: 0;
+}
+
+.button-menu-jump {
+  background-color: var(--button-positive-color);
+  border-color: var(--button-positive-color);
+  color: white;
+}
+
+.button-menu-jump:hover {
+  background-color: var(--button-positive-hover-color);
+  color: white;
 }
 
 .character-page {
@@ -30,10 +63,12 @@ section.character-view {
 .character-view-header {
   display: flex;
   justify-content: center;
+  height: 50px;
+  background-color: white;
 }
 
 .character-page nav {
-  max-height: 50px;
+  max-height: 56.66px;
   background-color: var(--light-background);
 }
 
@@ -42,6 +77,13 @@ section.character-view {
   height: 30px;
   margin-right: 20px;
 } */
+
+.description {
+  text-align: start;
+  border: 2px solid var(--bs-description-border);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
 
 .menu-bar {
   display: flex;
@@ -52,7 +94,7 @@ section.character-view {
 
 .menu-bar .btn {
   background-color: var(--button-positive-color);
-  border-color: var(--button-positive-color);;
+  border-color: var(--button-positive-color);
 }
 
 .menu-proper {
@@ -67,7 +109,7 @@ section.character-view {
   /* max-height: 210px; */
   max-width: 220px;
   overflow-y: auto;
-  margin-top: -4px;
+  /* margin-top: -1px; */
 }
 
 .menu-proper ul li {
@@ -93,6 +135,10 @@ section.character-view {
 .stat-row {
   display: flex;
   justify-content: space-between;
+}
+
+.sticky-top {
+  top: 56px;
 }
 
 @media screen and (max-width: 1024px) {

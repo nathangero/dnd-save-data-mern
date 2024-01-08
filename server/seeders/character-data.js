@@ -27,7 +27,14 @@ const characterData = [
         name: "Space Jump",
         traitType: "Other",
         uses: 999
-      }
+      },
+      {
+        actionType: "Bonus",
+        description: "Get a full turn again but no more bonus actions",
+        name: "Action Surge",
+        traitType: "Class",
+        uses: 1
+      },
     ],
     gold: 20,
     hp: {

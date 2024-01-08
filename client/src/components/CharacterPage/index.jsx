@@ -139,7 +139,7 @@ export default function CharacterPage() {
         <div id="menu-jump-to" className="collapse">
           <div className="d-flex justify-content-end">
             <div className="menu-proper">
-              <ul className="list-unstyled fs-4 mb-0" role="button">
+              <ul className="list-unstyled fs-4 " role="button">
                 <li onClick={() => scrollToSection(SECTION_TITLE.BACKGROUND)}>Background</li>
                 <li onClick={() => scrollToSection(SECTION_TITLE.CHARACTER_INFO)}>Character Info</li>
                 <li onClick={() => scrollToSection(SECTION_TITLE.ABILITY_SCORES)}>Ability Scores</li>
@@ -159,7 +159,7 @@ export default function CharacterPage() {
         </div>
       </nav>
 
-      <section id="character-view-background" className="text-center fs-4">
+      <section id="character-view-background" className="text-center fs-4 mt-3">
         <Background character={character} />
       </section>
 
@@ -248,7 +248,7 @@ export default function CharacterPage() {
       </section>
 
       <section className="character-view text-center">
-        <div className="character-view-header">
+        {/* <div className="character-view-header">
           <div className="d-flex" role="button" onClick={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
             <h2 className="section-title">
               Features & Traits
@@ -260,10 +260,14 @@ export default function CharacterPage() {
           </div>
 
           <button className="btn btn-secondary button-edit">Edit</button>
-        </div>
+        </div> */}
 
-        <section id="character-view-features-traits" className="collapse show fs-3">
-          <FeaturesTraits character={character} />
+        <section className="collapse show fs-3">
+          <FeaturesTraits 
+          character={character} 
+          toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)} 
+          isShowingFeatureTraits={isShowingFeatureTraits}
+          />
         </section>
         <hr />
       </section>

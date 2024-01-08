@@ -22,6 +22,8 @@
 
 [D&D Ability Score formula](https://roll20.net/compendium/dnd5e/Ability%20Scores#content)
 
+[Bootstrap double sticky top](https://stackoverflow.com/questions/49984241/bootstrap-4-navbar-fixed-top-and-other-sticky-top-elements)
+
 ### Resources
 
 [D&D Icon](https://icons8.com/icon/104704/dungeons-and-dragons)
