@@ -132,10 +132,6 @@ section.character-view {
   margin-left: 115px;
 }
 
-.section-title.feats {
-  margin-left: 210px
-}
-
 .stat-row {
   display: flex;
   justify-content: space-between;

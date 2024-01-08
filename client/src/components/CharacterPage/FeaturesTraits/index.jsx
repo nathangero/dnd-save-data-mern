@@ -2,39 +2,17 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
+import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
 export default function FeaturesTraits(props) {
   const character = new Character(props.character);
 
   const [jumpToMenu, setMenu] = useState({});
+
   useEffect(() => {
     // Make jump to menu
-    character.featureTraits?.map(feat => {
-      const id = makeIdFromName(feat.name);
-      const copy = jumpToMenu; // Make a copy of the current list
-      copy[feat.name] = id; // Add the new name with its div id
-      setMenu(copy); // Save it
-    })
+    setMenu(makeJumpToForSection(character.featureTraits));
   }, [])
-
-  /**
-   * Creates a div id from the feature/trait name
-   * @param {String} name Feature/Trait name
-   * @returns A string of the name lowercased and spaces replacecd with dashes 
-   */
-  const makeIdFromName = (name) => {
-    const id = name.toLowerCase().split(" ").join("-");
-    return id;
-  }
-
-  const scrollTo = (id) => {
-    const sectionElement = document.getElementById(id);
-    if (sectionElement) {
-      const sectionTop = sectionElement.getBoundingClientRect().top;
-      const adjustedScrollTop = sectionTop + window.scrollY - 105;
-      window.scrollTo({ top: adjustedScrollTop, behavior: 'smooth' });
-    }
-  }
 
   return (
     <div className="fs-3">
@@ -56,7 +34,7 @@ export default function FeaturesTraits(props) {
             </button>
             <ul className="dropdown-menu">
               {Object.keys(jumpToMenu).map((key, index) => (
-                <li key={index} className="btn dropdown-item" onClick={() => scrollTo(jumpToMenu[key])}>{key}</li>
+                <li key={index} className="btn dropdown-item" onClick={() => scrollToListItem(jumpToMenu[key], document, window)}>{key}</li>
               ))}
             </ul>
           </div>
@@ -66,22 +44,22 @@ export default function FeaturesTraits(props) {
       </div>
 
       <div id="character-view-features-traits" className="collapse show">
-        {character.featureTraits?.map((feat, index) => (
-          <div key={index} id={makeIdFromName(feat.name)}>
-            <h3><u>{feat.name}</u></h3>
+        {character.featureTraits?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name}</u></h3>
             <div className="stat-row">
               <p>Uses</p>
-              <b>{feat.uses}</b>
+              <b>{item.uses}</b>
             </div>
             <div className="stat-row">
               <p>Trait Type</p>
-              <b>{feat.traitType}</b>
+              <b>{item.traitType}</b>
             </div>
             <div className="stat-row">
               <p>Action Type</p>
-              <b>{feat.actionType}</b>
+              <b>{item.actionType}</b>
             </div>
-            <p className="description">{feat.description}</p>
+            <p className="description">{item.description}</p>
 
             <hr />
           </div>
