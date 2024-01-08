@@ -1,6 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
+import { makeIdFromName } from "../../../utils/shared-functions";
 
 export default function Languages(props) {
   const character = new Character(props.character);
@@ -22,7 +23,15 @@ export default function Languages(props) {
         </div>
 
         <div id="character-view-languages" className="collapse show">
-          PLACEHOLDER
+          {character.languages?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <div className="stat-row">
+              <p>{item.name}</p>
+              <b>{item.proficiency}</b>
+            </div>
+            <hr />
+          </div>
+        ))}
         </div>
     </div>
   )
