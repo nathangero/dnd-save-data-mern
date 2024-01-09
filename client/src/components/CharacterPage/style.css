@@ -67,6 +67,7 @@ section.character-view {
 .character-view-header {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 50px;
   background-color: white;
 }
@@ -154,7 +155,7 @@ section.character-view {
   section.character-view {
     width: 80%;
   }
-  
+
   .button-edit {
     right: 50px;
   }
@@ -178,7 +179,7 @@ section.character-view {
   .hide-dropdown {
     display: none;
   }
-  
+
   .section-title {
     min-width: fit-content;
     text-align: start;
@@ -216,7 +217,7 @@ section.character-view {
     width: 100%;
     padding: 0px 10px;
   }
-  
+
   .button-edit {
     right: 10px;
   }
