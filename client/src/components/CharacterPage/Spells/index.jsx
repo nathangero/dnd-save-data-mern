@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, scrollToListItem } from "../../../utils/shared-functions";
-import { SPELL_NAMES } from "../../../utils/enums";
+import { SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 
 export default function Spells(props) {
   const character = new Character(props.character);
@@ -63,39 +63,60 @@ export default function Spells(props) {
   }
 
   /**
-   * Iterates through the spells of the user and checks if the spell level has spells to iterate through.
-   * If there are spells, then iterate over all the spells where the spell name is the key, and its id is the value.
-   * If there are *no* spells, then just skip it.
+   * Goes through all the spell levels and calls the helper function `makeSpellObject` to add any spells for a specific spell level to the spell menu.
    * 
-   * E.G. If spell level Cantrips has 2 Cantrips called "Eldritch Blast" and "Fire Bolt", the object returning will look like:
-   * {
-   *   Cantrips: {
-   *    "Eldritch Blast": spell-cantrip-eldritch-blast,
-   *    "Fire Bolt": spell-cantrip-fire-bolt
-   *   },
-   * }
+   * This specifically calls all 10 spell levels instead of using a loop to avoid having nested loops. Since `makeSpellObject` uses a loop,
+   * naming each spell level specifically prevents a nested loop.
+   * 
    * @param {String} spellLevel 
    * @returns An object containing the spell level and the names of the spells in the corresponding level for the dropdown menu.
    */
   const makeJumpToSpells = () => {
-    const jumpToMenu = {};
+    const fullSpellMenu = {};
 
-    Object.keys(character.spells)?.map(spellLevel => {
-      if (!SPELL_NAMES[spellLevel]) return; // Ignore _typename and _id
-      if (!character.spells[spellLevel].length > 0) return; // Ignore any spell level that doesn't have spells
-      jumpToMenu[spellLevel] = [];
+    makeSpellObject(SPELL_KEYS.CANTRIPS, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_1, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_2, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_3, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_4, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_5, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_6, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_7, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_8, fullSpellMenu);
+    makeSpellObject(SPELL_KEYS.LEVEL_9, fullSpellMenu);
 
-      character.spells[spellLevel]?.map(spell => {
-        const id = makeIdFromSpell(spellLevel, spell.name);
-        jumpToMenu[spellLevel][spell.name] = id; // Add the new name with its div id
-      });
+    return fullSpellMenu;
+  }
 
-      console.log("jumpToMenu:", jumpToMenu);
-      console.log("Object.keys(jumpToMenu):", Object.keys(jumpToMenu));
-      console.log("Object.keys(jumpToMenu[cantrips]):", Object.keys(jumpToMenu["cantrips"]));
+  /**
+   * This loops through the character's spells inside of a spell level, takes the name and converts it to an HTML element id, and then updates the `menu` object.
+   * 
+   * First it checks if there are any spells associated with that spell level.
+   * If nothing, then end the function and don't update the menu.
+   * If something, then iterate through it and make a new object where the key is the spell name and the value is the new id.
+   * Then update the `menu` with the new object.
+   * 
+   * Example of how the new object will look
+   * If spell level Cantrips has 2 Cantrips called "Eldritch Blast" and "Fire Bolt", the object returning will look like:
+   *   Cantrips: {
+   *    "Eldritch Blast": spell-cantrip-eldritch-blast,
+   *    "Fire Bolt": spell-cantrip-fire-bolt
+   *   }
+   * @param {String} spellLevel 
+   * @param {Object} menu Object that's updated inside the function
+   * @returns 
+   */
+  const makeSpellObject = (spellLevel, menu) => {
+    if (character.spells[spellLevel].length === 0) return; // Ignore any spell level that doesn't have spells
+
+    const spells = {};
+
+    character.spells[spellLevel]?.map(spell => {
+      const id = makeIdFromSpell(spellLevel, spell.name);
+      spells[spell.name] = id; // Add the new name with its div id
     });
 
-    return jumpToMenu;
+    menu[spellLevel] = spells; // Update the menu's spell level with the object of spells
   }
 
   return (
@@ -114,7 +135,7 @@ export default function Spells(props) {
         <div className="dropdown">
           <div className="d-flex align-items-baseline">
             <button className="btn button-edit">Edit</button>
-            
+
             <button
               className={props.isShowingSpells ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"

@@ -132,7 +132,7 @@ export default function CharacterPage() {
           </div>
 
           <div className="">
-            <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#menu-jump-to" aria-expanded="false" aria-controls="menu-jump-to">Jump to</button>
+            <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#menu-jump-to" aria-expanded="false" aria-controls="menu-jump-to">Jump to Section</button>
           </div>
         </div>
 

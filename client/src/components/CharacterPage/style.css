@@ -163,7 +163,7 @@ section.character-view {
   .menu-proper {
     width: 25%;
     left: 20px;
-    max-height: 310px;
+    /* max-height: 310px; */
   }
 }
 
@@ -208,7 +208,7 @@ section.character-view {
   .menu-proper {
     width: 25%;
     left: 20px;
-    max-height: 310px;
+    /* max-height: 310px; */
   }
 }
 
@@ -231,6 +231,6 @@ section.character-view {
   .menu-proper {
     width: 50%;
     left: 20px;
-    max-height: 210px;
+    /* max-height: 210px; */
   }
 }
