@@ -51,8 +51,9 @@ export const getStatBonusSign = (stat) => {
 }
 
 /**
- * Creates a div id from the feature/trait name
- * @param {String} name Feature/Trait name
+ * Creates a div id from the name given.
+ * E.G. If the name is "Action Surge", it'll return "action-surge"
+ * @param {String} name
  * @returns A string of the name lowercased and spaces replacecd with dashes 
  */
 export const makeIdFromName = (name) => {

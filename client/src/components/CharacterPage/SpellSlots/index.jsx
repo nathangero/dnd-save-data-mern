@@ -7,10 +7,10 @@ export default function SpellSlots(props) {
   const character = new Character(props.character);
 
   /**
- * Creates a div id from the feature/trait name
- * @param {String} name Feature/Trait name
- * @returns A string of the name lowercased and spaces replacecd with dashes 
- */
+   * Creates a div id from the spell name
+   * @param {String} name Feature/Trait name
+   * @returns A string of the name lowercased and spaces replacecd with dashes 
+   */
   const makeIdFromSpellSlot = (name) => {
     const id = `spell-slot-${name.toLowerCase().split("_").join("-")}`;
     return id;

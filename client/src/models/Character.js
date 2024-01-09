@@ -21,6 +21,7 @@ export function Character(character) {
   this.speed = character.speed
   this.spellCastStat = character.spellCastStat
   this.spellSlots = character.spellSlots
+  this.spells = character.spells
   this.timeCreated = Date.now
   this.treasures = character.treasures
   this.weapons = character.weapons

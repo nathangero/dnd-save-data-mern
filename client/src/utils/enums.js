@@ -98,6 +98,7 @@ export const SKILL_NAME_SCORES = {
 }
 
 export const SPELL_KEYS = {
+  CANTRIPS: "cantrips",
   LEVEL_1: "level_1",
   LEVEL_2: "level_2",
   LEVEL_3: "level_3",
@@ -110,6 +111,7 @@ export const SPELL_KEYS = {
 }
 
 export const SPELL_NAMES = {
+  [SPELL_KEYS.CANTRIPS]: "Cantrips",
   [SPELL_KEYS.LEVEL_1]: "Level 1",
   [SPELL_KEYS.LEVEL_2]: "Level 2",
   [SPELL_KEYS.LEVEL_3]: "Level 3",
