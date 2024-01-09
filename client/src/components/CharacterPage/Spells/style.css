@@ -1,12 +1,9 @@
 .button-menu-jump.to-spell {
-  margin-right: 50px;
+  margin-left: 60px;
 }
 
 .spell-level {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-left: 143px;
+  padding-left: 47px;
 }
 
 .section-title.spells {
@@ -21,12 +18,9 @@
 }
 
 @media screen and (max-width: 992px) {
-  .button-menu-jump.to-spell {
-    margin-right: 0px;
-  }
-
   .spell-level {
-    padding-left: 0px;
+    align-items: baseline;
+    padding-left: 0;
   }
 
   .section-title.spells {

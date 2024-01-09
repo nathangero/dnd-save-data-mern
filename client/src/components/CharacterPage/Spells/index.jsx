@@ -140,12 +140,12 @@ export default function Spells(props) {
                 {!character.spells[spellLevel]?.length > 0 ? null : // Only show spell levels that have spells
                   <div key={index} id={makeIdFromSpellLevel(spellLevel)} className="">
                     <div className="spell-info">
-                      <div className="sticky-top align-items-baseline pb-3 spell-level">
-                        <h3 className="spell-level"><b><u>{SPELL_NAMES[spellLevel]}</u></b></h3>
+                      <div className="character-view-header sticky-top align-items-baseline pb-3 spell-level">
+                        <h3 className="section-title"><b><u>{SPELL_NAMES[spellLevel]}</u></b></h3>
 
                         <div className="dropdown">
                           <button
-                            className="btn dropdown-toggle ms-3 button-menu-jump to-spell"
+                            className="btn dropdown-toggle button-menu-jump to-spell"
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
