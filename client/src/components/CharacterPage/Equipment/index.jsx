@@ -28,9 +28,9 @@ export default function Equipment(props) {
         </div>
 
         <div className="dropdown">
-        <div className="d-flex align-items-baseline justify-content-between w-100">
+          <div className="d-flex align-items-baseline justify-content-between w-100">
             <button className="btn button-edit">Edit</button>
-            
+
             <button
               className={props.isShowingEquipment ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"
