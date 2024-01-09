@@ -166,6 +166,10 @@ section.character-view {
   section.character-view {
     width: 80%;
   }
+
+  h3 {
+    text-align: start;
+  }
   
   .section-title {
     min-width: fit-content;

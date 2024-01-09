@@ -85,7 +85,9 @@ export default function Spells(props) {
               <div key={index} id={makeIdFromSpellLevel(spellLevel)} className="">
                 {!character.spells[spellLevel].length > 0 ? null : // Only show spell levels that have spells
                   <> {/* Show the spell info */}
-                    <p className="sticky-top spell-level"><b><u>{SPELL_NAMES[spellLevel]}</u></b></p>
+                    <div className="sticky-top spell-level">
+                      <h3><b><u>{SPELL_NAMES[spellLevel]}</u></b></h3>
+                    </div>
                     {character.spells[spellLevel]?.map((spell, spellIndex) => (
                       <div key={spellIndex}>
                         <p className="text-start"><b>{spell.name}</b></p>
