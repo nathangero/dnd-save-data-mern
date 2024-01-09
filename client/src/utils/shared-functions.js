@@ -67,11 +67,11 @@ export const makeIdFromName = (name) => {
  * @param {Document} document The document where the id is
  * @param {Window} window The window that will scroll to the id
  */
-export const scrollToListItem = (id, document, window) => {
+export const scrollToListItem = (id, document, window, offset = 105) => {
   const sectionElement = document.getElementById(id);
   if (sectionElement) {
     const sectionTop = sectionElement.getBoundingClientRect().top;
-    const adjustedScrollTop = sectionTop + window.scrollY - 105;
+    const adjustedScrollTop = sectionTop + window.scrollY - offset;
     window.scrollTo({ top: adjustedScrollTop, behavior: 'smooth' });
   }
 }
