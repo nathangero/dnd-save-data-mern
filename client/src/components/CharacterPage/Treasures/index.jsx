@@ -28,16 +28,17 @@ export default function Treasures(props) {
         </div>
 
         <div className="dropdown">
-          <div className={props.isShowingTreasures ? "d-flex align-items-baseline" : "d-flex flex-row-reverse align-items-baseline"}>
+          <div className="d-flex align-items-baseline justify-content-between w-100">
+            <button className="btn button-edit">Edit</button>
+
             <button
-              className={props.isShowingTreasures ? "btn dropdown-toggle button-menu-jump me-3" : "btn dropdown-toggle button-menu-jump me-3 hide-dropdown"}
+              className={props.isShowingTreasures ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Jump to
             </button>
-            <button className="btn button-edit">Edit</button>
 
             <ul className="dropdown-menu">
               {Object.keys(jumpToMenu).map((key, index) => (

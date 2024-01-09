@@ -89,6 +89,10 @@ section.character-view {
   padding: 5px 10px;
 }
 
+.hide-dropdown {
+  visibility: hidden;
+}
+
 .menu-bar {
   display: flex;
   justify-content: space-between;
@@ -169,6 +173,10 @@ section.character-view {
 
   h3 {
     text-align: start;
+  }
+
+  .hide-dropdown {
+    display: none;
   }
   
   .section-title {

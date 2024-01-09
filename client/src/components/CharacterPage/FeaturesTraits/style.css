@@ -2,10 +2,6 @@
   margin-left: 212px;
 }
 
-.hide-dropdown {
-  visibility: hidden;
-}
-
 @media screen and (max-width: 992px) {
   .section-title.feats {
     margin-left: 0;

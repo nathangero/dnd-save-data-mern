@@ -112,16 +112,17 @@ export default function Spells(props) {
         </div>
 
         <div className="dropdown">
-          <div className={props.isShowingSpells ? "d-flex align-items-baseline" : "d-flex flex-row-reverse align-items-baseline"}>
+          <div className="d-flex align-items-baseline">
+            <button className="btn button-edit">Edit</button>
+            
             <button
-              className={props.isShowingSpells ? "btn dropdown-toggle button-menu-jump me-3" : "btn dropdown-toggle button-menu-jump me-3 hide-dropdown"}
+              className={props.isShowingSpells ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Jump to level
             </button>
-            <button className="btn button-edit">Edit</button>
 
             <ul className="dropdown-menu">
               {Object.keys(jumpToMenu).map((key, index) => (
