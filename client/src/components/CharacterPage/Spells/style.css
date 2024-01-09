@@ -2,6 +2,13 @@
   margin-left: 230px
 }
 
+.sticky-top.spell-level {
+  top: calc(var(--sticky-top-under-nav) + 43px);
+  background-color: white;
+  z-index: 9997;
+
+}
+
 @media screen and (max-width: 992px) {
   .section-title.spells {
     margin-left: 0;

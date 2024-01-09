@@ -1,3 +1,7 @@
+:root {
+  --sticky-top-under-nav: 56px;
+}
+
 hr {
   min-width: 100% !important;
 }
@@ -138,7 +142,8 @@ section.character-view {
 }
 
 .sticky-top {
-  top: 56px;
+  top: var(--sticky-top-under-nav);
+  z-index: 9998;
 }
 
 @media screen and (max-width: 1024px) {
