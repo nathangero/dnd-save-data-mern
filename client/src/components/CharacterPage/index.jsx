@@ -26,7 +26,7 @@ export default function CharacterPage() {
   const { characters } = useSelector(state => state.user);
   const { characterId } = useParams();
 
-  const [jumpToMenu, setJumpToMenu] = useState(null);
+  // const [jumpToMenu, setJumpToMenu] = useState(null);
 
   const [isShowingInfo, showInfo] = useState(true);
   const [isShowingScores, showScores] = useState(true);
@@ -45,8 +45,8 @@ export default function CharacterPage() {
 
   useEffect(() => {
     // Initiate menu
-    const jumpMenu = document.getElementById("menu-jump-to");
-    setJumpToMenu(new Collapse(jumpMenu, { toggle: false })); // Keep menu closed upon creation
+    // const jumpMenu = document.getElementById("menu-jump-to");
+    // setJumpToMenu(new Collapse(jumpMenu, { toggle: false })); // Keep menu closed upon creation
   }, [])
 
   /**
@@ -54,7 +54,7 @@ export default function CharacterPage() {
    * @param {String} sectionId The div id
    */
   const scrollToSection = (sectionId) => {
-    jumpToMenu.hide(); // Close the jump-to menu after clicking a link
+    // jumpToMenu.hide(); // Close the jump-to menu after clicking a link
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
       const sectionTop = sectionElement.getBoundingClientRect().top;
@@ -125,36 +125,37 @@ export default function CharacterPage() {
           <div>
             <Link
               to={ROUTES.CHARACTERS}
-              className="btn btn-primary rounded"
+              className="btn button-go-back"
             >
               <i className="bi bi-chevron-left"></i> Characters
             </Link>
           </div>
+          
+          <div className="dropdown-center">
+            <button
+              className="btn dropdown-toggle button-menu-jump ms-3"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Jump to Section
+            </button>
 
-          <div className="">
-            <button className="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#menu-jump-to" aria-expanded="false" aria-controls="menu-jump-to">Jump to Section</button>
-          </div>
-        </div>
-
-        <div id="menu-jump-to" className="collapse">
-          <div className="d-flex justify-content-end">
-            <div className="menu-proper">
-              <ul className="list-unstyled fs-4 " role="button">
-                <li onClick={() => scrollToSection(SECTION_TITLE.BACKGROUND)}>Background</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.CHARACTER_INFO)}>Character Info</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.ABILITY_SCORES)}>Ability Scores</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.SAVING_THROWS)}>Saving Throws</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.SKILLS)}>Skills</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.FEATURES_TRAITS)}>Features & Traits</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.WEAPONS)}>Weapons</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.SPELL_SLOTS)}>Spell Slots</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.SPELLS)}>Spells</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.PROFICIENCIES)}>Proficiencies</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.EQUIPMENT)}>Equipment</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.LANGUAGES)}>Languages</li>
-                <li onClick={() => scrollToSection(SECTION_TITLE.TREASURES)}>Treasures</li>
-              </ul>
-            </div>
+            <ul className="dropdown-menu menu-proper py-0 fs-5">
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.BACKGROUND)}>Background</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.CHARACTER_INFO)}>Character Info</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.ABILITY_SCORES)}>Ability Scores</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.SAVING_THROWS)}>Saving Throws</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.SKILLS)}>Skills</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.FEATURES_TRAITS)}>Features & Traits</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.WEAPONS)}>Weapons</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.SPELL_SLOTS)}>Spell Slots</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.SPELLS)}>Spells</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.PROFICIENCIES)}>Proficiencies</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.EQUIPMENT)}>Equipment</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.LANGUAGES)}>Languages</li>
+              <li className="dropdown-item" onClick={() => scrollToSection(SECTION_TITLE.TREASURES)}>Treasures</li>
+            </ul>
           </div>
         </div>
       </nav>

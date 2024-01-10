@@ -47,13 +47,14 @@ section.character-view {
   margin: 0;
 }
 
-.button-menu-jump {
+.button-menu-jump, .button-go-back, .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active  {
   background-color: var(--button-positive-color);
   border-color: var(--button-positive-color);
   color: white;
 }
 
-.button-menu-jump:hover {
+.button-menu-jump:hover,
+.button-go-back:hover {
   background-color: var(--button-positive-hover-color);
   color: white;
 }
@@ -77,12 +78,6 @@ section.character-view {
   background-color: var(--light-background);
 }
 
-/* .checkbox {
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
-} */
-
 .description {
   text-align: start;
   border: 2px solid var(--bs-description-border);
@@ -101,27 +96,22 @@ section.character-view {
   margin: 0 auto;
 }
 
-.menu-bar .btn {
-  background-color: var(--button-positive-color);
-  border-color: var(--button-positive-color);
-}
-
 .menu-proper {
   position: relative;
   background-color: var(--light-background);
   text-align: left;
   width: 20%;
+  border-top: none;
   border-left: 2px solid var(--bs-nav-tab-border);
   border-bottom: 2px solid var(--bs-nav-tab-border);
-  /* border-right: 2px solid var(--bs-nav-tab-border); */
-  border-radius: 0px 0px 0px 5px;
-  /* max-height: 210px; */
+  border-radius: 0 0 5px 5px;
   max-width: 220px;
   overflow-y: auto;
-  /* margin-top: -1px; */
+  cursor: pointer;
+  margin-top: 5px !important;
 }
 
-.menu-proper ul li {
+.menu-proper .dropdown-item {
   border-bottom: 2px solid var(--bs-nav-tab-border);
   width: 100%;
   margin: 0;
@@ -129,7 +119,7 @@ section.character-view {
 }
 
 /* Don't have a separator at the end of the list */
-.menu-proper ul li:last-child {
+.menu-proper .dropdown-item:last-child {
   border-bottom: none;
 }
 
