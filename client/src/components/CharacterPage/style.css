@@ -1,0 +1,226 @@
+:root {
+  --sticky-top-under-nav: 55px;
+}
+
+hr {
+  min-width: 100% !important;
+}
+
+nav {
+  border-bottom: 1px solid var(--bs-nav-tab-border);
+}
+
+nav.sticky-top {
+  top: 0;
+  z-index: 9999;
+}
+
+section.character-view {
+  width: 50%;
+}
+
+.btn {
+  font-size: large;
+}
+
+.button-edit {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  height: 40px;
+}
+
+.button-edit:hover {
+  background-color: dimgrey;
+  color: white;
+}
+
+.btn.button-edit:active {
+  background-color: slategray;
+  color: white;
+}
+
+.button-chevron {
+  font-size: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.button-menu-jump, .button-go-back, .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active  {
+  background-color: var(--button-positive-color);
+  border-color: var(--button-positive-color);
+  color: white;
+}
+
+.button-menu-jump:hover,
+.button-go-back:hover {
+  background-color: var(--button-positive-hover-color);
+  color: white;
+}
+
+.character-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.character-view-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: white;
+}
+
+.character-page nav {
+  max-height: 56.66px;
+  background-color: var(--light-background);
+}
+
+.description {
+  text-align: start;
+  border: 2px solid var(--bs-description-border);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.hide-dropdown {
+  visibility: hidden;
+}
+
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.menu-proper {
+  position: relative;
+  background-color: var(--light-background);
+  text-align: left;
+  width: 20%;
+  border-top: none;
+  border-left: 2px solid var(--bs-nav-tab-border);
+  border-bottom: 2px solid var(--bs-nav-tab-border);
+  border-radius: 0 0 5px 5px;
+  max-width: 220px;
+  overflow-y: auto;
+  cursor: pointer;
+  margin-top: 5px !important;
+}
+
+.menu-proper .dropdown-item {
+  border-bottom: 2px solid var(--bs-nav-tab-border);
+  width: 100%;
+  margin: 0;
+  padding: 5px 7px;
+}
+
+/* Don't have a separator at the end of the list */
+.menu-proper .dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/* Make titles have a uniform spaced box around them, and try to keep it center */
+.section-title {
+  min-width: 217px;
+  max-width: 300px;
+  text-align: center;
+  margin-left: 115px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sticky-top {
+  top: var(--sticky-top-under-nav);
+  z-index: 9998;
+}
+
+@media screen and (max-width: 1024px) {
+  section.character-view {
+    width: 80%;
+  }
+
+  .button-edit {
+    right: 50px;
+  }
+
+  .menu-proper {
+    width: 25%;
+    left: 20px;
+    /* max-height: 310px; */
+  }
+}
+
+@media screen and (max-width: 992px) {
+  section.character-view {
+    width: 80%;
+  }
+
+  h3 {
+    text-align: start;
+  }
+
+  .hide-dropdown {
+    display: none;
+  }
+
+  .section-title {
+    min-width: fit-content;
+    text-align: start;
+    margin-left: 0px;
+  }
+
+  .section-title.feats {
+    margin-left: 0;
+  }
+
+  .character-view-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .button-edit {
+    right: 20px;
+  }
+
+  .menu-bar {
+    width: 80%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .menu-proper {
+    width: 25%;
+    left: 20px;
+    /* max-height: 310px; */
+  }
+}
+
+@media screen and (max-width: 767px) {
+  section.character-view {
+    width: 100%;
+    padding: 0px 10px;
+  }
+
+  .button-edit {
+    right: 10px;
+  }
+
+  .menu-bar {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .menu-proper {
+    width: 50%;
+    left: 20px;
+    /* max-height: 210px; */
+  }
+}

@@ -8,10 +8,8 @@ const resolvers = {
     getMe: async (parent, args, context) => {
       try {
         if (!context.user) {
-          console.log("no user found");
+          // console.log("no user found");
           throw ErrorAuthentication;
-        } else {
-          console.log("context.user:", context.user);
         }
 
         const user = await User.findOne({

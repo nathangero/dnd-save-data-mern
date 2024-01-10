@@ -14,7 +14,6 @@ export const CHARACTER_ACTIONS = {
 
 const initialState = {
   user: null,
-  characters: null,
 }
 
 export const reducer = (state = initialState, action) => {

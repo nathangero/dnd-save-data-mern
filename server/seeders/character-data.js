@@ -27,7 +27,14 @@ const characterData = [
         name: "Space Jump",
         traitType: "Other",
         uses: 999
-      }
+      },
+      {
+        actionType: "Bonus",
+        description: "Get a full turn again but no more bonus actions",
+        name: "Action Surge",
+        traitType: "Class",
+        uses: 1
+      },
     ],
     gold: 20,
     hp: {
@@ -113,16 +120,16 @@ const characterData = [
           "description": "blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff blows up stuff ",
           "duration": 23,
           "durationType": "seconds",
+          "name": "asdf",
           "range": 32,
-          "name": "asdf"
         },
         {
           "castingTime": 11,
           "description": "does something cool does something cool does something cool does something cool does something cool does something cool does something cool does something cool ",
           "duration": 0,
           "durationType": "instant",
+          "name": "fdsa asdf",
           "range": 111,
-          "name": "fdsa"
         }
       ],
       "level_1": [

@@ -12,6 +12,12 @@
   box-shadow: 0px 0px 20px gray;
 }
 
+.link-to-page {
+  color: black;
+  text-decoration: none;
+}
+
+
 @media screen and (max-width: 1200px) {
   .summary {
     width: 40%;

@@ -27,7 +27,7 @@ export default function Nav() {
       <header>
         <nav className="nav nav-tabs justify-content-between">
           <div className="mx-2 mt-1">
-            <button className="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="side-menu">
+            <button className="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="side-menu" aria-label="side menu button toggle">
               <i className="bi bi-list fs-1"></i>
             </button>
 
@@ -55,7 +55,7 @@ export default function Nav() {
               <Link
                 to="/campaigns"
                 className={
-                  useLocation().pathname === "/campaigns" ?
+                  useLocation().pathname === ROUTES.CAMPAIGNS ?
                     "nav-link active" :
                     "nav-link"
                 }
@@ -68,7 +68,7 @@ export default function Nav() {
               <Link
                 to="/characters"
                 className={
-                  useLocation().pathname === "/characters" ?
+                  useLocation().pathname.includes(ROUTES.CHARACTERS) ?
                     "nav-link active" :
                     "nav-link"
                 }
@@ -81,7 +81,7 @@ export default function Nav() {
               <Link
                 to="/sessions"
                 className={
-                  useLocation().pathname === "/sessions" ?
+                  useLocation().pathname === ROUTES.SESSIONS ?
                     "nav-link active" :
                     "nav-link"
                 }

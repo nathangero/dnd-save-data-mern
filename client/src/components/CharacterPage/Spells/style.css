@@ -1,0 +1,29 @@
+.button-menu-jump.to-spell {
+  margin-left: 128px;
+}
+
+.spell-level {
+  padding-left: 163px;
+}
+
+.section-title.spells {
+  margin-left: 278px;
+}
+
+.sticky-top.spell-level {
+  top: calc(var(--sticky-top-under-nav) + 48px);
+  background-color: white;
+  z-index: 9997;
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .spell-level {
+    align-items: baseline;
+    padding-left: 0;
+  }
+
+  .section-title.spells {
+    margin-left: 0;
+  }
+}
