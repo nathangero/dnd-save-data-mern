@@ -2,7 +2,6 @@ import "./style.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Collapse } from "bootstrap/dist/js/bootstrap.min.js";
 import { Character } from "../../models/Character";
 import ROUTES from "../../utils/routes";
 import Background from "./Background";
@@ -18,7 +17,7 @@ import Proficiencies from "./Proficiencies";
 import Languages from "./Languages";
 import FeaturesTraits from "./FeaturesTraits";
 import Equipment from "./Equipment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SECTION_TITLE } from "../../utils/enums";
 
 export default function CharacterPage() {
@@ -26,7 +25,6 @@ export default function CharacterPage() {
   const { characters } = useSelector(state => state.user);
   const { characterId } = useParams();
 
-  // const [jumpToMenu, setJumpToMenu] = useState(null);
 
   const [isShowingInfo, showInfo] = useState(true);
   const [isShowingScores, showScores] = useState(true);
@@ -43,18 +41,11 @@ export default function CharacterPage() {
 
   const character = new Character(characters[characterId]);
 
-  useEffect(() => {
-    // Initiate menu
-    // const jumpMenu = document.getElementById("menu-jump-to");
-    // setJumpToMenu(new Collapse(jumpMenu, { toggle: false })); // Keep menu closed upon creation
-  }, [])
-
   /**
    * Scroll to the appropriate section title.
    * @param {String} sectionId The div id
    */
   const scrollToSection = (sectionId) => {
-    // jumpToMenu.hide(); // Close the jump-to menu after clicking a link
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
       const sectionTop = sectionElement.getBoundingClientRect().top;
