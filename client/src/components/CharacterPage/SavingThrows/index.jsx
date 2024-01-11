@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES } from "../../../utils/enums";
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
-export default function SavingThrows({ char, toggleSectionShowing, isShowingSavingThrows, isEditing }) {
+export default function SavingThrows({ char, toggleSectionShowing, isShowingSavingThrows, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   return (
@@ -20,7 +20,7 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
           }
         </div>
 
-        <button className="btn btn-secondary button-edit">Edit</button>
+        <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
       <div id="character-view-saving-throws" className="collapse show">
@@ -49,5 +49,6 @@ SavingThrows.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingSavingThrows: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

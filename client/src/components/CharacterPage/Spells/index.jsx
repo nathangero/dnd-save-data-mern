@@ -6,7 +6,7 @@ import { scrollToListItem } from "../../../utils/shared-functions";
 import { SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 import SpellList from "./spellList";
 
-export default function Spells({ char, toggleSectionShowing, isShowingSpells, isEditing }) {
+export default function Spells({ char, toggleSectionShowing, isShowingSpells, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   const [jumpToLevel, setMenu] = useState({});
@@ -60,7 +60,7 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, is
 
         <div className="dropdown">
           <div className="d-flex align-items-baseline">
-            <button className="btn button-edit">Edit</button>
+            <button className="btn button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
 
             <button
               className={isShowingSpells ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
@@ -129,5 +129,6 @@ Spells.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingSpells: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

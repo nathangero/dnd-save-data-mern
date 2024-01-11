@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
 
-export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, isEditing }) {
+export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   const renderEditing = () => {
@@ -90,7 +90,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
           }
         </div>
 
-        <button className="btn btn-secondary button-edit">Edit</button>
+        <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
       {isEditing ?
@@ -105,5 +105,6 @@ CharacterInfo.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingInfo: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

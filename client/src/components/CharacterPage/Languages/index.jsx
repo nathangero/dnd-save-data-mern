@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { makeIdFromName } from "../../../utils/shared-functions";
 
-export default function Languages({ char, toggleSectionShowing, isShowingLanguages, isEditing }) {
+export default function Languages({ char, toggleSectionShowing, isShowingLanguages, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   return (
@@ -19,7 +19,7 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
             }
           </div>
 
-          <button className="btn btn-secondary button-edit">Edit</button>
+          <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
         </div>
 
         <div id="character-view-languages" className="collapse show">
@@ -41,5 +41,6 @@ Languages.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingLanguages: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

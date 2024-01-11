@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
-export default function Skills({ char, toggleSectionShowing, isShowingSkills, isEditing }) {
+export default function Skills({ char, toggleSectionShowing, isShowingSkills, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   return (
@@ -20,7 +20,7 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, is
           }
         </div>
 
-        <button className="btn btn-secondary button-edit">Edit</button>
+        <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
       
       <div id="character-view-skills" className="collapse show">
@@ -49,5 +49,6 @@ Skills.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingSkills: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

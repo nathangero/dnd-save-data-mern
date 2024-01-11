@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
-export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, isEditing }) {
+export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   const [jumpToMenu, setMenu] = useState({});
@@ -29,7 +29,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
         <div className="dropdown">
           <div className="d-flex align-items-baseline justify-content-between w-100">
-            <button className="btn button-edit">Edit</button>
+            <button className="btn button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
 
             <button
               className={isShowingWeapons ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
@@ -87,5 +87,6 @@ Weapons.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingWeapons: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

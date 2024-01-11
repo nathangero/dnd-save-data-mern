@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
-export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, isEditing }) {
+export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   const [jumpToMenu, setMenu] = useState({});
@@ -29,7 +29,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
         <div className="dropdown">
           <div className="d-flex align-items-baseline justify-content-between w-100">
-            <button className="btn button-edit">Edit</button>
+            <button className="btn button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
 
             <button
               className={isShowingFeatureTraits ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
@@ -79,5 +79,6 @@ FeaturesTraits.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingFeatureTraits: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

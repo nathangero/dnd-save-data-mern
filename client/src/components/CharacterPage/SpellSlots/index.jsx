@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { SPELL_NAMES } from "../../../utils/enums";
 
-export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, isEditing }) {
+export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   /**
@@ -29,7 +29,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
           }
         </div>
 
-        <button className="btn btn-secondary button-edit">Edit</button>
+        <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
       {Object.keys(character.spellSlots)?.map((item, index) => (
@@ -54,5 +54,6 @@ SpellSlots.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingSpellSlots: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

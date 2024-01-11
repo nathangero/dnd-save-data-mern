@@ -38,6 +38,19 @@ export default function CharacterPage() {
   const [isShowingLanguages, showLanguages] = useState(true);
   const [isShowingTreasures, showTreasures] = useState(true);
 
+  const [isEditingInfo, editInfo] = useState(false);
+  const [isEditingScores, editScores] = useState(false);
+  const [isEditingSavingThrows, editSavingThrows] = useState(false);
+  const [isEditingSkills, editSkills] = useState(false);
+  const [isEditingFeatureTraits, editFeatureTraits] = useState(false);
+  const [isEditingWeapons, editWeapons] = useState(false);
+  const [isEditingSpellSlots, editSpellSlots] = useState(false);
+  const [isEditingSpells, editSpells] = useState(false);
+  const [isEditingProficiencies, editProficiencies] = useState(false);
+  const [isEditingEquipment, editEquipment] = useState(false);
+  const [isEditingLanguages, editLanguages] = useState(false);
+  const [isEditingTreasures, editTreasures] = useState(false);
+
   const character = new Character(characters[characterId]);
 
   /**
@@ -159,6 +172,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
           isShowingInfo={isShowingInfo}
+          toggleEditing={() => editInfo(!isEditingInfo)}
+          isEditing={isEditingInfo}
         />
         <hr />
       </section>
@@ -168,6 +183,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)}
           isShowingScores={isShowingScores}
+          toggleEditing={() => editScores(!isEditingScores)}
+          isEditing={isEditingScores}
         />
         <hr />
       </section>
@@ -177,6 +194,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)}
           isShowingSavingThrows={isShowingSavingThrows}
+          toggleEditing={() => editSavingThrows(!isEditingSavingThrows)}
+          isEditing={isEditingSavingThrows}
         />
         <hr />
       </section>
@@ -186,6 +205,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SKILLS)}
           isShowingSkills={isShowingSkills}
+          toggleEditing={() => editSkills(!isEditingSkills)}
+          isEditing={isEditingSkills}
         />
         <hr />
       </section>
@@ -195,6 +216,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)}
           isShowingFeatureTraits={isShowingFeatureTraits}
+          toggleEditing={() => editFeatureTraits(!isEditingFeatureTraits)}
+          isEditing={isEditingFeatureTraits}
         />
         <hr />
       </section>
@@ -204,6 +227,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)}
           isShowingWeapons={isShowingWeapons}
+          toggleEditing={() => editWeapons(!isEditingWeapons)}
+          isEditing={isEditingWeapons}
         />
         <hr />
       </section>
@@ -213,6 +238,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)}
           isShowingSpellSlots={isShowingSpellSlots}
+          toggleEditing={() => editSpellSlots(!isEditingSpellSlots)}
+          isEditing={isEditingSpellSlots}
         />
         <hr />
       </section>
@@ -222,6 +249,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELLS)}
           isShowingSpells={isShowingSpells}
+          toggleEditing={() => editSpells(!isEditingSpells)}
+          isEditing={isEditingSpells}
         />
         <hr />
       </section>
@@ -230,7 +259,9 @@ export default function CharacterPage() {
         <Proficiencies
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)}
-          isShowingProficiencies={isShowingProficiencies}
+          isShowingProficiencies={isShowingProficiencies} 
+          toggleEditing={() => editProficiencies(!isEditingProficiencies)}
+          isEditing={isEditingProficiencies}
         />
         <hr />
       </section>
@@ -240,6 +271,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)}
           isShowingEquipment={isShowingEquipment}
+          toggleEditing={() => editEquipment(!isEditingEquipment)}
+          isEditing={isEditingEquipment}
         />
         <hr />
       </section>
@@ -249,6 +282,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)}
           isShowingLanguages={isShowingLanguages}
+          toggleEditing={() => editLanguages(!isEditingLanguages)}
+          isEditing={isEditingLanguages}
         />
         <hr />
       </section>
@@ -258,6 +293,8 @@ export default function CharacterPage() {
           char={character}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.TREASURES)}
           isShowingTreasures={isShowingTreasures}
+          toggleEditing={() => editTreasures(!isEditingTreasures )}
+          isEditing={isEditingTreasures }
         />
         <hr />
       </section>

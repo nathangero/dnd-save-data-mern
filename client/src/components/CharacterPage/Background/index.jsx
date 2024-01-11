@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 
-export default function Background({ char, toggleSectionShowing, isEditing }) {
+export default function Background({ char, toggleSectionShowing, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   return (
@@ -18,5 +18,6 @@ export default function Background({ char, toggleSectionShowing, isEditing }) {
 
 Background.propTypes = {
   character: PropTypes.object,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

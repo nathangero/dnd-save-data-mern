@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
-export default function Treasures({ char, toggleSectionShowing, isShowingTreasures, isEditing }) {
+export default function Treasures({ char, toggleSectionShowing, isShowingTreasures, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   const [jumpToMenu, setMenu] = useState({});
@@ -29,7 +29,7 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
 
         <div className="dropdown">
           <div className="d-flex align-items-baseline justify-content-between w-100">
-            <button className="btn button-edit">Edit</button>
+            <button className="btn button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
 
             <button
               className={isShowingTreasures ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
@@ -67,5 +67,6 @@ Treasures.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingTreasures: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }

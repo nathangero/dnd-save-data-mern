@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { calcScoreMod } from "../../../utils/shared-functions";
 import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES } from "../../../utils/enums";
 
-export default function AbilityScores({ char, toggleSectionShowing, isShowingScores, isEditing }) {
+export default function AbilityScores({ char, toggleSectionShowing, isShowingScores, toggleEditing, isEditing }) {
   const character = new Character(char);
 
   return (
@@ -20,7 +20,7 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
           }
         </div>
 
-        <button className="btn btn-secondary button-edit">Edit</button>
+        <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
       <div id="character-view-scores" className="collapse show">
@@ -39,5 +39,6 @@ AbilityScores.propTypes = {
   char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingScores: PropTypes.bool,
+  toggleEditing: PropTypes.func,
   isEditing: PropTypes.bool,
 }
