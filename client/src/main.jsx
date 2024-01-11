@@ -27,6 +27,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { auth } from "../../firebase/firebase.js";
 import CharacterPage from "./components/CharacterPage/index.jsx";
+import CharacterCreate from "./components/CharacterCreate/index.jsx";
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.CHARACTERS + "/:characterId",
         element: <CharacterPage />
+      },
+      {
+        path: ROUTES.CHARACTER_CREATE,
+        element: <CharacterCreate />
       },
       {
         path: ROUTES.SESSIONS,

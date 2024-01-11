@@ -4,8 +4,8 @@ import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
-export default function Weapons(props) {
-  const character = new Character(props.character);
+export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, isEditing }) {
+  const character = new Character(char);
 
   const [jumpToMenu, setMenu] = useState({});
 
@@ -17,11 +17,11 @@ export default function Weapons(props) {
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
           <h2 className="section-title weapons">
             Weapons
           </h2>
-          {props.isShowingWeapons ?
+          {isShowingWeapons ?
             <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
             <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
           }
@@ -32,7 +32,7 @@ export default function Weapons(props) {
             <button className="btn button-edit">Edit</button>
 
             <button
-              className={props.isShowingWeapons ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
+              className={isShowingWeapons ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -84,7 +84,8 @@ export default function Weapons(props) {
 }
 
 Weapons.propTypes = {
-  character: PropTypes.object,
+  char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingWeapons: PropTypes.bool,
+  isEditing: PropTypes.bool,
 }

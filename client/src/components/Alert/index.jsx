@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 
-export default function Alert(props) {
+export default function Alert({ centered, title, body }) {
 
 
   return (
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal fade" id="alertModal" tabIndex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-        <div className={`${props.centered ? "modal-dialog modal-dialog-centered" : "modal-dialog"}`}>
+        <div className={`${centered ? "modal-dialog modal-dialog-centered" : "modal-dialog"}`}>
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">{props.title}</h5>
+              <h5 className="modal-title">{title}</h5>
             </div>
             <div className="modal-body custom-modal-body">
               <p className="modal-title text-center fs-5">
-                {props.body}
+                {body}
               </p>
             </div>
             <div className="modal-body text-end">

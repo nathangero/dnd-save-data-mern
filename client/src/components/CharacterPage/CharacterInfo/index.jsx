@@ -3,25 +3,19 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
 
-export default function CharacterInfo(props) {
-  const character = new Character(props.character);
+export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, isEditing }) {
+  const character = new Character(char);
 
-  return (
-    <div className="fs-3">
-      <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
-          <h2 className="section-title">
-            Character Info
-          </h2>
-          {props.isShowingInfo ?
-            <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
-            <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
-          }
-        </div>
-
-        <button className="btn btn-secondary button-edit">Edit</button>
+  const renderEditing = () => {
+    return (
+      <div>
+        will edit
       </div>
+    )
+  }
 
+  const renderViewing = () => {
+    return (
       <div id="character-view-info" className="collapse show">
         <div className="stat-row">
           <p>Level</p>
@@ -80,12 +74,36 @@ export default function CharacterInfo(props) {
           <b>{character.inspiration}</b>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className="fs-3">
+      <div className="character-view-header sticky-top pt-1">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
+          <h2 className="section-title">
+            Character Info
+          </h2>
+          {isShowingInfo ?
+            <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
+            <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
+          }
+        </div>
+
+        <button className="btn btn-secondary button-edit">Edit</button>
+      </div>
+
+      {isEditing ?
+        renderEditing() :
+        renderViewing()
+      }
     </div>
   )
 }
 
 CharacterInfo.propTypes = {
-  character: PropTypes.object,
+  char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingInfo: PropTypes.bool,
+  isEditing: PropTypes.bool,
 }

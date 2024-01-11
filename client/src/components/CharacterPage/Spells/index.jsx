@@ -6,8 +6,8 @@ import { scrollToListItem } from "../../../utils/shared-functions";
 import { SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 import SpellList from "./spellList";
 
-export default function Spells(props) {
-  const character = new Character(props.character);
+export default function Spells({ char, toggleSectionShowing, isShowingSpells, isEditing }) {
+  const character = new Character(char);
 
   const [jumpToLevel, setMenu] = useState({});
 
@@ -48,11 +48,11 @@ export default function Spells(props) {
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => props.toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
           <h2 className="section-title spells">
             Spells
           </h2>
-          {props.isShowingSpells ?
+          {isShowingSpells ?
             <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
             <i className="bi bi-chevron-up fs-3 px-3" aria-label="chevron-up"></i>
           }
@@ -63,7 +63,7 @@ export default function Spells(props) {
             <button className="btn button-edit">Edit</button>
 
             <button
-              className={props.isShowingSpells ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
+              className={isShowingSpells ? "btn dropdown-toggle button-menu-jump ms-3" : "btn dropdown-toggle button-menu-jump ms-3 hide-dropdown"}
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -126,7 +126,8 @@ export default function Spells(props) {
 }
 
 Spells.propTypes = {
-  character: PropTypes.object,
+  char: PropTypes.object,
   toggleSectionShowing: PropTypes.func,
   isShowingSpells: PropTypes.bool,
+  isEditing: PropTypes.bool,
 }

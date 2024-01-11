@@ -143,6 +143,6 @@ export default function SpellList({ spells, spellLevel }) {
 }
 
 SpellList.propTypes = {
-  spells: PropTypes.object,
+  spells: PropTypes.array,
   spellLevel: PropTypes.string,
 }
