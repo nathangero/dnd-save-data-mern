@@ -168,7 +168,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
           <p>Inspiration</p>
           <input className="edit-input" value={inspiration} onChange={onChangeInspriation} />
         </div>
-        <button type="button" onClick={() => onClickUpdateCharacter()}>Update Character</button>
+        <button type="button" className="btn fs-3 button-update" onClick={() => onClickUpdateCharacter()}>Update {SECTION_TITLE_NAME.CHARACTER_INFO}</button>
       </>
     )
   }

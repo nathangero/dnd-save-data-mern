@@ -59,6 +59,16 @@ section.character-view {
   color: white;
 }
 
+.button-update {
+  background-color: var(--button-positive-color);
+  color: white;
+}
+
+.button-update:hover {
+  background-color: var(--button-positive-hover-color);
+  color: white;
+}
+
 .character-page {
   display: flex;
   flex-direction: column;
