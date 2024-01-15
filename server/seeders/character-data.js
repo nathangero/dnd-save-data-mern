@@ -41,7 +41,6 @@ const characterData = [
       current: 15,
       dieType: "1d8",
       dieAmountCurrent: 5,
-      dieAmountMax: 5,
       max: 15,
       temp: 0,
     },

@@ -13,10 +13,6 @@ const Hp = new Schema({
     type: Number,
     require: true
   },
-  dieAmountMax: {
-    type: Number,
-    require: true
-  },
   max: {
     type: Number,
     require: true

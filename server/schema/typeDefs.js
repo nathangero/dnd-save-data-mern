@@ -63,7 +63,6 @@ const typeDefs = `
     current: Int!
     dieType: String!
     dieAmountCurrent: Int!
-    dieAmountMax: Int!
     max: Int!
     temp: Int
   }
@@ -241,7 +240,6 @@ const typeDefs = `
     current: Int!
     dieType: String!
     dieAmountCurrent: Int!
-    dieAmountMax: Int!
     max: Int!
     temp: Int
   }

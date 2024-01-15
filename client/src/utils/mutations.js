@@ -42,7 +42,6 @@ mutation UpdateCharacter($_id: String!, $character: CharacterInput!) {
       current
       dieType
       dieAmountCurrent
-      dieAmountMax
       max
       temp
     }

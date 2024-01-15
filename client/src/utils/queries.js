@@ -45,7 +45,6 @@ query GetMe {
         current
         dieType
         dieAmountCurrent
-        dieAmountMax
         max
         temp
       }

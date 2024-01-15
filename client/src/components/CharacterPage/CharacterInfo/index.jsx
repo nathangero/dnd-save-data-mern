@@ -31,7 +31,6 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
   const onChangeHpMax = ({ target }) => setHp({ ...hp, max: Number(target.value) });
   const onChangeHpTemp = ({ target }) => setHp({ ...hp, temp: Number(target.value) });
   const onChangeHpDieAmountCurrent = ({ target }) => setHp({ ...hp, dieAmountCurrent: Number(target.value) });
-  const onChangeHpDieAmountMax = ({ target }) => setHp({ ...hp, dieAmountMax: Number(target.value) });
   const onChangeDeathFailure = ({ target }) => setDeathSaves({ ...deathSaves, failures: Number(target.value) });
   const onChangeDeathSuccess = ({ target }) => setDeathSaves({ ...deathSaves, successes: Number(target.value) });
   const onChangeInspriation = ({ target }) => setInspiration(Number(target.value));
@@ -117,19 +116,21 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         <div className="stat-row">
           <p>HP Die Count</p>
           <div>
-            <input className="edit-input" value={hp.dieAmountCurrent} onChange={onChangeHpDieAmountCurrent} />
-            <label className="px-2">/</label>
-            <input className="edit-input" value={hp.dieAmountMax} onChange={onChangeHpDieAmountMax} />
+            <select value={hp.dieAmountCurrent} onChange={onChangeHpDieAmountCurrent} >
+              {Array.from({ length: level + 1 }, (_, index) => (
+                <option key={index}>{index}</option>
+              ))}
+            </select>
+            <b>/{level}</b>
           </div>
         </div>
         <div className="stat-row">
           <p>Death Save Successes</p>
           <div>
-            <select onChange={onChangeDeathSuccess} value={deathSaves.successes}>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+            <select value={deathSaves.successes} onChange={onChangeDeathSuccess}>
+              {Array.from({ length: 4 }, (_, index) => (
+                <option key={index}>{index}</option>
+              ))}
             </select>
             <b>/3</b>
           </div>
@@ -137,11 +138,10 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         <div className="stat-row">
           <p>Death Save Failures</p>
           <div>
-            <select onChange={onChangeDeathFailure} value={deathSaves.failures}>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+            <select value={deathSaves.failures} onChange={onChangeDeathFailure}>
+              {Array.from({ length: 4 }, (_, index) => (
+                <option key={index}>{index}</option>
+              ))}
             </select>
             <b>/3</b>
           </div>
@@ -200,7 +200,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
-          <b>{hp.dieAmountCurrent}/{hp.dieAmountMax}</b>
+          <b>{hp.dieAmountCurrent}/{level}</b>
         </div>
         <div className="stat-row">
           <p>Death Save Successes</p>
