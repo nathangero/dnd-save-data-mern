@@ -24,7 +24,12 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
   const [deathSaves, setDeathSaves] = useState(character.deathSaves);
   const [inspiration, setInspiration] = useState(character.inspiration);
 
-  const onChangeLevel = ({ target }) => setLevel(Number(target.value));
+  const onChangeLevel = ({ target }) => {
+    setLevel(Number(target.value));
+
+    // Update the current hit die if greater than the level. This accounts for human error
+    if (hp.dieAmountCurrent > target.value) setHp({ ...hp, dieAmountCurrent: Number(target.value) });
+  }
   const onChangeArmor = ({ target }) => setArmor(Number(target.value));
   const onChangeSpeed = ({ target }) => setSpeed(Number(target.value));
   const onChangeHpCurrent = ({ target }) => setHp({ ...hp, current: Number(target.value) });
@@ -69,6 +74,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
 
       setAlertTitle(`Updated ${SECTION_TITLE_NAME.CHARACTER_INFO} for ${character.name}`);
       modalAlert.toggle();
+      toggleEditing();
 
     } catch (error) {
       console.log("@error Couldn't update character");
