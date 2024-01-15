@@ -2,28 +2,127 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
+import { useState } from "react";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   const character = new Character(char);
 
+  const [level, setLevel] = useState(character.level);
+  const [armor, setArmor] = useState(character.armor);
+  const [speed, setSpeed] = useState(character.speed);
+  const [hp, setHp] = useState(character.hp);
+  const [deathSaves, setDeathSaves] = useState(character.deathSaves);
+  const [inspiration, setInspiration] = useState(character.inspiration);
+
+  const onChangeLevel = ({ target }) => setLevel(target.value);
+  const onChangeArmor = ({ target }) => setArmor(target.value);
+  const onChangeSpeed = ({ target }) => setSpeed(target.value);
+  const onChangeHpCurrent = ({ target }) => setHp({ ...hp, current: target.value });
+  const onChangeHpMax = ({ target }) => setHp({ ...hp, max: target.value });
+  const onChangeHpTemp = ({ target }) => setHp({ ...hp, temp: target.value });
+  const onChangeHpDieAmountCurrent = ({ target }) => setHp({ ...hp, dieAmountCurrent: target.value });
+  const onChangeHpDieAmountMax = ({ target }) => setHp({ ...hp, dieAmountMax: target.value });
+  const onChangeDeathFailure = ({ target }) => setDeathSaves({ ...deathSaves, failures: target.value });
+  const onChangeDeathSuccess = ({ target }) => setDeathSaves({ ...deathSaves, successes: target.value });
+  const onChangeInspriation = ({ target }) => setInspiration(target.value);
+
   const renderEditing = () => {
     return (
-      <div>
-        will edit
-      </div>
+      <>
+        <div className="stat-row">
+          <p>Level</p>
+          <input className="edit-input" value={level} onChange={onChangeLevel} />
+        </div>
+        <div className="stat-row">
+          <p>Armor Class</p>
+          <input className="edit-input" value={armor} onChange={onChangeArmor} />
+        </div>
+        <div className="stat-row">
+          <p>Initiative</p>
+          <input className="edit-input" value={calcScoreMod(character.scores.dex, true)} disabled />
+        </div>
+        <div className="stat-row">
+          <p>Speed (ft.)</p>
+          <input className="edit-input" value={speed} onChange={onChangeSpeed} />
+        </div>
+        <div className="stat-row">
+          <p>Current HP</p>
+          <div>
+            <input className="edit-input" value={hp.current} onChange={onChangeHpCurrent} />
+            <label className="px-2">/</label>
+            <input className="edit-input" value={hp.max} onChange={onChangeHpMax} />
+          </div>
+        </div>
+        <div className="stat-row">
+          <p>Temp HP</p>
+          <input className="edit-input" value={hp.temp} onChange={onChangeHpTemp} />
+        </div>
+        <div className="stat-row">
+          <p>HP Die Type</p>
+          <input className="edit-input" value={character.hp.dieType} disabled />
+        </div>
+        <div className="stat-row">
+          <p>HP Die Count</p>
+          <div>
+            <input className="edit-input" value={hp.dieAmountCurrent} onChange={onChangeHpDieAmountCurrent} />
+            <label className="px-2">/</label>
+            <input className="edit-input" value={hp.dieAmountMax} onChange={onChangeHpDieAmountMax} />
+          </div>
+        </div>
+        <div className="stat-row">
+          <p>Death Save Successes</p>
+          <div>
+            <select onChange={onChangeDeathSuccess} value={deathSaves.successes}>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <b>/3</b>
+          </div>
+        </div>
+        <div className="stat-row">
+          <p>Death Save Failures</p>
+          <div>
+            <select onChange={onChangeDeathFailure} value={deathSaves.failures}>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <b>/3</b>
+          </div>
+        </div>
+        <div className="stat-row">
+          <p>Proficiency Bonus</p>
+          <input className="edit-input" value={calcProficiencyBonus(character.level, true)} disabled />
+        </div>
+        <div className="stat-row">
+          <p>Passive Perception</p>
+          <input className="edit-input" value={calcPassivePerception(character.scores.wis, character.level, character.skills.perception, true)} disabled />
+        </div>
+        <div className="stat-row">
+          <p>Spell Casting Stat</p>
+          <b className="pt-2">{getScoreName(character.spellCastStat, true)}</b>
+        </div>
+        <div className="stat-row">
+          <p>Inspiration</p>
+          <input className="edit-input" value={inspiration} onChange={onChangeInspriation} />
+        </div>
+      </>
     )
   }
 
   const renderViewing = () => {
     return (
-      <div id="character-view-info" className="collapse show">
+      <>
         <div className="stat-row">
           <p>Level</p>
-          <b>{character.level}</b>
+          <b>{level}</b>
         </div>
         <div className="stat-row">
           <p>Armor Class</p>
-          <b>{character.armor}</b>
+          <b>{armor}</b>
         </div>
         <div className="stat-row">
           <p>Initiative</p>
@@ -31,15 +130,15 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Speed (ft.)</p>
-          <b>{character.speed}</b>
+          <b>{speed}</b>
         </div>
         <div className="stat-row">
           <p>Current HP</p>
-          <b>{character.hp.current}/{character.hp.max}</b>
+          <b>{hp.current}/{hp.max}</b>
         </div>
         <div className="stat-row">
           <p>Temp HP</p>
-          <b>{character.hp.temp}</b>
+          <b>{hp.temp}</b>
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
@@ -47,15 +146,15 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
-          <b>{character.hp.dieAmountCurrent}/{character.hp.dieAmountMax}</b>
+          <b>{hp.dieAmountCurrent}/{hp.dieAmountMax}</b>
         </div>
         <div className="stat-row">
           <p>Death Save Successes</p>
-          <b>{character.deathSaves.successes}/3</b>
+          <b>{deathSaves.successes}/3</b>
         </div>
         <div className="stat-row">
           <p>Death Save Failures</p>
-          <b>{character.deathSaves.failures}/3</b>
+          <b>{deathSaves.failures}/3</b>
         </div>
         <div className="stat-row">
           <p>Proficiency Bonus</p>
@@ -71,9 +170,9 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Inspiration</p>
-          <b>{character.inspiration}</b>
+          <b>{inspiration}</b>
         </div>
-      </div>
+      </>
     )
   }
 
@@ -93,10 +192,12 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      {isEditing ?
-        renderEditing() :
-        renderViewing()
-      }
+      <div id="character-view-info" className="collapse show">
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
     </div>
   )
 }
