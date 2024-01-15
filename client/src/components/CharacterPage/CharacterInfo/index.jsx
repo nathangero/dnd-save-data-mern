@@ -95,11 +95,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Proficiency Bonus</p>
-          <input className="edit-input" value={calcProficiencyBonus(character.level, true)} disabled />
+          <input className="edit-input" value={calcProficiencyBonus(level, true)} disabled />
         </div>
         <div className="stat-row">
           <p>Passive Perception</p>
-          <input className="edit-input" value={calcPassivePerception(character.scores.wis, character.level, character.skills.perception, true)} disabled />
+          <input className="edit-input" value={calcPassivePerception(character.scores.wis, level, character.skills.perception, true)} disabled />
         </div>
         <div className="stat-row">
           <p>Spell Casting Stat</p>
