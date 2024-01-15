@@ -183,7 +183,185 @@ const typeDefs = `
     proficient: Boolean!
   }
 
-  ######
+  ###### Input Types
+
+  input CharacterInput {
+    _id: ID
+    alignment: String
+    armor: Int
+    background: String
+    class: String
+    deathSaves: DeathSavesInput
+    equipment: [EquipmentInput]
+    featureTraits: [FeatureTraitInput]
+    gold: Int
+    hp: HpInput
+    inspiration: Int
+    languages: [LanguageInput]
+    level: Int
+    name: String
+    proficiencies: [ProficiencyInput]
+    race: String
+    savingThrows: SavingThrowsInput
+    scores: AbilityScoresInput
+    skills: SkillsInput
+    speed: Int
+    spellCastStat: String
+    spellSlots: SpellSlotLevelInput
+    spells: SpellLevelInput
+    timeCreated: Date
+    treasures: [TreasureInput]
+    weapons: [WeaponInput]
+  }
+
+  input DeathSavesInput {
+    _id: ID
+    failures: Int
+    successes: Int
+  }
+
+  input EquipmentInput {
+    _id: ID
+    amount: Int
+    description: String
+    name: String!
+  }
+
+  input FeatureTraitInput {
+    _id: ID
+    actionType: String
+    description: String
+    name: String!
+    traitType: String
+    uses: Int
+  }
+
+  input HpInput {
+    _id: ID
+    current: Int!
+    dieType: String!
+    dieAmountCurrent: Int!
+    dieAmountMax: Int!
+    max: Int!
+    temp: Int
+  }
+
+  input LanguageInput {
+    _id: ID
+    name: String!
+    proficiency: String!
+  }
+
+  input ProficiencyInput {
+    _id: ID
+    description: String
+    name: String!
+  }
+
+  input SavingThrowsInput {
+    _id: ID
+    cha: Boolean!
+    con: Boolean!
+    dex: Boolean!
+    int: Boolean!
+    str: Boolean!
+    wis: Boolean!
+  }
+
+  input AbilityScoresInput {
+    _id: ID
+    cha: Int!
+    con: Int!
+    dex: Int!
+    int: Int!
+    str: Int!
+    wis: Int!
+  }
+
+  input SkillsInput {
+    _id: ID
+    acrobatics: Boolean!
+    animalHandling: Boolean!
+    arcana: Boolean!
+    athletics: Boolean!
+    deception: Boolean!
+    history: Boolean!
+    insight: Boolean!
+    intimidation: Boolean!
+    investigation: Boolean!
+    medicine: Boolean!
+    nature: Boolean!
+    perception: Boolean!
+    performance: Boolean!
+    persuasion: Boolean!
+    religion: Boolean!
+    sleightOfHand: Boolean!
+    stealth: Boolean!
+    survival: Boolean!
+  }
+
+  input SpellSlotLevelInput {
+    _id: ID
+    level_1: SpellSlotInput
+    level_2: SpellSlotInput
+    level_3: SpellSlotInput
+    level_4: SpellSlotInput
+    level_5: SpellSlotInput
+    level_6: SpellSlotInput
+    level_7: SpellSlotInput
+    level_8: SpellSlotInput
+    level_9: SpellSlotInput
+  }
+
+  input SpellSlotInput {
+    _id: ID
+    current: Int!
+    max: Int!
+  }
+
+  input SpellLevelInput {
+    _id: ID
+    cantrips: [SpellInput]
+    level_1: [SpellInput]
+    level_2: [SpellInput]
+    level_3: [SpellInput]
+    level_4: [SpellInput]
+    level_5: [SpellInput]
+    level_6: [SpellInput]
+    level_7: [SpellInput]
+    level_8: [SpellInput]
+    level_9: [SpellInput]
+  }
+
+  input SpellInput {
+    _id: ID
+    castingTime: Int!
+    description: String
+    duration: Int!
+    durationType: String!
+    name: String!
+    range: Int!
+  }
+
+  input TreasureInput {
+    _id: ID
+    amount: Int!
+    description: String
+    name: String!
+  }
+
+  input WeaponInput {
+    _id: ID
+    amount: Int!
+    attackDamageStat: String!
+    category: String
+    description: String
+    dieType: String!
+    name: String!
+    proficient: Boolean!
+  }
+
+  ###### Resolvers
 
   type Query {
     getMe: User
@@ -192,6 +370,7 @@ const typeDefs = `
 
   type Mutation {
     addUser(_id: String!, username: String!): User
+    updateCharacter(_id: String!, character: CharacterInput!): Character
   }
 `;
 

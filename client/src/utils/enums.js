@@ -15,6 +15,22 @@ export const SECTION_TITLE = {
   BACKUP: "backup-character",
 }
 
+export const SECTION_TITLE_NAME = {
+  BACKGROUND: "Background",
+  CHARACTER_INFO: "Character Info",
+  ABILITY_SCORES: "Ability Scores",
+  SAVING_THROWS: "Saving Throws",
+  SKILLS: "Skills",
+  FEATURES_TRAITS: "Feats & Traits",
+  WEAPONS: "Weapons",
+  SPELL_SLOTS: "Spell Slots",
+  SPELLS: "Spells",
+  PROFICIENCIES: "Proficiencies",
+  EQUIPMENT: "Equipment",
+  LANGUAGES: "Languages",
+  TREASURES: "Treasures",
+}
+
 
 export const ABILITY_SCORE_KEYS = {
   STR: "str",

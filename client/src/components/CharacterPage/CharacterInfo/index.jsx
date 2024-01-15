@@ -1,11 +1,21 @@
 import "./style.css";
 import PropTypes from "prop-types";
+import Alert from "../../Alert";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { Character } from "../../../models/Character";
 import { calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { SECTION_TITLE_NAME } from "../../../utils/enums";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  let character = new Character(char);
+
+  const [updateCharacter] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
 
   const [level, setLevel] = useState(character.level);
   const [armor, setArmor] = useState(character.armor);
@@ -14,17 +24,60 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
   const [deathSaves, setDeathSaves] = useState(character.deathSaves);
   const [inspiration, setInspiration] = useState(character.inspiration);
 
-  const onChangeLevel = ({ target }) => setLevel(target.value);
-  const onChangeArmor = ({ target }) => setArmor(target.value);
-  const onChangeSpeed = ({ target }) => setSpeed(target.value);
-  const onChangeHpCurrent = ({ target }) => setHp({ ...hp, current: target.value });
-  const onChangeHpMax = ({ target }) => setHp({ ...hp, max: target.value });
-  const onChangeHpTemp = ({ target }) => setHp({ ...hp, temp: target.value });
-  const onChangeHpDieAmountCurrent = ({ target }) => setHp({ ...hp, dieAmountCurrent: target.value });
-  const onChangeHpDieAmountMax = ({ target }) => setHp({ ...hp, dieAmountMax: target.value });
-  const onChangeDeathFailure = ({ target }) => setDeathSaves({ ...deathSaves, failures: target.value });
-  const onChangeDeathSuccess = ({ target }) => setDeathSaves({ ...deathSaves, successes: target.value });
-  const onChangeInspriation = ({ target }) => setInspiration(target.value);
+  const onChangeLevel = ({ target }) => setLevel(Number(target.value));
+  const onChangeArmor = ({ target }) => setArmor(Number(target.value));
+  const onChangeSpeed = ({ target }) => setSpeed(Number(target.value));
+  const onChangeHpCurrent = ({ target }) => setHp({ ...hp, current: Number(target.value) });
+  const onChangeHpMax = ({ target }) => setHp({ ...hp, max: Number(target.value) });
+  const onChangeHpTemp = ({ target }) => setHp({ ...hp, temp: Number(target.value) });
+  const onChangeHpDieAmountCurrent = ({ target }) => setHp({ ...hp, dieAmountCurrent: Number(target.value) });
+  const onChangeHpDieAmountMax = ({ target }) => setHp({ ...hp, dieAmountMax: Number(target.value) });
+  const onChangeDeathFailure = ({ target }) => setDeathSaves({ ...deathSaves, failures: Number(target.value) });
+  const onChangeDeathSuccess = ({ target }) => setDeathSaves({ ...deathSaves, successes: Number(target.value) });
+  const onChangeInspriation = ({ target }) => setInspiration(Number(target.value));
+
+  useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-update").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+  }, []);
+
+  /**
+   * Save all the updated information, then save it to the db.
+   */
+  const onClickUpdateCharacter = async () => {
+    character.level = level;
+    character.armor = armor;
+    character.speed = speed;
+    character.hp = hp;
+    character.deathSaves = deathSaves
+    character.inspiration = inspiration;
+
+    try {
+      const { data } = await updateCharacter({
+        variables: {
+          _id: character._id,
+          character
+        }
+      });
+
+      if (!data?.updateCharacter) {
+        console.log("didn't update character but didn't throw");
+        setAlertTitle(`Couldn't update ${SECTION_TITLE_NAME.CHARACTER_INFO}`);
+        modalAlert.toggle();
+        return;
+      }
+
+      setAlertTitle(`Updated ${SECTION_TITLE_NAME.CHARACTER_INFO} for ${character.name}`);
+      modalAlert.toggle();
+
+    } catch (error) {
+      console.log("@error Couldn't update character");
+      console.error(error);
+      setAlertTitle(`Couldn't update ${SECTION_TITLE_NAME.CHARACTER_INFO}`);
+      modalAlert.toggle();
+    }
+  }
 
   const renderEditing = () => {
     return (
@@ -109,6 +162,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
           <p>Inspiration</p>
           <input className="edit-input" value={inspiration} onChange={onChangeInspriation} />
         </div>
+        <button type="button" onClick={() => onClickUpdateCharacter()}>Update Character</button>
       </>
     )
   }
@@ -181,7 +235,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <div className="character-view-header sticky-top pt-1">
         <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
           <h2 className="section-title">
-            Character Info
+            {SECTION_TITLE_NAME.CHARACTER_INFO}
           </h2>
           {isShowingInfo ?
             <i className="bi bi-chevron-down fs-3 px-3" aria-label="chevron-down"></i> :
@@ -198,6 +252,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
           renderViewing()
         }
       </div>
+
+      <div className="alert-modal-update">
+        <Alert title={alertTitle} />
+      </div>
+
     </div>
   )
 }

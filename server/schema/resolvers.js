@@ -50,6 +50,25 @@ const resolvers = {
         console.log("Couldn't sign up user");
         console.error(error);
       }
+    },
+    updateCharacter: async (parent, { _id, character }, context) => {
+      try {
+        if (!context.user) {
+          throw ErrorAuthentication;
+        }
+
+        const updatedChar = await Character.findOneAndUpdate(
+          { _id },
+          { $set: { ...character }},
+          { new: true }
+        );
+
+        // console.log("updatedChar level:", updatedChar.level);
+        return updatedChar;
+      } catch (error) {
+        console.log("server couldn't update character");
+        console.error(error);
+      }
     }
   }
 };
