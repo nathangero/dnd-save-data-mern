@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import Alert from "../../Alert";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { Character } from "../../../models/Character";
-import { calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
+import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
-import { SECTION_TITLE_NAME } from "../../../utils/enums";
+import { SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   let character = new Character(char);
 
-  const [updateCharacter] = useMutation(UPDATE_CHARACTER);
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState("");
@@ -57,31 +57,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     character.deathSaves = deathSaves
     character.inspiration = inspiration;
 
-    try {
-      const { data } = await updateCharacter({
-        variables: {
-          _id: character._id,
-          character
-        }
-      });
-
-      if (!data?.updateCharacter) {
-        console.log("didn't update character but didn't throw");
-        setAlertTitle(`Couldn't update ${SECTION_TITLE_NAME.CHARACTER_INFO}`);
-        modalAlert.toggle();
-        return;
-      }
-
-      setAlertTitle(`Updated ${SECTION_TITLE_NAME.CHARACTER_INFO} for ${character.name}`);
-      modalAlert.toggle();
-      toggleEditing();
-
-    } catch (error) {
-      console.log("@error Couldn't update character");
-      console.error(error);
-      setAlertTitle(`Couldn't update ${SECTION_TITLE_NAME.CHARACTER_INFO}`);
-      modalAlert.toggle();
-    }
+    updateCharacter(character, SECTION_TITLE.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
   }
 
   const renderEditing = () => {

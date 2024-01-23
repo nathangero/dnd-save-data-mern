@@ -1,3 +1,43 @@
+/**
+ * This function will be reused in the same exact way for each different Character Section component. This will help keep the code DRY.
+ * @param {Character} character Updated character
+ * @param {String} sectionTitle Component's section title
+ * @param {Function} updateCharacter GraphQL Resolver
+ * @param {Function} setAlertTitle Component's alert title
+ * @param {Function} modalAlert Component's modal
+ * @param {Function} toggleEditing Component's editing boolean
+ * @returns 
+ */
+export const updateCharacter = async (character, sectionTitle, updateCharacter, setAlertTitle, modalAlert, toggleEditing) => {
+  console.log("@updateCharacter");
+  try {
+    const { data } = await updateCharacter({
+      variables: {
+        _id: character._id,
+        character
+      }
+    });
+
+    if (!data?.updateCharacter) {
+      console.log("didn't update character but didn't throw");
+      setAlertTitle(`Couldn't update ${sectionTitle}`);
+      modalAlert.toggle();
+      return;
+    }
+
+    setAlertTitle(`Updated ${sectionTitle} for ${character.name}`);
+    modalAlert.toggle();
+    toggleEditing();
+
+  } catch (error) {
+    console.log("@error Couldn't update character");
+    console.error(error);
+    setAlertTitle(`Couldn't update ${sectionTitle}`);
+    modalAlert.toggle();
+  }
+}
+
+
 export const calcPassivePerception = (wis, level, proficient, showSign = false) => {
   const bonus = proficient ? calcProficiencyBonus(level) : 0;
   const calc = 10 + calcScoreMod(wis) + bonus;
