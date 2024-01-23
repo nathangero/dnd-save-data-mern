@@ -7,10 +7,10 @@ import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScore
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
-import { SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { SECTION_TITLE_NAME } from "../../../utils/enums";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
-  let character = new Character(char);
+  const character = new Character(char);
 
   const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 
@@ -42,7 +42,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
 
   useEffect(() => {
     // Initiate modal
-    const modalError = document.querySelector(".alert-modal-update").querySelector("#alertModal");
+    const modalError = document.querySelector(".alert-modal-info").querySelector("#alertModal");
     setModalAlert(new Modal(modalError));
   }, []);
 
@@ -57,7 +57,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     character.deathSaves = deathSaves
     character.inspiration = inspiration;
 
-    updateCharacter(character, SECTION_TITLE.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    updateCharacter(character, SECTION_TITLE_NAME.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
   }
 
   const renderEditing = () => {
@@ -235,7 +235,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         }
       </div>
 
-      <div className="alert-modal-update">
+      <div className="alert-modal-info">
         <Alert title={alertTitle} />
       </div>
 
