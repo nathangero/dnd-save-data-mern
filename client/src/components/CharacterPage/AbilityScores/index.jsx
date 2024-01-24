@@ -1,14 +1,13 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import Alert from "../../Alert";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { Character } from "../../../models/Character";
 import { calcScoreMod, updateCharacter } from "../../../utils/shared-functions";
 import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, SECTION_TITLE_NAME } from "../../../utils/enums";
-import { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
-import { useDispatch } from "react-redux";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
 export default function AbilityScores({ char, toggleSectionShowing, isShowingScores, toggleEditing, isEditing }) {
@@ -36,7 +35,6 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
     character.scores = scores;
 
     updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
-
 
     dispatch({
       type: CHARACTER_ACTIONS.EDIT,

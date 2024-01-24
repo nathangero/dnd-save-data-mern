@@ -1,17 +1,19 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import Alert from "../../Alert";
-import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { Character } from "../../../models/Character";
-import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
-import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
 import { SECTION_TITLE_NAME } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   const character = { ...char }
 
+  const dispatch = useDispatch();
   const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 
   const [modalAlert, setModalAlert] = useState(null);
@@ -58,6 +60,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     character.inspiration = inspiration;
 
     updateCharacter(character, SECTION_TITLE_NAME.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    dispatch({
+      type: CHARACTER_ACTIONS.EDIT,
+      updatedCharacter: character
+    })
   }
 
   const renderEditing = () => {
@@ -154,11 +161,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <>
         <div className="stat-row">
           <p>Level</p>
-          <b>{level}</b>
+          <b>{character.level}</b>
         </div>
         <div className="stat-row">
           <p>Armor Class</p>
-          <b>{armor}</b>
+          <b>{character.armor}</b>
         </div>
         <div className="stat-row">
           <p>Initiative</p>
@@ -166,15 +173,15 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Speed (ft.)</p>
-          <b>{speed}</b>
+          <b>{character.speed}</b>
         </div>
         <div className="stat-row">
           <p>Current HP</p>
-          <b>{hp.current}/{hp.max}</b>
+          <b>{character.hp.current}/{hp.max}</b>
         </div>
         <div className="stat-row">
           <p>Temp HP</p>
-          <b>{hp.temp}</b>
+          <b>{character.hp.temp}</b>
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
@@ -182,15 +189,15 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
-          <b>{hp.dieAmountCurrent}/{level}</b>
+          <b>{character.hp.dieAmountCurrent}/{level}</b>
         </div>
         <div className="stat-row">
           <p>Death Save Successes</p>
-          <b>{deathSaves.successes}/3</b>
+          <b>{character.deathSaves.successes}/3</b>
         </div>
         <div className="stat-row">
           <p>Death Save Failures</p>
-          <b>{deathSaves.failures}/3</b>
+          <b>{character.deathSaves.failures}/3</b>
         </div>
         <div className="stat-row">
           <p>Proficiency Bonus</p>
@@ -206,7 +213,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Inspiration</p>
-          <b>{inspiration}</b>
+          <b>{character.inspiration}</b>
         </div>
       </>
     )

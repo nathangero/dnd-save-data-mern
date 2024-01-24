@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { Character } from "../../models/Character";
 
 import "./style.css";
 import { Link } from "react-router-dom";
