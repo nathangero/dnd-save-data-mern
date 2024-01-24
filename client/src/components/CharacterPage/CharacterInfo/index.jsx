@@ -10,7 +10,7 @@ import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { SECTION_TITLE_NAME } from "../../../utils/enums";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 

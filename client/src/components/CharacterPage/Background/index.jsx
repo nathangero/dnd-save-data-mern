@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 
 export default function Background({ char, toggleSectionShowing, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   return (
     <>

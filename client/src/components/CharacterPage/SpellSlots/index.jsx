@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { SPELL_NAMES } from "../../../utils/enums";
 
 export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   /**
    * Creates a div id from the spell name

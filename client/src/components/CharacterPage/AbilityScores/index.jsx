@@ -8,10 +8,13 @@ import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, SECTION_TITLE_NAME } from "../
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { useDispatch } from "react-redux";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
 export default function AbilityScores({ char, toggleSectionShowing, isShowingScores, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }; // Allow editing 
 
+  const dispatch = useDispatch();
   const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 
   const [modalAlert, setModalAlert] = useState(null);
@@ -32,9 +35,13 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
   const onClickUpdateCharacter = async () => {
     character.scores = scores;
 
-    // console.log("scores:", scores);
-    // console.log("character scores:", character.scores);
     updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+
+    dispatch({
+      type: CHARACTER_ACTIONS.EDIT,
+      updatedCharacter: character
+    })
   }
 
   const renderEditing = () => {

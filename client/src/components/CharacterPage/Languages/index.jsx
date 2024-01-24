@@ -4,7 +4,7 @@ import { Character } from "../../../models/Character";
 import { makeIdFromName } from "../../../utils/shared-functions";
 
 export default function Languages({ char, toggleSectionShowing, isShowingLanguages, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   return (
     <div className="fs-3">

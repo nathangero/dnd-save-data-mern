@@ -5,7 +5,7 @@ import { SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
 export default function Skills({ char, toggleSectionShowing, isShowingSkills, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   return (
     <div className="fs-3">

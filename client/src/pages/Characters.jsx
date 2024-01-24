@@ -14,9 +14,9 @@ export default function Characters() {
       
       {/* <Link className="btn btn-primary" to={ROUTES.CHARACTER_CREATE}>Create Character</Link> */}
 
-      {characters.map((character, index) => (
+      {Object.values(characters).map((character, index) => (
         <div key={index}>
-          <CharacterSummary char={character} characterId={index}/>
+          <CharacterSummary character={character}/>
           <br />
         </div>
       ))}

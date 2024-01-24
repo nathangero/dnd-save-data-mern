@@ -35,12 +35,21 @@ function App() {
         const { data } = await getMe();
         if (!data?.getMe) return;
 
-        const userInfo = data.getMe;
+        const { _id, username, characters } = data.getMe;
+
+        // Store the characters as an object instead of an array. The key is the character's _id
+        const charactersObj = {}
+        Object.values(characters).map((character) => {
+          charactersObj[character._id] = character;
+        })
+        
+        const userInfo = { _id, username, characters: charactersObj }
+        
         dispatch({
           type: USER_ACTIONS.LOGIN,
           user: userInfo
         });
-
+        
         // Move the user to the /character page once their info has been loaded
         navigate(ROUTES.CHARACTERS);
         setLoading(false);

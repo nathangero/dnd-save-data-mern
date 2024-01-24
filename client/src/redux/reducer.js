@@ -53,10 +53,11 @@ export const reducer = (state = initialState, action) => {
       }
 
     case CHARACTER_ACTIONS.EDIT:
-      console.log("@character edit");
+      // console.log("@character edit");
 
       return {
         ...state,
+        user: { ...state.user, characters: { [action.updatedCharacter._id]: action.updatedCharacter } }
       }
 
     case CHARACTER_ACTIONS.DELETE:

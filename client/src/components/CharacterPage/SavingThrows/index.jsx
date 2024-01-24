@@ -5,7 +5,7 @@ import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES } from "../../../utils/enums";
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
 export default function SavingThrows({ char, toggleSectionShowing, isShowingSavingThrows, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   return (
     <div className="fs-3">

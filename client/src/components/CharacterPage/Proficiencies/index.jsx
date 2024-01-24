@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   const [jumpToMenu, setMenu] = useState({});
 

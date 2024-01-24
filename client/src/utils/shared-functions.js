@@ -17,7 +17,7 @@ export const updateCharacter = async (character, sectionTitle, updateCharacter, 
         character
       }
     });
-    console.log("data:", data);
+    
     if (!data?.updateCharacter) {
       console.log("didn't update character but didn't throw");
       setAlertTitle(`Couldn't update ${sectionTitle}`);

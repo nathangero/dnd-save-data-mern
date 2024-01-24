@@ -5,13 +5,12 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import ROUTES from "../../utils/routes";
 
-export default function CharacterSummary({ char, characterId }) {
-  const character = new Character(char);
+export default function CharacterSummary({ character }) {
 
   return (
     <div className="p-2 summary">
       <Link
-        to={`${ROUTES.CHARACTERS}/${characterId}`}
+        to={`${ROUTES.CHARACTERS}/${character._id}`}
         className="link-to-page"
       >
 
@@ -34,6 +33,5 @@ export default function CharacterSummary({ char, characterId }) {
 }
 
 CharacterSummary.propTypes = {
-  char: PropTypes.object,
-  characterId: PropTypes.number
+  character: PropTypes.object,
 }

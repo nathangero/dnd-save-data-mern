@@ -7,7 +7,7 @@ import { SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 import SpellList from "./spellList";
 
 export default function Spells({ char, toggleSectionShowing, isShowingSpells, toggleEditing, isEditing }) {
-  const character = new Character(char);
+  const character = { ...char }
 
   const [jumpToLevel, setMenu] = useState({});
 
