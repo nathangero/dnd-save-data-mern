@@ -9,7 +9,7 @@
  * @returns 
  */
 export const updateCharacter = async (character, sectionTitle, updateCharacter, setAlertTitle, modalAlert, toggleEditing) => {
-
+  
   try {
     const { data } = await updateCharacter({
       variables: {
@@ -22,18 +22,20 @@ export const updateCharacter = async (character, sectionTitle, updateCharacter, 
       console.log("didn't update character but didn't throw");
       setAlertTitle(`Couldn't update ${sectionTitle}`);
       modalAlert.toggle();
-      return;
+      return false;
     }
 
     setAlertTitle(`Updated ${sectionTitle} for ${character.name}`);
     modalAlert.toggle();
     toggleEditing();
+    return true;
 
   } catch (error) {
     console.log("@error Couldn't update character");
     console.error(error);
     setAlertTitle(`Couldn't update ${sectionTitle}`);
     modalAlert.toggle();
+    return false;
   }
 }
 

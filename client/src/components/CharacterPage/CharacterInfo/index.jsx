@@ -59,12 +59,15 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     character.deathSaves = deathSaves
     character.inspiration = inspiration;
 
-    updateCharacter(character, SECTION_TITLE_NAME.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.CHARACTER_INFO, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
-    dispatch({
-      type: CHARACTER_ACTIONS.EDIT,
-      updatedCharacter: character
-    })
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
   }
 
   const renderEditing = () => {

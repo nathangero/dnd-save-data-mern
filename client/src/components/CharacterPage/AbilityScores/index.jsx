@@ -34,12 +34,15 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
   const onClickUpdateCharacter = async () => {
     character.scores = scores;
 
-    updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
-
-    dispatch({
-      type: CHARACTER_ACTIONS.EDIT,
-      updatedCharacter: character
-    })
+    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
   }
 
   const renderEditing = () => {
