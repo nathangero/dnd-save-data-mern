@@ -1,5 +1,16 @@
-.bi-p-square.expertise::before {
+.editing .bi-p-square.expertise::before {
   border-radius: 5px;
-  background-color: #FF4C00 !important;
+  background-color: #FF4C00;
   color: white;
+}
+
+.editing .bi-p-square.expertise:hover::before {
+  border-radius: 5px;
+  background-color: #df4300;
+  color: white;
+}
+
+.bi-p-square.expertise.viewing::before {
+  border-radius: 5px;
+  color: #FF4C00;
 }

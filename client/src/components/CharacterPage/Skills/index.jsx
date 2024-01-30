@@ -120,9 +120,23 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
           <li key={index} className="mb-3 stat-row">
             <div className="d-flex">
               <div className="me-3">
-                {character.skills[skill] ?
-                  <i className="bi bi-p-square viewing"></i> :
-                  <i className="bi bi-app"></i>
+                {skills[skill][SKILL_PROFICIENCY.EXPERTISE] ?
+                  <>
+                    <i className="bi bi-p-square viewing me-3"></i>
+                    <i className="bi bi-p-square viewing expertise"></i>
+                  </> :
+                  <>
+                    {skills[skill][SKILL_PROFICIENCY.PROFICIENT] ?
+                      <>
+                        <i className="bi bi-p-square viewing me-3"></i>
+                        <i className="bi bi-app expertise"></i>
+                      </> :
+                      <>
+                        <i className="bi bi-app me-3"></i>
+                        <i className="bi bi-app expertise"></i>
+                      </>
+                    }
+                  </>
                 }
               </div>
               <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
