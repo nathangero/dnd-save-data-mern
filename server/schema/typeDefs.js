@@ -99,26 +99,32 @@ const typeDefs = `
     wis: Int!
   }
 
+  type SkillProficiency {
+    _id: ID
+    proficient: Boolean!
+    expertise: Boolean!
+  }
+
   type Skills {
     _id: ID
-    acrobatics: Boolean!
-    animalHandling: Boolean!
-    arcana: Boolean!
-    athletics: Boolean!
-    deception: Boolean!
-    history: Boolean!
-    insight: Boolean!
-    intimidation: Boolean!
-    investigation: Boolean!
-    medicine: Boolean!
-    nature: Boolean!
-    perception: Boolean!
-    performance: Boolean!
-    persuasion: Boolean!
-    religion: Boolean!
-    sleightOfHand: Boolean!
-    stealth: Boolean!
-    survival: Boolean!
+    acrobatics: SkillProficiency!
+    animalHandling: SkillProficiency!
+    arcana: SkillProficiency!
+    athletics: SkillProficiency!
+    deception: SkillProficiency!
+    history: SkillProficiency!
+    insight: SkillProficiency!
+    intimidation: SkillProficiency!
+    investigation: SkillProficiency!
+    medicine: SkillProficiency!
+    nature: SkillProficiency!
+    perception: SkillProficiency!
+    performance: SkillProficiency!
+    persuasion: SkillProficiency!
+    religion: SkillProficiency!
+    sleightOfHand: SkillProficiency!
+    stealth: SkillProficiency!
+    survival: SkillProficiency!
   }
 
   type SpellSlotLevel {
