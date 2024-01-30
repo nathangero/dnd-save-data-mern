@@ -46,7 +46,7 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
     character.savingThrows = savingThrows;
 
     const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.SAVING_THROWS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
-    
+
     // Only update the UI if the database was updated
     if (didUpdate) {
       dispatch({
@@ -119,13 +119,11 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      {isEditing ?
-        renderEditing() :
-        renderViewing()
-      }
-
       <div id={CHARACTER_VIEW_ID.SAVING_THROWS} className="collapse show">
-
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
       </div>
 
       <div className="alert-modal-saving-throws">
