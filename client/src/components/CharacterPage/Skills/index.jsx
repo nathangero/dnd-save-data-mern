@@ -83,17 +83,17 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
                 <div className="me-3 editing">
                   {skills[skill][SKILL_PROFICIENCY.EXPERTISE] ? // Check for expertise
                     <>
-                      <i className="bi bi-p-square" onClick={() => onClickProficient(skill)}></i>
+                      <i className="bi bi-p-square me-3" onClick={() => onClickProficient(skill)}></i>
                       <i className="bi bi-p-square expertise" onClick={() => onClickExpertise(skill)}></i>
                     </> :
                     <>
                       {skills[skill][SKILL_PROFICIENCY.PROFICIENT] ?
                         <>
-                          <i className="bi bi-p-square" onClick={() => onClickProficient(skill)}></i>
+                          <i className="bi bi-p-square me-3" onClick={() => onClickProficient(skill)}></i>
                           <i className="bi bi-app expertise" onClick={() => onClickExpertise(skill)}></i>
                         </> :
                         <>
-                          <i className="bi bi-app" onClick={() => onClickProficient(skill)}></i>
+                          <i className="bi bi-app me-3" onClick={() => onClickProficient(skill)}></i>
                           <i className="bi bi-app expertise" onClick={() => onClickExpertise(skill)}></i>
                         </>
                       }
