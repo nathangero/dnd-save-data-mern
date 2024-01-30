@@ -1,34 +1,76 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID } from "../../../utils/enums";
-import { calcScoreWithProficiency } from "../../../utils/shared-functions";
+import Alert from "../../Alert";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { calcScoreWithProficiency, updateCharacter } from "../../../utils/shared-functions";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
 export default function SavingThrows({ char, toggleSectionShowing, isShowingSavingThrows, toggleEditing, isEditing }) {
   const character = { ...char }
 
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  let [savingThrows, setSavingThrows] = useState(character.savingThrows);
+
+  useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-saving-throws").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+  }, []);
+
+  /**
+   * Updates the state variable `savingThrows` by toggling a boolean.
+   * @param {String} score Name of ability score like "str" or "dex"
+   */
   const onClickProficient = (score) => {
-    console.log("@onClickProficient")
-    console.log("score:", score);
+    setSavingThrows({ ...savingThrows, [score]: !savingThrows[score] });
+  }
+
+  const onClickUpdateCharacter = async () => {
+    character.savingThrows = savingThrows;
+
+    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.SAVING_THROWS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
   }
 
   const renderEditing = () => {
     return (
-      <ul className="list-unstyled">
-        {Object.values(ABILITY_SCORE_KEYS).map((score, index) => (
-          <li key={index} className="mb-3 stat-row">
-            <div className="d-flex">
-              <div className="me-3">
-                {character.savingThrows[score] ?
-                  <i className="bi bi-p-square editing" onClickCapture={() => onClickProficient(score)}></i> :
-                  <i className="bi bi-app"></i>
-                }
+      <>
+        <ul className="list-unstyled">
+          {Object.values(ABILITY_SCORE_KEYS).map((score, index) => (
+            <li key={index} className="mb-3 stat-row">
+              <div className="d-flex">
+                <div className="me-3 editing" onClick={() => onClickProficient(score)}>
+                  {savingThrows[score] ?
+                    <i className="bi bi-p-square"></i> :
+                    <i className="bi bi-app"></i>
+                  }
+                </div>
+                <p className="mb-0">{ABILITY_SCORE_NAMES[score]}</p>
               </div>
-              <p className="mb-0">{ABILITY_SCORE_NAMES[score]}</p>
-            </div>
-            <b>{calcScoreWithProficiency(character.scores[score], character.level, character.savingThrows[score], true)}</b>
-          </li>
-        ))}
-      </ul>
+              <b>{calcScoreWithProficiency(character.scores[score], character.level, savingThrows[score], true)}</b>
+            </li>
+          ))}
+        </ul>
+
+        <button type="button" className="btn fs-3 button-update" onClick={() => onClickUpdateCharacter()}>Update {SECTION_TITLE_NAME.SAVING_THROWS}</button>
+      </>
     )
   }
 
@@ -77,6 +119,10 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
 
       <div id={CHARACTER_VIEW_ID.SAVING_THROWS} className="collapse show">
 
+      </div>
+
+      <div className="alert-modal-saving-throws">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )
