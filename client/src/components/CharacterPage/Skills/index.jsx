@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { calcScoreWithProficiency, updateCharacter } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES, SKILL_PROFICIENCY } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
@@ -32,8 +32,24 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
    * @param {String} score Name of ability score like "str" or "dex"
    */
   const onClickProficient = (skill) => {
-    // TODO: Extra logic for expertise
-    setSkills({ ...skills, [skill]: !skills[skill] });
+    const proficient = {
+      [SKILL_PROFICIENCY.PROFICIENT]: !skills[skill][SKILL_PROFICIENCY.PROFICIENT],
+      [SKILL_PROFICIENCY.EXPERTISE]: false
+    }
+    setSkills({ ...skills, [skill]: proficient });
+  }
+
+  /**
+   * Updates the state variable `savingThrows` by toggling a boolean.
+   * @param {String} score Name of ability score like "str" or "dex"
+   */
+  const onClickExpertise = (skill) => {
+    const expertise = {
+      [SKILL_PROFICIENCY.PROFICIENT]: true,
+      [SKILL_PROFICIENCY.EXPERTISE]: !skills[skill][SKILL_PROFICIENCY.EXPERTISE]
+    }
+
+    setSkills({ ...skills, [skill]: expertise });
   }
 
   /**
@@ -64,10 +80,24 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
           {Object.values(SKILL_KEYS).map((skill, index) => (
             <li key={index} className="mb-3 stat-row">
               <div className="d-flex">
-                <div className="me-3 editing" onClick={() => onClickProficient(skill)}>
-                  {skills[skill] ?
-                    <i className="bi bi-p-square"></i> :
-                    <i className="bi bi-app"></i>
+                <div className="me-3 editing">
+                  {skills[skill][SKILL_PROFICIENCY.EXPERTISE] ? // Check for expertise
+                    <>
+                      <i className="bi bi-p-square" onClick={() => onClickProficient(skill)}></i>
+                      <i className="bi bi-p-square expertise" onClick={() => onClickExpertise(skill)}></i>
+                    </> :
+                    <>
+                      {skills[skill][SKILL_PROFICIENCY.PROFICIENT] ?
+                        <>
+                          <i className="bi bi-p-square" onClick={() => onClickProficient(skill)}></i>
+                          <i className="bi bi-app expertise" onClick={() => onClickExpertise(skill)}></i>
+                        </> :
+                        <>
+                          <i className="bi bi-app" onClick={() => onClickProficient(skill)}></i>
+                          <i className="bi bi-app expertise" onClick={() => onClickExpertise(skill)}></i>
+                        </>
+                      }
+                    </>
                   }
                 </div>
                 <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>

@@ -129,6 +129,11 @@ export const SKILL_NAME_SCORES = {
   [SKILL_KEYS.SURVIVAL]: "wis",
 }
 
+export const SKILL_PROFICIENCY = {
+  PROFICIENT: "proficient",
+  EXPERTISE: "expertise",
+}
+
 export const SPELL_KEYS = {
   CANTRIPS: "cantrips",
   LEVEL_1: "level_1",
