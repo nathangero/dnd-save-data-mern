@@ -58,7 +58,7 @@ export default function CharacterPage() {
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
       const sectionTop = sectionElement.getBoundingClientRect().top;
-      const adjustedScrollTop = sectionTop + window.scrollY - 100;
+      const adjustedScrollTop = sectionTop + window.scrollY - 50;
       window.scrollTo({ top: adjustedScrollTop, behavior: 'smooth' });
     }
   }
@@ -160,11 +160,11 @@ export default function CharacterPage() {
         </div>
       </nav>
 
-      <section id="character-view-background" className="text-center fs-4 mt-3">
+      <section id={SECTION_TITLE.BACKGROUND} className="text-center fs-4 mt-3">
         <Background char={characters[characterId]} />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.CHARACTER_INFO} className="character-view text-center">
         <CharacterInfo
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
@@ -175,7 +175,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.ABILITY_SCORES} className="character-view text-center">
         <AbilityScores
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)}
@@ -186,7 +186,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SAVING_THROWS} className="character-view text-center">
         <SavingThrows
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)}
@@ -197,7 +197,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SKILLS} className="character-view text-center">
         <Skills
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SKILLS)}
@@ -208,7 +208,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.FEATURES_TRAITS} className="character-view text-center">
         <FeaturesTraits
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)}
@@ -219,7 +219,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.WEAPONS} className="character-view text-center">
         <Weapons
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)}
@@ -230,7 +230,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SPELL_SLOTS} className="character-view text-center">
         <SpellSlots
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)}
@@ -241,7 +241,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SPELLS} className="character-view text-center">
         <Spells
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELLS)}
@@ -252,7 +252,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.PROFICIENCIES} className="character-view text-center">
         <Proficiencies
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)}
@@ -263,7 +263,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.EQUIPMENT} className="character-view text-center">
         <Equipment
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)}
@@ -274,7 +274,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.LANGUAGES} className="character-view text-center">
         <Languages
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)}
@@ -285,7 +285,7 @@ export default function CharacterPage() {
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.TREASURES} className="character-view text-center">
         <Treasures
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.TREASURES)}

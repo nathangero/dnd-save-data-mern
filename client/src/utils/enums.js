@@ -1,4 +1,21 @@
 export const SECTION_TITLE = {
+  BACKGROUND: "character-section-background",
+  CHARACTER_INFO: "character-section-info",
+  ABILITY_SCORES: "character-section-scores",
+  SAVING_THROWS: "character-section-saving-throws",
+  SKILLS: "character-section-skills",
+  FEATURES_TRAITS: "character-section-features-traits",
+  WEAPONS: "character-section-weapons",
+  SPELL_SLOTS: "character-section-spell-slots",
+  SPELLS: "character-section-spells",
+  PROFICIENCIES: "character-section-proficiencies",
+  EQUIPMENT: "character-section-equipment",
+  LANGUAGES: "character-section-languages",
+  TREASURES: "character-section-treasures",
+  BACKUP: "backup-character",
+}
+
+export const CHARACTER_VIEW_ID = {
   BACKGROUND: "character-view-background",
   CHARACTER_INFO: "character-view-info",
   ABILITY_SCORES: "character-view-scores",
@@ -12,7 +29,6 @@ export const SECTION_TITLE = {
   EQUIPMENT: "character-view-equipment",
   LANGUAGES: "character-view-languages",
   TREASURES: "character-view-treasures",
-  BACKUP: "backup-character",
 }
 
 export const SECTION_TITLE_NAME = {
