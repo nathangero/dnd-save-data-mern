@@ -1,11 +1,108 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../../models/Character";
-import { CHARACTER_VIEW_ID, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
-import { calcScoreWithProficiency } from "../../../utils/shared-functions";
+import Alert from "../../Alert";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { calcScoreWithProficiency, updateCharacter } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
 export default function Skills({ char, toggleSectionShowing, isShowingSkills, toggleEditing, isEditing }) {
   const character = { ...char }
+
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  let [skills, setSkills] = useState(character.skills);
+
+  useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-skills").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+  }, []);
+
+  /**
+   * Updates the state variable `savingThrows` by toggling a boolean.
+   * @param {String} score Name of ability score like "str" or "dex"
+   */
+  const onClickProficient = (skill) => {
+    // TODO: Extra logic for expertise
+    setSkills({ ...skills, [skill]: !skills[skill] });
+  }
+
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
+  const onClickUpdateCharacter = async () => {
+    character.skills = skills;
+
+    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.SKILLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
+  }
+
+  const renderEditing = () => {
+    return (
+      <>
+        <ul className="list-unstyled">
+          {Object.values(SKILL_KEYS).map((skill, index) => (
+            <li key={index} className="mb-3 stat-row">
+              <div className="d-flex">
+                <div className="me-3 editing" onClick={() => onClickProficient(skill)}>
+                  {skills[skill] ?
+                    <i className="bi bi-p-square"></i> :
+                    <i className="bi bi-app"></i>
+                  }
+                </div>
+                <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
+              </div>
+              <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, skills[skill], true)}</b>
+            </li>
+          ))}
+        </ul>
+
+        <button type="button" className="btn fs-3 button-update" onClick={() => onClickUpdateCharacter()}>Update {SECTION_TITLE_NAME.SKILLS}</button>
+      </>
+    )
+  }
+
+
+  const renderViewing = () => {
+    return (
+      <ul className="list-unstyled">
+        {Object.values(SKILL_KEYS).map((skill, index) => (
+          <li key={index} className="mb-3 stat-row">
+            <div className="d-flex">
+              <div className="me-3">
+                {character.skills[skill] ?
+                  <i className="bi bi-p-square viewing"></i> :
+                  <i className="bi bi-app"></i>
+                }
+              </div>
+              <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
+            </div>
+            <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, character.skills[skill], true)}</b>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
   return (
     <div className="fs-3">
@@ -22,24 +119,16 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
 
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
-      
+
       <div id={CHARACTER_VIEW_ID.SKILLS} className="collapse show">
-        <ul className="list-unstyled">
-          {Object.values(SKILL_KEYS).map((skill, index) => (
-            <li key={index} className="mb-3 stat-row">
-              <div className="d-flex">
-                <div className="me-3">
-                  {character.skills[skill] ?
-                    <i className="bi bi-p-square"></i> :
-                    <i className="bi bi-app"></i>
-                  }
-                </div>
-                <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
-              </div>
-              <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, character.skills[skill], true)}</b>
-            </li>
-          ))}
-        </ul>
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
+
+      <div className="alert-modal-skills">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )
