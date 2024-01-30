@@ -27,10 +27,21 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
     setModalAlert(new Modal(modalError));
   }, []);
 
+  /**
+   * Updates the state variable `scores` with the user's input to the corresponding `score` string.
+   * @param {String} score Name of ability score like "str" or "dex"
+   */
   const onChangeScore = ({ target }, score) => {
     setScores({ ...scores, [score]: Number(target.value) });
   }
 
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
   const onClickUpdateCharacter = async () => {
     character.scores = scores;
 

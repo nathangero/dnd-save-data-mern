@@ -49,7 +49,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
   }, []);
 
   /**
-   * Save all the updated information, then save it to the db.
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
    */
   const onClickUpdateCharacter = async () => {
     character.level = level;

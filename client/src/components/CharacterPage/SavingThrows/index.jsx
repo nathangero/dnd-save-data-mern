@@ -35,6 +35,13 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
     setSavingThrows({ ...savingThrows, [score]: !savingThrows[score] });
   }
 
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
   const onClickUpdateCharacter = async () => {
     character.savingThrows = savingThrows;
 
