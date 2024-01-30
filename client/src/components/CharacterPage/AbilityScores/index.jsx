@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { calcScoreMod, updateCharacter } from "../../../utils/shared-functions";
-import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
@@ -79,7 +79,7 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-scores" aria-expanded="false" aria-controls="character-view-scores">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.ABILITY_SCORES}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.ABILITY_SCORES}>
           <h2 className="section-title">
             Ability Scores
           </h2>
@@ -92,7 +92,7 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      <div id="character-view-scores" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.ABILITY_SCORES} className="collapse show">
         {isEditing ?
           renderEditing() :
           renderViewing()

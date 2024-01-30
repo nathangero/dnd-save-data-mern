@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID } from "../../../utils/enums";
 
 export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -17,7 +18,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-weapons" aria-expanded="false" aria-controls="character-view-weapons">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.WEAPONS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.WEAPONS}>
           <h2 className="section-title weapons">
             Weapons
           </h2>
@@ -49,7 +50,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         </div>
       </div>
 
-      <div id="character-view-weapons" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.WEAPONS} className="collapse show">
         {character.weapons?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name} x{item.amount}</u></h3>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID } from "../../../utils/enums";
 
 export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -17,7 +18,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex " role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-features-traits" aria-expanded="false" aria-controls="character-view-features-traits">
+        <div className="d-flex " role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.FEATURES_TRAITS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.FEATURES_TRAITS}>
           <h2 className="section-title feats">
             Feats & Traits
           </h2>
@@ -49,7 +50,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         </div>
       </div>
 
-      <div id="character-view-features-traits" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.FEATURES_TRAITS} className="collapse show">
         {character.featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name}</u></h3>

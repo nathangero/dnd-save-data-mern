@@ -1,7 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
-import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES } from "../../../utils/enums";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID } from "../../../utils/enums";
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
 export default function SavingThrows({ char, toggleSectionShowing, isShowingSavingThrows, toggleEditing, isEditing }) {
@@ -10,7 +10,7 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-saving-throws" aria-expanded="false" aria-controls="character-view-saving-throws">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.SAVING_THROWS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.SAVING_THROWS}>
           <h2 className="section-title">
             Saving Throws
           </h2>
@@ -23,7 +23,7 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      <div id="character-view-saving-throws" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.SAVING_THROWS} className="collapse show">
         <ul className="list-unstyled">
           {Object.values(ABILITY_SCORE_KEYS).map((score, index) => (
             <li key={index} className="mb-3 stat-row">

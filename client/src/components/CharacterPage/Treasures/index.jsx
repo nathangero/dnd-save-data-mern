@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID } from "../../../utils/enums";
 
 export default function Treasures({ char, toggleSectionShowing, isShowingTreasures, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -17,7 +18,7 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-treasures" aria-expanded="false" aria-controls="character-view-treasures">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.TREASURES}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.TREASURES}>
           <h2 className="section-title treasures">
             Treasures
           </h2>
@@ -49,7 +50,7 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
         </div>
       </div>
 
-      <div id="character-view-treasures" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.TREASURES} className="collapse show">
         {character.treasures?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name} x{item.amount}</u></h3>

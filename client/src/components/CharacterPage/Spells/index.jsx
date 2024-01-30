@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { scrollToListItem } from "../../../utils/shared-functions";
-import { SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 import SpellList from "./spellList";
 
 export default function Spells({ char, toggleSectionShowing, isShowingSpells, toggleEditing, isEditing }) {
@@ -48,7 +48,7 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-spells" aria-expanded="false" aria-controls="character-view-spells">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.SPELLS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.SPELLS}>
           <h2 className="section-title spells">
             Spells
           </h2>
@@ -80,7 +80,7 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
         </div>
       </div>
 
-      <div id="character-view-spells" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.SPELLS} className="collapse show">
         {character.spells[SPELL_KEYS.CANTRIPS]?.length === 0 ? null :
           <SpellList spells={character.spells[SPELL_KEYS.CANTRIPS]} spellLevel={SPELL_KEYS.CANTRIPS} />
         }

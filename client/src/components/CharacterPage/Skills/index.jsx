@@ -1,7 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
-import { SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES } from "../../../utils/enums";
 import { calcScoreWithProficiency } from "../../../utils/shared-functions";
 
 export default function Skills({ char, toggleSectionShowing, isShowingSkills, toggleEditing, isEditing }) {
@@ -10,7 +10,7 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-skills" aria-expanded="false" aria-controls="character-view-skills">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.SKILLS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.SKILLS}>
           <h2 className="section-title">
             Skills
           </h2>
@@ -23,7 +23,7 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
       
-      <div id="character-view-skills" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.SKILLS} className="collapse show">
         <ul className="list-unstyled">
           {Object.values(SKILL_KEYS).map((skill, index) => (
             <li key={index} className="mb-3 stat-row">

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
-import { SECTION_TITLE_NAME } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
@@ -225,7 +225,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-info" aria-expanded="false" aria-controls="character-view-info">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.CHARACTER_INFO}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.CHARACTER_INFO}>
           <h2 className="section-title">
             {SECTION_TITLE_NAME.CHARACTER_INFO}
           </h2>
@@ -238,7 +238,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      <div id="character-view-info" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.CHARACTER_INFO} className="collapse show">
         {isEditing ?
           renderEditing() :
           renderViewing()

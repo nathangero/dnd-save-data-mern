@@ -1,7 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
-import { SPELL_NAMES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SPELL_NAMES } from "../../../utils/enums";
 
 export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -19,7 +19,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-spell-slots" aria-expanded="false" aria-controls="character-view-spell-slots">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.SPELL_SLOTS}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.SPELL_SLOTS}>
           <h2 className="section-title">
             Spell Slots
           </h2>
@@ -33,7 +33,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
       </div>
 
       {Object.keys(character.spellSlots)?.map((item, index) => (
-        <div key={index} id="character-view-spell-slots" className="collapse show">
+        <div key={index} id={CHARACTER_VIEW_ID.SPELL_SLOTS} className="collapse show">
           {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
             <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
               {!character.spellSlots[item] ? null :

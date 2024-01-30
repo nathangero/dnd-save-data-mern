@@ -2,6 +2,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { makeIdFromName } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID } from "../../../utils/enums";
 
 export default function Languages({ char, toggleSectionShowing, isShowingLanguages, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -9,7 +10,7 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-          <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-languages" aria-expanded="false" aria-controls="character-view-languages">
+          <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.LANGUAGES}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.LANGUAGES}>
             <h2 className="section-title">
               Languages
             </h2>
@@ -22,7 +23,7 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
           <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
         </div>
 
-        <div id="character-view-languages" className="collapse show">
+        <div id={CHARACTER_VIEW_ID.LANGUAGES} className="collapse show">
           {character.languages?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <div className="stat-row">

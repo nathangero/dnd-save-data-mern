@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
+import { CHARACTER_VIEW_ID } from "../../../utils/enums";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -17,7 +18,7 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
   return (
     <div className="fs-3">
       <div className="character-view-header sticky-top pt-1">
-        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target="#character-view-proficiencies" aria-expanded="false" aria-controls="character-view-proficiencies">
+        <div className="d-flex" role="button" onClick={() => toggleSectionShowing()} data-bs-toggle="collapse" data-bs-target={`#${CHARACTER_VIEW_ID.PROFICIENCIES}`} aria-expanded="false" aria-controls={CHARACTER_VIEW_ID.PROFICIENCIES}>
           <h2 className="section-title proficiencies">
             Proficiencies
           </h2>
@@ -49,7 +50,7 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
         </div>
       </div>
 
-      <div id="character-view-proficiencies" className="collapse show">
+      <div id={CHARACTER_VIEW_ID.PROFICIENCIES} className="collapse show">
         {character.proficiencies?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name}</u></h3>
