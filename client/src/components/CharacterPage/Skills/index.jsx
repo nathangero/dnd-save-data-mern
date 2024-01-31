@@ -69,7 +69,7 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
   const onClickUpdateCharacter = async () => {
     character.skills = skills;
 
-    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.SKILLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SKILLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {

@@ -25,9 +25,11 @@ export const updateCharacter = async (character, sectionTitle, updateCharacter, 
       return false;
     }
 
+
     setAlertTitle(`Updated ${sectionTitle} for ${character.name}`);
     modalAlert.toggle();
     toggleEditing();
+    console.log("sucessfully updated character")
     return true;
 
   } catch (error) {

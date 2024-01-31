@@ -45,7 +45,7 @@ export default function SavingThrows({ char, toggleSectionShowing, isShowingSavi
   const onClickUpdateCharacter = async () => {
     character.savingThrows = savingThrows;
 
-    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.SAVING_THROWS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SAVING_THROWS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {

@@ -45,7 +45,7 @@ export default function AbilityScores({ char, toggleSectionShowing, isShowingSco
   const onClickUpdateCharacter = async () => {
     character.scores = scores;
 
-    const didUpdate = updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.ABILITY_SCORES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
     
     // Only update the UI if the database was updated
     if (didUpdate) {
