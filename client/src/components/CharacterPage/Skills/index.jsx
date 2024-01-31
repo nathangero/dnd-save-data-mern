@@ -27,7 +27,15 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
     setModalAlert(new Modal(modalError));
   }, []);
 
-
+  /**
+   * Calculates the expertise modifier. Expertise is doubling the character's proficiency bonus.
+   * 
+   * This is similar logic to `calcScoreWithProficiency()`
+   * @param {String} score The ability score string like "str" or "dex".
+   * @param {Number} level The character's level
+   * @param {Boolean} showSign Determine if showing the +/- sign before the number
+   * @returns 
+   */
   const calcExpertise = (score, level, showSign = false) => {
     const bonus = calcProficiencyBonus(level) * 2; // Double the proficiency bonus for expertise
     const calc = calcScoreMod(score) + bonus;
