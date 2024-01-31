@@ -79,24 +79,96 @@ mutation UpdateCharacter($_id: String!, $character: CharacterInput!) {
     }
     skills {
       _id
-      acrobatics
-      animalHandling
-      arcana
-      athletics
-      deception
-      history
-      insight
-      intimidation
-      investigation
-      medicine
-      nature
-      perception
-      performance
-      persuasion
-      religion
-      sleightOfHand
-      stealth
-      survival
+      acrobatics {
+        _id
+        proficient
+        expertise
+      }
+      animalHandling {
+        _id
+        proficient
+        expertise
+      }
+      arcana {
+        _id
+        proficient
+        expertise
+      }
+      athletics {
+        _id
+        proficient
+        expertise
+      }
+      deception {
+        _id
+        proficient
+        expertise
+      }
+      history {
+        _id
+        proficient
+        expertise
+      }
+      insight {
+        _id
+        proficient
+        expertise
+      }
+      intimidation {
+        _id
+        proficient
+        expertise
+      }
+      investigation {
+        _id
+        proficient
+        expertise
+      }
+      medicine {
+        _id
+        proficient
+        expertise
+      }
+      nature {
+        _id
+        proficient
+        expertise
+      }
+      perception {
+        _id
+        proficient
+        expertise
+      }
+      performance {
+        _id
+        proficient
+        expertise
+      }
+      persuasion {
+        _id
+        proficient
+        expertise
+      }
+      religion {
+        _id
+        proficient
+        expertise
+      }
+      sleightOfHand {
+        _id
+        proficient
+        expertise
+      }
+      stealth {
+        _id
+        proficient
+        expertise
+      }
+      survival {
+        _id
+        proficient
+        expertise
+      }
     }
     speed
     spellCastStat
