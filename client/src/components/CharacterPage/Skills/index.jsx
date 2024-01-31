@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { calcScoreWithProficiency, updateCharacter } from "../../../utils/shared-functions";
+import { calcProficiencyBonus, calcScoreMod, calcScoreWithProficiency, getStatBonusSign, updateCharacter } from "../../../utils/shared-functions";
 import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SKILL_KEYS, SKILL_NAMES, SKILL_NAME_SCORES, SKILL_PROFICIENCY } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
@@ -26,6 +26,13 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
     const modalError = document.querySelector(".alert-modal-skills").querySelector("#alertModal");
     setModalAlert(new Modal(modalError));
   }, []);
+
+
+  const calcExpertise = (score, level, showSign = false) => {
+    const bonus = calcProficiencyBonus(level) * 2; // Double the proficiency bonus for expertise
+    const calc = calcScoreMod(score) + bonus;
+    return showSign ? getStatBonusSign(calc) : calc;
+  }
 
   /**
    * Updates the state variable `savingThrows` by toggling a boolean.
@@ -102,7 +109,10 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
                 </div>
                 <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
               </div>
-              <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, skills[skill], true)}</b>
+              {skills[skill][SKILL_PROFICIENCY.EXPERTISE] ?
+                <b>{calcExpertise(character.scores[SKILL_NAME_SCORES[skill]], character.level, true)}</b> :
+                <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, skills[skill][SKILL_PROFICIENCY.PROFICIENT], true)}</b>
+              }
             </li>
           ))}
         </ul>
@@ -120,13 +130,13 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
           <li key={index} className="mb-3 stat-row">
             <div className="d-flex">
               <div className="me-3">
-                {skills[skill][SKILL_PROFICIENCY.EXPERTISE] ?
+                {character.skills[skill][SKILL_PROFICIENCY.EXPERTISE] ?
                   <>
                     <i className="bi bi-p-square viewing me-3"></i>
                     <i className="bi bi-p-square viewing expertise"></i>
                   </> :
                   <>
-                    {skills[skill][SKILL_PROFICIENCY.PROFICIENT] ?
+                    {character.skills[skill][SKILL_PROFICIENCY.PROFICIENT] ?
                       <>
                         <i className="bi bi-p-square viewing me-3"></i>
                         <i className="bi bi-app expertise"></i>
@@ -141,7 +151,10 @@ export default function Skills({ char, toggleSectionShowing, isShowingSkills, to
               </div>
               <p className="mb-0">{SKILL_NAMES[skill]} <i>({SKILL_NAME_SCORES[skill]})</i></p>
             </div>
-            <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, character.skills[skill], true)}</b>
+            {character.skills[skill][SKILL_PROFICIENCY.EXPERTISE] ?
+                <b>{calcExpertise(character.scores[SKILL_NAME_SCORES[skill]], character.level, true)}</b> :
+                <b>{calcScoreWithProficiency(character.scores[SKILL_NAME_SCORES[skill]], character.level, character.skills[skill][SKILL_PROFICIENCY.PROFICIENT], true)}</b>
+            }
           </li>
         ))}
       </ul>
