@@ -51,7 +51,11 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   }
 
   const onChangeFeatUses = ({ target }) => {
-    setFeatUses(target.value);
+    const num = Number(target.value);
+
+    // Check if the input is a number. If not, then don't update the state value
+    if (isNaN(num)) setFeatUses("");
+    else setFeatUses(num);
   }
 
   const onChangeFeatTraitType = ({ target }) => {
@@ -93,6 +97,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     const updatedFeats = [...character.featureTraits];
     updatedFeats.push(newFeat); // Add the new feat
     character.featureTraits = updatedFeats; // update the `character` variable
+    setFeatsTraits(updatedFeats);
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -138,8 +143,8 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
 
           <div className="stat-row">
-            <p>Uses</p>
-            <input className="edit-input" value={featUses} onChange={onChangeFeatUses} placeholder="" />
+            <p># of Uses</p>
+            <input className="edit-input" type="number" inputMode="numeric"  value={featUses} onChange={onChangeFeatUses} placeholder="" />
           </div>
 
           <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" />
