@@ -117,7 +117,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
                 <option key={index}>{index}</option>
               ))}
             </select>
-            <b>/{level}</b>
+            <b> /{level}</b>
           </div>
         </div>
         <div className="stat-row">
@@ -128,7 +128,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
                 <option key={index}>{index}</option>
               ))}
             </select>
-            <b>/3</b>
+            <b> /3</b>
           </div>
         </div>
         <div className="stat-row">
@@ -139,7 +139,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
                 <option key={index}>{index}</option>
               ))}
             </select>
-            <b>/3</b>
+            <b> /3</b>
           </div>
         </div>
         <div className="stat-row">

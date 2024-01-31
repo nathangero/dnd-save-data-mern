@@ -66,6 +66,17 @@ export const ABILITY_SCORE_NAMES = {
   [ABILITY_SCORE_KEYS.CHA]: "Charisma"
 }
 
+export const ACTION_TYPES = {
+  ACTION: "action",
+  BONUS: "bonus",
+}
+
+export const FEAT_TRAIT_TYPES = {
+  CLASS: "class",
+  RACE: "racial",
+  OTHER: "other",
+}
+
 export const SKILL_KEYS = {
   ACROBATICS: "acrobatics",
   ANIMAL_HANDLING: "animalHandling",

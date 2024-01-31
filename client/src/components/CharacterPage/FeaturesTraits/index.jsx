@@ -1,19 +1,199 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../../models/Character";
+import Alert from "../../Alert";
 import { useEffect, useState } from "react";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID } from "../../../utils/enums";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 
 export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
   const character = { ...char }
 
   const [jumpToMenu, setMenu] = useState({});
 
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  let [featureTraits, setFeatsTraits] = useState(character.featureTraits);
+  let [featName, setFeatName] = useState("");
+  let [featUses, setFeatUses] = useState("");
+  let [featType, setFeatType] = useState("");
+  let [featActionType, setFeatActionType] = useState("");
+  let [featDescription, setFeatDescription] = useState("");
+
   useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-feats-traits").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
     // Make jump to menu
     setMenu(makeJumpToForSection(character.featureTraits));
-  }, [])
+  }, []);
+
+
+  // Disables "Add Feat/Trait" button if form isn't filled out
+  useEffect(() => {
+    let addButton = document.querySelector(".button-add-feat");
+    if (addButton && featName && featUses && featType && featActionType && featDescription) addButton.removeAttribute("disabled");
+    else if (addButton) addButton.setAttribute("disabled", null);
+  }, [featName, featUses, featType, featActionType, featDescription]);
+
+
+  const onChangeFeatName = ({ target }) => {
+    setFeatName(target.value);
+  }
+
+  const onChangeFeatUses = ({ target }) => {
+    setFeatUses(target.value);
+  }
+
+  const onChangeFeatType = ({ target }) => {
+    setFeatType(target.value);
+  }
+
+  const onChangeFeatActionType = ({ target }) => {
+    setFeatActionType(target.value);
+  }
+
+  const onChangeFeatDescription = ({ target }) => {
+    setFeatDescription(target.value);
+  }
+
+  const onClickAddFeatTrait = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newFeat = {
+      actionType: featActionType,
+      description: featDescription,
+      name: featName,
+      traitType: featType,
+      uses: featUses
+    }
+
+    setFeatsTraits({ ...featureTraits, newFeat });
+
+    onClickUpdateCharacter();
+  }
+
+
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
+  const onClickUpdateCharacter = async () => {
+    character.featureTraits = featureTraits;
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
+  }
+
+  const renderEditing = () => {
+
+    return (
+      <>
+        <form className="new-entry feats" onSubmit={onClickAddFeatTrait}>
+          <input className="edit-input title" value={featName} onChange={onChangeFeatName} placeholder="Name" />
+
+          <div className="stat-row">
+            <p>Uses</p>
+            <input className="edit-input" value={featUses} onChange={onChangeFeatUses} placeholder="" />
+          </div>
+
+          <div className="stat-row">
+            <p>Trait Type</p>
+            <select value={featActionType} onChange={onChangeFeatActionType} >
+              {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
+                <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="stat-row">
+            <p>Action Type</p>
+            <select value={featType} onChange={onChangeFeatType} >
+              {Object.values(ACTION_TYPES).map((type, index) => (
+                <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+              ))}
+            </select>
+          </div>
+
+          <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" />
+
+          <button type="submit" className="btn fs-3 button-update button-add-feat" disabled>Add Feat/Trait</button>
+
+          <hr />
+        </form>
+
+        {character.featureTraits?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name}</u></h3>
+            <div className="stat-row">
+              <p>Uses</p>
+              <b>{item.uses}</b>
+            </div>
+            <div className="stat-row">
+              <p>Trait Type</p>
+              <b>{item.traitType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Action Type</p>
+              <b>{item.actionType}</b>
+            </div>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
+      </>
+    )
+  }
+
+
+  const renderViewing = () => {
+
+    return (
+      <>
+        {character.featureTraits?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name}</u></h3>
+            <div className="stat-row">
+              <p>Uses</p>
+              <b>{item.uses}</b>
+            </div>
+            <div className="stat-row">
+              <p>Trait Type</p>
+              <b>{item.traitType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Action Type</p>
+              <b>{item.actionType}</b>
+            </div>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
+      </>
+    )
+  }
 
   return (
     <div className="fs-3">
@@ -51,26 +231,14 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
       </div>
 
       <div id={CHARACTER_VIEW_ID.FEATURES_TRAITS} className="collapse show">
-        {character.featureTraits?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
-            <h3><u>{item.name}</u></h3>
-            <div className="stat-row">
-              <p>Uses</p>
-              <b>{item.uses}</b>
-            </div>
-            <div className="stat-row">
-              <p>Trait Type</p>
-              <b>{item.traitType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Action Type</p>
-              <b>{item.actionType}</b>
-            </div>
-            <p className="description">{item.description}</p>
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
 
-            <hr />
-          </div>
-        ))}
+      <div className="alert-modal-feats-traits">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )
