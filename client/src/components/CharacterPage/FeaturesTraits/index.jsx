@@ -24,7 +24,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   let [featureTraits, setFeatsTraits] = useState(character.featureTraits);
   let [featName, setFeatName] = useState("");
   let [featUses, setFeatUses] = useState("");
-  let [featType, setFeatType] = useState("");
+  let [featTraitType, setFeatTraitType] = useState("");
   let [featActionType, setFeatActionType] = useState("");
   let [featDescription, setFeatDescription] = useState("");
 
@@ -41,9 +41,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   // Disables "Add Feat/Trait" button if form isn't filled out
   useEffect(() => {
     let addButton = document.querySelector(".button-add-feat");
-    if (addButton && featName && featUses && featType && featActionType && featDescription) addButton.removeAttribute("disabled");
+    if (addButton && featName && featUses && featTraitType && featActionType) addButton.removeAttribute("disabled");
     else if (addButton) addButton.setAttribute("disabled", null);
-  }, [featName, featUses, featType, featActionType, featDescription]);
+  }, [featName, featUses, featTraitType, featActionType]);
 
 
   const onChangeFeatName = ({ target }) => {
@@ -54,33 +54,19 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     setFeatUses(target.value);
   }
 
-  const onChangeFeatType = ({ target }) => {
-    setFeatType(target.value);
+  const onChangeFeatTraitType = ({ target }) => {
+    setFeatTraitType(target.value);
   }
 
   const onChangeFeatActionType = ({ target }) => {
+    // If the feat is passive, then automatically set the use to a high number
+    if (target.value.toLowerCase() === ACTION_TYPES.PASSIVE) setFeatUses(999);
+
     setFeatActionType(target.value);
   }
 
   const onChangeFeatDescription = ({ target }) => {
     setFeatDescription(target.value);
-  }
-
-  const onClickAddFeatTrait = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const newFeat = {
-      actionType: featActionType,
-      description: featDescription,
-      name: featName,
-      traitType: featType,
-      uses: featUses
-    }
-
-    setFeatsTraits({ ...featureTraits, newFeat });
-
-    onClickUpdateCharacter();
   }
 
 
@@ -91,8 +77,22 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    * 
    * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
    */
-  const onClickUpdateCharacter = async () => {
-    character.featureTraits = featureTraits;
+  const onClickUpdateCharacter = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newFeat = {
+      actionType: featActionType.toLowerCase(),
+      description: featDescription,
+      name: featName,
+      traitType: featTraitType.toLowerCase(),
+      uses: featUses
+    }
+
+    // Create a copy of the feats
+    const updatedFeats = [...character.featureTraits];
+    updatedFeats.push(newFeat); // Add the new feat
+    character.featureTraits = updatedFeats; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -102,6 +102,12 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
+
+      setFeatName("");
+      setFeatUses("");
+      setFeatTraitType("");
+      setFeatActionType("");
+      setFeatDescription("");
     }
   }
 
@@ -109,17 +115,12 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
     return (
       <>
-        <form className="new-entry feats" onSubmit={onClickAddFeatTrait}>
-          <input className="edit-input title" value={featName} onChange={onChangeFeatName} placeholder="Name" />
-
-          <div className="stat-row">
-            <p>Uses</p>
-            <input className="edit-input" value={featUses} onChange={onChangeFeatUses} placeholder="" />
-          </div>
+        <form className="new-entry feats" onSubmit={onClickUpdateCharacter}>
+          <input className="edit-input title" value={featName} onChange={onChangeFeatName} placeholder="New Feat/Trait" />
 
           <div className="stat-row">
             <p>Trait Type</p>
-            <select value={featActionType} onChange={onChangeFeatActionType} >
+            <select value={featTraitType} onChange={onChangeFeatTraitType} >
               {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
                 <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
               ))}
@@ -128,11 +129,17 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
           <div className="stat-row">
             <p>Action Type</p>
-            <select value={featType} onChange={onChangeFeatType} >
+            <select value={featActionType} onChange={onChangeFeatActionType} >
               {Object.values(ACTION_TYPES).map((type, index) => (
                 <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
               ))}
             </select>
+          </div>
+
+
+          <div className="stat-row">
+            <p>Uses</p>
+            <input className="edit-input" value={featUses} onChange={onChangeFeatUses} placeholder="" />
           </div>
 
           <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" />
@@ -142,7 +149,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
           <hr />
         </form>
 
-        {character.featureTraits?.map((item, index) => (
+        {featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name}</u></h3>
             <div className="stat-row">
