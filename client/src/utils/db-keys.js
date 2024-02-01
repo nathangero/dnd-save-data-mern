@@ -10,3 +10,11 @@ export const PROFICIENCIES_KEYS = {
   DESCRIPTION: "description",
   NAME: "name",
 }
+
+
+
+export const TREASURE_KEYS = {
+  AMOUNT: "amount",
+  DESCRIPTION: "description",
+  NAME: "name",
+}
