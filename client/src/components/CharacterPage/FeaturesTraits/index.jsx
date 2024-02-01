@@ -22,12 +22,12 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState("");
 
-  let [featureTraits, setFeatsTraits] = useState(character.featureTraits);
-  let [featName, setFeatName] = useState("");
-  let [featUses, setFeatUses] = useState("");
-  let [featTraitType, setFeatTraitType] = useState("");
-  let [featActionType, setFeatActionType] = useState("");
-  let [featDescription, setFeatDescription] = useState("");
+  const [featureTraits, setFeatsTraits] = useState(character.featureTraits);
+  const [featName, setFeatName] = useState("");
+  const [featUses, setFeatUses] = useState("");
+  const [featTraitType, setFeatTraitType] = useState("");
+  const [featActionType, setFeatActionType] = useState("");
+  const [featDescription, setFeatDescription] = useState("");
 
   useEffect(() => {
     // Initiate modal
@@ -146,7 +146,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     event.preventDefault();
     event.stopPropagation();
 
-    const newFeat = {
+    const newEntry = {
       actionType: featActionType.toLowerCase(),
       description: featDescription,
       name: featName,
@@ -155,9 +155,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     }
 
     // Create a copy of the feats
-    const updatedFeats = [...character.featureTraits];
-    updatedFeats.push(newFeat); // Add the new feat
-    character.featureTraits = updatedFeats; // update the `character` variable
+    const updatedList = [...character.featureTraits];
+    updatedList.push(newEntry); // Add the new feat
+    character.featureTraits = updatedList; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -215,8 +215,8 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
   const onClickDeleteFeat = async (indexToRemove) => {
     // Filter out the feat to remove;
-    const updatedFeats = featureTraits.filter((_, index) => index !== indexToRemove);
-    character.featureTraits = updatedFeats; // update the `character` variable
+    const updatedList = featureTraits.filter((_, index) => index !== indexToRemove);
+    character.featureTraits = updatedList; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -316,7 +316,6 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
               </div>
               <hr />
             </form>
-            <hr />
           </div>
         ))}
       </>
