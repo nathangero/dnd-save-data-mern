@@ -195,6 +195,14 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
+      
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
     }
   }
 
@@ -213,6 +221,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         updatedCharacter: character
       });
 
+      // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
       if (sectionElement) {
         const sectionTop = sectionElement.getBoundingClientRect().top;
