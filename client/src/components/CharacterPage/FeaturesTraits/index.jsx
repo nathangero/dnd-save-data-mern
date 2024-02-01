@@ -47,21 +47,29 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   }, [featName, featUses, featTraitType, featActionType]);
 
 
-  const onChangeExistingFeat = (index, featKey, value) => {
-    console.log("@onChangeExistingFeat");
+  const onChangeExistingFeatName = (index, value) => {
+    console.log("@onChangeExistingFeatName");
     console.log("index:", index);
-    console.log("key:", featKey);
     console.log("value:", value);
-    console.log("featureTraits[index][featKey]:", featureTraits[index][featKey]);
-    
-    // This will be used in case `value` is empty.
-    let placeholder = character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME];
 
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [featKey]: (value ? placeholder : value) }
+    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.NAME]: value };
     console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
+
+  const onChangeExistingFeatTrait = (index, value) => {
+    console.log("@onChangeExistingFeatTrait");
+    console.log("index:", index);
+    console.log("value:", value);
+
+    const updatedFeats = [...featureTraits];
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.TRAIT]: value };
+    console.log("updatedFeats:", updatedFeats);
+    setFeatsTraits(updatedFeats);
+  }
+
+
 
   const onChangeFeatName = ({ target }) => {
     setFeatName(target.value);
@@ -173,16 +181,16 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         {featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
             <form className="new-entry feats" onSubmit={onClickUpdateCharacter}>
-              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => {onChangeExistingFeat(index, FEATURE_TRAIT_KEYS.NAME, e.target.value)}} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
+              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
 
-              {/* <div className="stat-row">
+              <div className="stat-row">
                 <p>Trait Type</p>
-                <select value={featTraitType} onChange={onChangeFeatTraitType} >
+                <select value={item[FEATURE_TRAIT_KEYS.TRAIT]} onChange={(e) => { onChangeExistingFeatTrait(index, e.target.value) }} >
                   {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
                     <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
                   ))}
                 </select>
-              </div> */}
+              </div>
 
               {/* <div className="stat-row">
                 <p>Action Type</p>
