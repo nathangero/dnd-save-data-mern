@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { FEATURE_TRAIT_KEYS } from "../../../utils/db-keys";
 
 export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
@@ -152,7 +152,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
             <p>Trait Type</p>
             <select value={featTraitType} onChange={onChangeFeatTraitType} >
               {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
-                <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                <option key={index}>{capitalizeFirst(type)}</option>
               ))}
             </select>
           </div>
@@ -161,7 +161,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
             <p>Action Type</p>
             <select value={featActionType} onChange={onChangeFeatActionType} >
               {Object.values(ACTION_TYPES).map((type, index) => (
-                <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                <option key={index}>{capitalizeFirst(type)}</option>
               ))}
             </select>
           </div>
@@ -185,9 +185,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
               <div className="stat-row">
                 <p>Trait Type</p>
-                <select value={item[FEATURE_TRAIT_KEYS.TRAIT]} onChange={(e) => { onChangeExistingFeatTrait(index, e.target.value) }} >
+                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.TRAIT])} onChange={(e) => { onChangeExistingFeatTrait(index, e.target.value) }} >
                   {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
-                    <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                    <option key={index}>{capitalizeFirst(type)}</option>
                   ))}
                 </select>
               </div>
@@ -196,7 +196,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
                 <p>Action Type</p>
                 <select value={featActionType} onChange={onChangeFeatActionType} >
                   {Object.values(ACTION_TYPES).map((type, index) => (
-                    <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                    <option key={index}>{capitalizeFirst(type)}</option>
                   ))}
                 </select>
               </div> */}
@@ -248,11 +248,11 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
             </div>
             <div className="stat-row">
               <p>Trait Type</p>
-              <b>{item.traitType[0].toUpperCase() + item.traitType.slice(1)}</b>
+              <b>{capitalizeFirst(item.traitType)}</b>
             </div>
             <div className="stat-row">
               <p>Action Type</p>
-              <b>{item.actionType[0].toUpperCase() + item.actionType.slice(1)}</b>
+              <b>{capitalizeFirst(item.actionType)}</b>
             </div>
             <p className="description">{item.description}</p>
 

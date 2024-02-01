@@ -64,6 +64,10 @@ export const calcScoreMod = (score, showSign = false) => {
   return showSign ? getStatBonusSign(calc) : calc;
 }
 
+export const capitalizeFirst = (word) => {
+  return word[0].toUpperCase() + word.slice(1);
+}
+
 export const getScoreName = (score) => {
   switch (score) {
     case "cha":
