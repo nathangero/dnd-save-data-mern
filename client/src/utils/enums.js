@@ -67,14 +67,14 @@ export const ABILITY_SCORE_NAMES = {
 }
 
 export const ACTION_TYPES = {
-  NONE: "None",
+  NONE: "none",
   ACTION: "action",
   BONUS: "bonus",
   PASSIVE: "passive",
 }
 
 export const FEAT_TRAIT_TYPES = {
-  NONE: "None",
+  NONE: "none",
   CLASS: "class",
   RACE: "racial",
   OTHER: "other",

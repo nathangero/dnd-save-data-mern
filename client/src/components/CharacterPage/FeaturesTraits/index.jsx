@@ -9,6 +9,7 @@ import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE_NAME }
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { FEATURE_TRAIT_KEYS } from "../../../utils/db-keys";
 
 export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -45,6 +46,22 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     else if (addButton) addButton.setAttribute("disabled", null);
   }, [featName, featUses, featTraitType, featActionType]);
 
+
+  const onChangeExistingFeat = (index, featKey, value) => {
+    console.log("@onChangeExistingFeat");
+    console.log("index:", index);
+    console.log("key:", featKey);
+    console.log("value:", value);
+    console.log("featureTraits[index][featKey]:", featureTraits[index][featKey]);
+    
+    // This will be used in case `value` is empty.
+    let placeholder = character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME];
+
+    const updatedFeats = [...featureTraits];
+    updatedFeats[index] = { ...updatedFeats[index], [featKey]: (value ? placeholder : value) }
+    console.log("updatedFeats:", updatedFeats);
+    setFeatsTraits(updatedFeats);
+  }
 
   const onChangeFeatName = ({ target }) => {
     setFeatName(target.value);
@@ -141,10 +158,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
             </select>
           </div>
 
-
           <div className="stat-row">
             <p># of Uses</p>
-            <input className="edit-input" type="number" inputMode="numeric"  value={featUses} onChange={onChangeFeatUses} placeholder="" />
+            <input className="edit-input" type="number" inputMode="numeric" value={featUses} onChange={onChangeFeatUses} placeholder="" />
           </div>
 
           <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" />
@@ -155,8 +171,40 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         </form>
 
         {featureTraits?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
-            <h3><u>{item.name}</u></h3>
+          <div key={index} id={makeIdFromName(character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
+            <form className="new-entry feats" onSubmit={onClickUpdateCharacter}>
+              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => {onChangeExistingFeat(index, FEATURE_TRAIT_KEYS.NAME, e.target.value)}} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
+
+              {/* <div className="stat-row">
+                <p>Trait Type</p>
+                <select value={featTraitType} onChange={onChangeFeatTraitType} >
+                  {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
+                    <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                  ))}
+                </select>
+              </div> */}
+
+              {/* <div className="stat-row">
+                <p>Action Type</p>
+                <select value={featActionType} onChange={onChangeFeatActionType} >
+                  {Object.values(ACTION_TYPES).map((type, index) => (
+                    <option key={index}>{type[0].toUpperCase() + type.slice(1)}</option>
+                  ))}
+                </select>
+              </div> */}
+
+              {/* <div className="stat-row">
+                <p># of Uses</p>
+                <input className="edit-input" type="number" inputMode="numeric" value={featUses} onChange={onChangeFeatUses} placeholder="" />
+              </div> */}
+
+              {/* <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" /> */}
+
+              {/* <button type="submit" className="btn fs-3 button-update button-add-feat" disabled>Update Feat/Trait</button> */}
+
+              <hr />
+            </form>
+            {/* <h3><u>{item.name}</u></h3>
             <div className="stat-row">
               <p>Uses</p>
               <b>{item.uses}</b>
@@ -169,7 +217,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
               <p>Action Type</p>
               <b>{item.actionType}</b>
             </div>
-            <p className="description">{item.description}</p>
+            <p className="description">{item.description}</p> */}
 
             <hr />
           </div>
@@ -192,11 +240,11 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
             </div>
             <div className="stat-row">
               <p>Trait Type</p>
-              <b>{item.traitType}</b>
+              <b>{item.traitType[0].toUpperCase() + item.traitType.slice(1)}</b>
             </div>
             <div className="stat-row">
               <p>Action Type</p>
-              <b>{item.actionType}</b>
+              <b>{item.actionType[0].toUpperCase() + item.actionType.slice(1)}</b>
             </div>
             <p className="description">{item.description}</p>
 
