@@ -171,6 +171,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
       // Update jump to menu
       setMenu(makeJumpToForSection(character.featureTraits));
 
+      // Update local variable
+      setFeatsTraits(character.featureTraits);
+
       setFeatName("");
       setFeatUses("");
       setFeatTraitType("");
@@ -196,6 +199,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
       
       // Update jump to menu
       setMenu(makeJumpToForSection(character.featureTraits));
+
+      // Update local variable
+      setFeatsTraits(character.featureTraits);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
@@ -223,6 +229,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
       
       // Update jump to menu
       setMenu(makeJumpToForSection(character.featureTraits));
+
+      // Update local variable
+      setFeatsTraits(character.featureTraits);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
