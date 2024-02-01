@@ -157,6 +157,7 @@ section.character-view {
 
 .new-entry textarea {
   resize: none;
+  white-space: "pre";
 }
 
 /* Make titles have a uniform spaced box around them, and try to keep it center */

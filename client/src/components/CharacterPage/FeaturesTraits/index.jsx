@@ -64,7 +64,40 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     console.log("value:", value);
 
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.TRAIT]: value };
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
+    console.log("updatedFeats:", updatedFeats);
+    setFeatsTraits(updatedFeats);
+  }
+
+  const onChangeExistingFeatAction = (index, value) => {
+    console.log("@onChangeExistingFeatAction");
+    console.log("index:", index);
+    console.log("value:", value);
+
+    const updatedFeats = [...featureTraits];
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.ACTION]: value.toLowerCase() };
+    console.log("updatedFeats:", updatedFeats);
+    setFeatsTraits(updatedFeats);
+  }
+
+  const onChangeExistingFeatUses = (index, value) => {
+    console.log("@onChangeExistingFeatUses");
+    console.log("index:", index);
+    console.log("value:", value);
+
+    const updatedFeats = [...featureTraits];
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.USES]: value };
+    console.log("updatedFeats:", updatedFeats);
+    setFeatsTraits(updatedFeats);
+  }
+
+  const onChangeExistingFeatDescription = (index, value) => {
+    console.log("@onChangeExistingFeatDescription");
+    console.log("index:", index);
+    console.log("value:", value);
+
+    const updatedFeats = [...featureTraits];
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.DESCRIPTION]: value };
     console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
@@ -192,14 +225,14 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
                 </select>
               </div>
 
-              {/* <div className="stat-row">
+              <div className="stat-row">
                 <p>Action Type</p>
-                <select value={featActionType} onChange={onChangeFeatActionType} >
+                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.ACTION])} onChange={(e) => { onChangeExistingFeatAction(index, e.target.value) }} >
                   {Object.values(ACTION_TYPES).map((type, index) => (
                     <option key={index}>{capitalizeFirst(type)}</option>
                   ))}
                 </select>
-              </div> */}
+              </div>
 
               {/* <div className="stat-row">
                 <p># of Uses</p>
