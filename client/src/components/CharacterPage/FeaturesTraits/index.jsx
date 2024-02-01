@@ -38,6 +38,10 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     setMenu(makeJumpToForSection(character.featureTraits));
   }, []);
 
+  useEffect(() => {
+    if (isEditing) setFeatsTraits(character.featureTraits); // Reset state variable for editing.
+  }, [isEditing])
+
 
   // Disables "Add Feat/Trait" button if form isn't filled out
   useEffect(() => {
@@ -46,63 +50,62 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     else if (addButton) addButton.setAttribute("disabled", null);
   }, [featName, featUses, featTraitType, featActionType]);
 
-
+  /**
+   * Change the name of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
   const onChangeExistingFeatName = (index, value) => {
-    console.log("@onChangeExistingFeatName");
-    console.log("index:", index);
-    console.log("value:", value);
-
     const updatedFeats = [...featureTraits];
     updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.NAME]: value };
-    console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
 
+  /**
+   * Change the trait of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
   const onChangeExistingFeatTrait = (index, value) => {
-    console.log("@onChangeExistingFeatTrait");
-    console.log("index:", index);
-    console.log("value:", value);
-
     const updatedFeats = [...featureTraits];
     updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
-    console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
 
+  /**
+   * Change the action of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
   const onChangeExistingFeatAction = (index, value) => {
-    console.log("@onChangeExistingFeatAction");
-    console.log("index:", index);
-    console.log("value:", value);
-
     const updatedFeats = [...featureTraits];
     updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.ACTION]: value.toLowerCase() };
-    console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
 
-  const onChangeExistingFeatUses = (index, value) => {
-    console.log("@onChangeExistingFeatUses");
-    console.log("index:", index);
-    console.log("value:", value);
-    
+  /**
+   * Change the uses of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingFeatUses = (index, value) => {    
     // Check if the input is a number. If not, then give it the previous Number value.
     let num = Number(value);
     if (isNaN(num)) num = Number(character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]);
 
     const updatedFeats = [...featureTraits];
     updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.USES]: num };
-    console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
 
+  /**
+   * Change the description of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
   const onChangeExistingFeatDescription = (index, value) => {
-    console.log("@onChangeExistingFeatDescription");
-    console.log("index:", index);
-    console.log("value:", value);
-
     const updatedFeats = [...featureTraits];
     updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.DESCRIPTION]: value };
-    console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
 
