@@ -1,7 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import Alert from "../../Alert";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
@@ -37,10 +37,6 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     // Make jump to menu
     setMenu(makeJumpToForSection(character.featureTraits));
   }, []);
-
-  useEffect(() => {
-    if (isEditing) setFeatsTraits(character.featureTraits); // Reset state variable for editing.
-  }, [isEditing])
 
 
   // Disables "Add Feat/Trait" button if form isn't filled out
@@ -162,7 +158,6 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     const updatedFeats = [...character.featureTraits];
     updatedFeats.push(newFeat); // Add the new feat
     character.featureTraits = updatedFeats; // update the `character` variable
-    setFeatsTraits(updatedFeats);
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -210,7 +205,6 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     // Filter out the feat to remove;
     const updatedFeats = featureTraits.filter((_, index) => index !== indexToRemove);
     character.featureTraits = updatedFeats; // update the `character` variable
-    setFeatsTraits(updatedFeats);
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -269,7 +263,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         </form>
 
         {featureTraits?.map((item, index) => (
-          <div key={index} id={makeIdFromName(character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
+          <div key={index} id={makeIdFromName(featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
             <form className="new-entry feats" onSubmit={onClickUpdateFeat}>
               <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
 
