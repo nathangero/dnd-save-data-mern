@@ -64,6 +64,16 @@ section.character-view {
   color: white;
 }
 
+.button-delete {
+  background-color: var(--button-negative-color);
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: var(--button-negative-hover-color);
+  color: white;
+}
+
 .button-update:hover {
   background-color: var(--button-positive-hover-color);
   color: white;

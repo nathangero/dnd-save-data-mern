@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
@@ -68,7 +68,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    */
   const onChangeExistingFeatTrait = (index, value) => {
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
+    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
     setFeatsTraits(updatedFeats);
   }
 
@@ -79,7 +79,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    */
   const onChangeExistingFeatAction = (index, value) => {
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.ACTION]: value.toLowerCase() };
+    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.ACTION]: value.toLowerCase() };
     setFeatsTraits(updatedFeats);
   }
 
@@ -88,13 +88,13 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    * @param {Number} index 
    * @param {String} value 
    */
-  const onChangeExistingFeatUses = (index, value) => {    
+  const onChangeExistingFeatUses = (index, value) => {
     // Check if the input is a number. If not, then give it the previous Number value.
     let num = Number(value);
     if (isNaN(num)) num = Number(character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]);
 
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.USES]: num };
+    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.USES]: num };
     setFeatsTraits(updatedFeats);
   }
 
@@ -105,7 +105,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    */
   const onChangeExistingFeatDescription = (index, value) => {
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.DESCRIPTION]: value };
+    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.DESCRIPTION]: value };
     setFeatsTraits(updatedFeats);
   }
 
@@ -181,6 +181,47 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     }
   }
 
+  const onClickUpdateFeat = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    character.featureTraits = featureTraits; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+    }
+  }
+
+  const onClickDeleteFeat = async (indexToRemove) => {
+    // Filter out the feat to remove;
+    const updatedFeats = featureTraits.filter((_, index) => index !== indexToRemove);
+    character.featureTraits = updatedFeats; // update the `character` variable
+    setFeatsTraits(updatedFeats);
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
   const renderEditing = () => {
 
     return (
@@ -220,7 +261,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
         {featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
-            <form className="new-entry feats" onSubmit={onClickUpdateCharacter}>
+            <form className="new-entry feats" onSubmit={onClickUpdateFeat}>
               <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
 
               <div className="stat-row">
@@ -246,27 +287,14 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
                 <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]} />
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => {onChangeExistingFeatDescription(index, e.target.value)}} rows={4} placeholder="How does this work?" />
+              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingFeatDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
 
-              {/* <button type="submit" className="btn fs-3 button-update button-add-feat" disabled>Update Feat/Trait</button> */}
-
+              <div className="d-flex justify-content-evenly">
+                <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDeleteFeat(index)}>Delete</button>
+                <button type="submit" className="btn fs-3 button-update button-add-feat">Update</button>
+              </div>
               <hr />
             </form>
-            {/* <h3><u>{item.name}</u></h3>
-            <div className="stat-row">
-              <p>Uses</p>
-              <b>{item.uses}</b>
-            </div>
-            <div className="stat-row">
-              <p>Trait Type</p>
-              <b>{item.traitType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Action Type</p>
-              <b>{item.actionType}</b>
-            </div>
-            <p className="description">{item.description}</p> */}
-
             <hr />
           </div>
         ))}
