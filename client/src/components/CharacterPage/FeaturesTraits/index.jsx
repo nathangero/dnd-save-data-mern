@@ -84,9 +84,13 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     console.log("@onChangeExistingFeatUses");
     console.log("index:", index);
     console.log("value:", value);
+    
+    // Check if the input is a number. If not, then give it the previous Number value.
+    let num = Number(value);
+    if (isNaN(num)) num = Number(character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]);
 
     const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.USES]: value };
+    updatedFeats[index] = { ...updatedFeats[index], [ FEATURE_TRAIT_KEYS.USES]: num };
     console.log("updatedFeats:", updatedFeats);
     setFeatsTraits(updatedFeats);
   }
@@ -234,10 +238,10 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
                 </select>
               </div>
 
-              {/* <div className="stat-row">
+              <div className="stat-row">
                 <p># of Uses</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={featUses} onChange={onChangeFeatUses} placeholder="" />
-              </div> */}
+                <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]} />
+              </div>
 
               {/* <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" /> */}
 
