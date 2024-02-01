@@ -168,6 +168,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         updatedCharacter: character
       });
 
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.featureTraits));
+
       setFeatName("");
       setFeatUses("");
       setFeatTraitType("");
@@ -191,6 +194,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         updatedCharacter: character
       });
       
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.featureTraits));
+
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
       if (sectionElement) {
@@ -214,6 +220,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
+      
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.featureTraits));
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
@@ -265,7 +274,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         {featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
             <form className="new-entry feats" onSubmit={onClickUpdateFeat}>
-              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.NAME]} />
+              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder="Feat/Trait Name" />
 
               <div className="stat-row">
                 <p>Trait Type</p>
@@ -287,7 +296,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
               <div className="stat-row">
                 <p># of Uses</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]} />
+                <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder="" />
               </div>
 
               <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingFeatDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
