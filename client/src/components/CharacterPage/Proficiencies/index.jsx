@@ -1,19 +1,133 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../../models/Character";
+import Alert from "../../Alert";
 import { useEffect, useState } from "react";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID } from "../../../utils/enums";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { FEATURE_TRAIT_KEYS } from "../../../utils/db-keys";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
   const character = { ...char }
 
   const [jumpToMenu, setMenu] = useState({});
 
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  const [proficiencies, setProficiencies] = useState(character.proficiencies);
+  const [profName, setProfName] = useState("");
+  const [profDescription, setProfDescription] = useState("");
+
   useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-proficiencies").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
     // Make jump to menu
     setMenu(makeJumpToForSection(character.proficiencies));
   }, [])
+
+
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
+  const onClickUpdateCharacter = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newEntry = {
+      actionType: profName,
+      description: profDescription,
+    }
+
+    // Create a copy of the feats
+    const updatedList = [...character.featureTraits];
+    updatedList.push(newEntry); // Add the new feat
+    character.featureTraits = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.featureTraits));
+
+      setProfName("");
+      setProfDescription("");
+    }
+  }
+
+  const onClickUpdate = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    character.proficiencies = proficiencies; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.proficiencies));
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
+  const onClickDelete = async (indexToRemove) => {
+    // Filter out the feat to remove;
+    const updatedList = proficiencies.filter((_, index) => index !== indexToRemove);
+    character.featureTraits = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.featureTraits));
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
 
   return (
     <div className="fs-3">
@@ -59,6 +173,10 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
             <hr />
           </div>
         ))}
+      </div>
+
+      <div className="alert-modal-proficiencies">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )
