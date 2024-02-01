@@ -243,7 +243,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
                 <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder={character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]} />
               </div>
 
-              {/* <textarea className="rounded p-1 mb-4" value={featDescription} onChange={onChangeFeatDescription} rows={4} placeholder="How does this work?" /> */}
+              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => {onChangeExistingFeatDescription(index, e.target.value)}} rows={4} placeholder="How does this work?" />
 
               {/* <button type="submit" className="btn fs-3 button-update button-add-feat" disabled>Update Feat/Trait</button> */}
 
