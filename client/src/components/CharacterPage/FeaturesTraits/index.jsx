@@ -45,6 +45,11 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
     if (addButton && featName && featUses && featTraitType && featActionType) addButton.removeAttribute("disabled");
     else if (addButton) addButton.setAttribute("disabled", null);
   }, [featName, featUses, featTraitType, featActionType]);
+  
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) setFeatsTraits(character.featureTraits);
+  }, [isEditing])
 
   /**
    * Change the name of a Feat/Trait at the specific index with the changed value.

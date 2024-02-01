@@ -43,6 +43,12 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
   }, [profName]);
 
 
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) setProficiencies(character.proficiencies);
+  }, [isEditing])
+
+
   /**
    * Change the name of a Feat/Trait at the specific index with the changed value.
    * @param {Number} index 
