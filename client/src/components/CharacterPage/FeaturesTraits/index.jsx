@@ -52,9 +52,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    * @param {String} value 
    */
   const onChangeExistingFeatName = (index, value) => {
-    const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.NAME]: value };
-    setFeatsTraits(updatedFeats);
+    const updatedList = [...featureTraits];
+    updatedList[index] = { ...updatedList[index], [FEATURE_TRAIT_KEYS.NAME]: value };
+    setFeatsTraits(updatedList);
   }
 
   /**
@@ -63,9 +63,9 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
    * @param {String} value 
    */
   const onChangeExistingFeatTrait = (index, value) => {
-    const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
-    setFeatsTraits(updatedFeats);
+    const updatedList = [...featureTraits];
+    updatedList[index] = { ...updatedList[index], [FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
+    setFeatsTraits(updatedList);
   }
 
   /**

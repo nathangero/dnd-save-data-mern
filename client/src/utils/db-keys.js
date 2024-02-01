@@ -5,3 +5,8 @@ export const FEATURE_TRAIT_KEYS = {
   TRAIT: "traitType",
   USES: "uses",
 }
+
+export const PROFICIENCIES_KEYS = {
+  DESCRIPTION: "description",
+  NAME: "name",
+}

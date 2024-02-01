@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
-import { FEATURE_TRAIT_KEYS } from "../../../utils/db-keys";
+import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { FEATURE_TRAIT_KEYS, PROFICIENCIES_KEYS } from "../../../utils/db-keys";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -35,6 +35,46 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
     setMenu(makeJumpToForSection(character.proficiencies));
   }, [])
 
+  // Disables "Add Feat/Trait" button if form isn't filled out
+  useEffect(() => {
+    let addButton = document.querySelector(".button-add-prof");
+    if (addButton && profName) addButton.removeAttribute("disabled");
+    else if (addButton) addButton.setAttribute("disabled", null);
+  }, [profName]);
+
+
+  /**
+   * Change the name of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingProfName = (index, value) => {
+    const updatedList = [...proficiencies];
+    updatedList[index] = { ...updatedList[index], [PROFICIENCIES_KEYS.NAME]: value };
+    setProficiencies(updatedList);
+  }
+
+
+  /**
+   * Change the name of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingProfDescription = (index, value) => {
+    const updatedList = [...proficiencies];
+    updatedList[index] = { ...updatedList[index], [PROFICIENCIES_KEYS.DESCRIPTION]: value };
+    setProficiencies(updatedList);
+  }
+
+
+  const onChangeProfName = ({ target }) => {
+    setProfName(target.value);
+  }
+
+  const onChangeProfDescription = ({ target }) => {
+    setProfDescription(target.value);
+  }
+
 
   /**
    * First, updates the `character` variable's value.
@@ -48,16 +88,16 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
     event.stopPropagation();
 
     const newEntry = {
-      actionType: profName,
-      description: profDescription,
+      [PROFICIENCIES_KEYS.NAME]: profName,
+      [PROFICIENCIES_KEYS.DESCRIPTION]: profDescription,
     }
 
     // Create a copy of the feats
-    const updatedList = [...character.featureTraits];
+    const updatedList = [...character.proficiencies];
     updatedList.push(newEntry); // Add the new feat
-    character.featureTraits = updatedList; // update the `character` variable
+    character.proficiencies = updatedList; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.PROFICIENCIES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -67,7 +107,10 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
       });
 
       // Update jump to menu
-      setMenu(makeJumpToForSection(character.featureTraits));
+      setMenu(makeJumpToForSection(character.proficiencies));
+
+      // Update local variable
+      setProficiencies(character.proficiencies);
 
       setProfName("");
       setProfDescription("");
@@ -80,7 +123,7 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
 
     character.proficiencies = proficiencies; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.PROFICIENCIES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -92,8 +135,11 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
       // Update jump to menu
       setMenu(makeJumpToForSection(character.proficiencies));
 
+      // Update local variable
+      setProficiencies(character.proficiencies);
+
       // Scroll to the top of the section
-      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      const sectionElement = document.getElementById(SECTION_TITLE.PROFICIENCIES);
       if (sectionElement) {
         const sectionTop = sectionElement.getBoundingClientRect().top;
         const adjustedScrollTop = sectionTop + window.scrollY - 50;
@@ -105,9 +151,9 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
   const onClickDelete = async (indexToRemove) => {
     // Filter out the feat to remove;
     const updatedList = proficiencies.filter((_, index) => index !== indexToRemove);
-    character.featureTraits = updatedList; // update the `character` variable
+    character.proficiencies = updatedList; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.FEATURES_TRAITS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.PROFICIENCIES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -117,16 +163,69 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
       });
 
       // Update jump to menu
-      setMenu(makeJumpToForSection(character.featureTraits));
+      setMenu(makeJumpToForSection(character.proficiencies));
+
+      // Update local variable
+      setProficiencies(character.proficiencies);
 
       // Scroll to the top of the section
-      const sectionElement = document.getElementById(SECTION_TITLE.FEATURES_TRAITS);
+      const sectionElement = document.getElementById(SECTION_TITLE.PROFICIENCIES);
       if (sectionElement) {
         const sectionTop = sectionElement.getBoundingClientRect().top;
         const adjustedScrollTop = sectionTop + window.scrollY - 50;
         window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
       }
     }
+  }
+
+
+  const renderEditing = () => {
+
+    return (
+      <>
+        <form className="new-entry proficiencies" onSubmit={onClickUpdateCharacter}>
+          <input className="edit-input title" value={profName} onChange={onChangeProfName} placeholder="New Proficiency" />
+
+          <textarea className="rounded p-1 mb-4" value={profDescription} onChange={onChangeProfDescription} rows={4} placeholder="How does this work?" />
+
+          <button type="submit" className="btn fs-3 button-update button-add-prof" disabled>Add Proficiency</button>
+          <hr />
+        </form>
+
+        {proficiencies?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <form className="new-entry proficiencies" onSubmit={onClickUpdate}>
+              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingProfName(index, e.target.value) }} placeholder="Proficiency Name" />
+
+              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingProfDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
+
+              <div className="d-flex justify-content-evenly">
+                <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+                <button type="submit" className="btn fs-3 button-update button-add-prof">Update</button>
+              </div>
+              <hr />
+            </form>
+          </div>
+        ))}
+      </>
+    )
+  }
+
+
+  const renderViewing = () => {
+
+    return (
+      <>
+        {character.proficiencies?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name}</u></h3>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
+      </>
+    )
   }
 
   return (
@@ -165,14 +264,10 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
       </div>
 
       <div id={CHARACTER_VIEW_ID.PROFICIENCIES} className="collapse show">
-        {character.proficiencies?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
-            <h3><u>{item.name}</u></h3>
-            <p className="description">{item.description}</p>
-
-            <hr />
-          </div>
-        ))}
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
       </div>
 
       <div className="alert-modal-proficiencies">
