@@ -201,9 +201,9 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
         {proficiencies?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <form className="new-entry proficiencies" onSubmit={onClickUpdate}>
-              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingProfName(index, e.target.value) }} placeholder="Proficiency Name" />
+              <input className="edit-input title" value={item[PROFICIENCIES_KEYS.NAME]} onChange={(e) => { onChangeExistingProfName(index, e.target.value) }} placeholder="Proficiency Name" />
 
-              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingProfDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
+              <textarea className="rounded p-1 mb-4" value={item[PROFICIENCIES_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingProfDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>

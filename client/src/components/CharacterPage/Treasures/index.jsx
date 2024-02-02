@@ -55,18 +55,27 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
    * @param {Number} index 
    * @param {String} value 
    */
-  const onChangeExistingProfName = (index, value) => {
+  const onChangeExistingTreasureName = (index, value) => {
+    console.log("@onChangeExistingTreasureName")
     const updatedList = [...treasures];
     updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.NAME]: value };
+    console.log("updatedList:", updatedList);
     setTreasures(updatedList);
   }
 
-  const onChangeTreasureAmount = ({ target }) => {
-    const num = Number(target.value);
+  /**
+   * Change the uses of a Feat/Trait at the specific index with the changed value.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingTreasureAmount = (index, value) => {
+    // Check if the input is a number. If not, then give it the previous Number value.
+    let num = Number(value);
+    if (isNaN(num)) num = Number(character.treasures[index][TREASURE_KEYS.USES]);
 
-    // Check if the input is a number. If not, then don't update the state value
-    if (isNaN(num)) setTreasureAmount("");
-    else setTreasureAmount(num);
+    const updatedList = [...treasures];
+    updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.AMOUNT]: num };
+    setTreasures(updatedList);
   }
 
   /**
@@ -74,7 +83,7 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
    * @param {Number} index 
    * @param {String} value 
    */
-  const onChangeExistingProfDescription = (index, value) => {
+  const onChangeExistingTreasureDescription = (index, value) => {
     const updatedList = [...treasures];
     updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.DESCRIPTION]: value };
     setTreasures(updatedList);
@@ -83,6 +92,14 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
 
   const onChangeTreasureName = ({ target }) => {
     setTreasureName(target.value);
+  }
+
+  const onChangeTreasureAmount = ({ target }) => {
+    const num = Number(target.value);
+
+    // Check if the input is a number. If not, then don't update the state value
+    if (isNaN(num)) setTreasureAmount("");
+    else setTreasureAmount(num);
   }
 
   const onChangeTreasureDescription = ({ target }) => {
@@ -132,7 +149,7 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
     }
   }
 
-  const onClickUpdate = async (event) => {
+  const onClickUpdateExiting = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -211,15 +228,24 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
           <hr />
         </form>
 
-        {character.treasures?.map((item, index) => (
+        {treasures?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
-            <form className="new-entry treasure" onSubmit={onClickUpdateCharacter}>
+            <form className="new-entry treasure" onSubmit={onClickUpdateExiting}>
+              <input className="edit-input title" value={item[TREASURE_KEYS.NAME]} onChange={(e) => { onChangeExistingTreasureName(index, e.target.value) }} placeholder="Treasure Name" />
 
+              <div className="stat-row">
+                <p>Amount</p>
+                <input className="edit-input" type="number" inputMode="numeric" value={item[TREASURE_KEYS.AMOUNT]} onChange={(e) => { onChangeExistingTreasureAmount(index, e.target.value) }} placeholder="" />
+              </div>
+
+              <textarea className="rounded p-1 mb-4" value={item[TREASURE_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingTreasureDescription(index, e.target.value) }} rows={4} placeholder="What is it?" />
+
+              <div className="d-flex justify-content-evenly">
+                <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+                <button type="submit" className="btn fs-3 button-update button-add-feat">Update</button>
+              </div>
+              <hr />
             </form>
-            <h3><u>{item.name} x{item.amount}</u></h3>
-            <p className="description">{item.description}</p>
-
-            <hr />
           </div>
         ))}
       </>
