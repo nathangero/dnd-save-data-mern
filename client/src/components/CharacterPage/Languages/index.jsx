@@ -192,9 +192,10 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
         </form>
 
         {languages?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
+          <div key={index} id={makeIdFromName(item[LANGUAGE_KEYS.NAME])}>
             <div className="stat-row">
-              <p>{item.name}</p>
+              <input className="edit-input title" value={item[LANGUAGE_KEYS.NAME]} onChange={(e) => { onChangeExistingLanguageName(index, e.target.value) }} placeholder="Language Name" />
+
               <select value={capitalizeFirst(item[LANGUAGE_KEYS.PROFICIENCY])} onChange={(e) => onChangeExistingProficiency(index, e.target.value)}>
                 {Object.values(LANGUAGE_TYPES).map((type, index) => (
                   <option key={index}>{capitalizeFirst(type)}</option>
