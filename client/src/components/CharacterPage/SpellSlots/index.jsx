@@ -240,21 +240,24 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
 
     return (
       <>
-        <form className="new-entry spell-slot" onSubmit={onClickUpdateCharacter}>
-          <div className="stat-row">
-            <p>Level #</p>
-            <p>{SPELL_NAMES[findFirstUnsetLevel()]}</p>
-          </div>
+        {spellSlots[SPELL_KEYS.LEVEL_9] ? // If level 9 slots exist, don't allow adding more.
+          <p>No more spell slots to add.</p> :
+          <form className="new-entry spell-slot" onSubmit={onClickUpdateCharacter}>
+            <div className="stat-row">
+              <p>Level #</p>
+              <p>{SPELL_NAMES[findFirstUnsetLevel()]}</p>
+            </div>
 
-          <div className="stat-row">
-            <p>Amount</p>
-            <input className="edit-input" type="number" inputMode="numeric" value={spellAmount} onChange={onChangeSpellAmount} placeholder="" />
-          </div>
+            <div className="stat-row">
+              <p>Amount</p>
+              <input className="edit-input" type="number" inputMode="numeric" value={spellAmount} onChange={onChangeSpellAmount} placeholder="" />
+            </div>
 
-          <button type="submit" className="btn fs-3 button-update button-add-spell-slot" disabled>Add {SPELL_NAMES[spellLevel]} Slot</button>
+            <button type="submit" className="btn fs-3 button-update button-add-spell-slot" disabled>Add {SPELL_NAMES[spellLevel]} Slot</button>
 
-          <hr />
-        </form>
+            <hr />
+          </form>
+        }
 
         {Object.keys(spellSlots)?.map((item, index) => (
           <React.Fragment key={index}>
