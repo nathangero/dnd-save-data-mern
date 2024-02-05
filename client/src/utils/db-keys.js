@@ -1,3 +1,10 @@
+export const EQUIPMENT_KEYS = {
+  AMOUNT: "amount",
+  DESCRIPTION: "description",
+  NAME: "name",
+}
+
+
 export const FEATURE_TRAIT_KEYS = {
   ACTION: "actionType",
   DESCRIPTION: "description",
@@ -10,7 +17,6 @@ export const PROFICIENCIES_KEYS = {
   DESCRIPTION: "description",
   NAME: "name",
 }
-
 
 
 export const TREASURE_KEYS = {

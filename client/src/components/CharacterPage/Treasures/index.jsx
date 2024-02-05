@@ -9,7 +9,7 @@ import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../u
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
-import { FEATURE_TRAIT_KEYS, TREASURE_KEYS } from "../../../utils/db-keys";
+import { TREASURE_KEYS } from "../../../utils/db-keys";
 
 export default function Treasures({ char, toggleSectionShowing, isShowingTreasures, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -56,10 +56,8 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
    * @param {String} value 
    */
   const onChangeExistingTreasureName = (index, value) => {
-    console.log("@onChangeExistingTreasureName")
     const updatedList = [...treasures];
     updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.NAME]: value };
-    console.log("updatedList:", updatedList);
     setTreasures(updatedList);
   }
 
