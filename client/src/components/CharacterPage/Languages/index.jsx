@@ -115,10 +115,7 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
     }
   }
 
-  const onClickUpdate = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
+  const onClickUpdate = async () => {
     character.languages = languages; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
@@ -202,9 +199,15 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
                 ))}
               </select>
             </div>
+
+            <div className="d-flex justify-content-center">
+              <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+            </div>
             <hr />
           </div>
         ))}
+
+        <button type="submit" className="btn fs-3 mt-3 button-update button-add-language" onClick={() => onClickUpdate()}>Update All Languages</button>
       </>
     )
   }
