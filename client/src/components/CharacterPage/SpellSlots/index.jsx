@@ -1,6 +1,9 @@
 import "./style.css";
 import PropTypes from "prop-types";
-import { Character } from "../../../models/Character";
+import Alert from "../../Alert";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
 import { CHARACTER_VIEW_ID, SPELL_NAMES } from "../../../utils/enums";
 
 export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, toggleEditing, isEditing }) {
@@ -14,6 +17,26 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
   const makeIdFromSpellSlot = (name) => {
     const id = `spell-slot-${name.toLowerCase().split("_").join("-")}`;
     return id;
+  }
+
+
+  const renderEditing = () => {
+
+    return (
+      <>
+
+      </>
+    )
+  }
+
+
+  const renderViewing = () => {
+
+    return (
+      <>
+
+      </>
+    )
   }
 
   return (
@@ -32,20 +55,22 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
         <button className="btn btn-secondary button-edit" onClick={() => toggleEditing()}>{isEditing ? "Finish" : "Edit"}</button>
       </div>
 
-      {Object.keys(character.spellSlots)?.map((item, index) => (
-        <div key={index} id={CHARACTER_VIEW_ID.SPELL_SLOTS} className="collapse show">
-          {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
-            <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
-              {!character.spellSlots[item] ? null :
-                <>
-                  <p>{SPELL_NAMES[item]}</p>
-                  <b>{character.spellSlots[item].current}/{character.spellSlots[item].max}</b>
-                </>
-              }
-            </div>
-          }
-        </div>
-      ))}
+      <div id={CHARACTER_VIEW_ID.SPELL_SLOTS} className="collapse show">
+        {Object.keys(character.spellSlots)?.map((item, index) => (
+          <React.Fragment key={index}>
+            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
+              <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
+                {!character.spellSlots[item] ? null :
+                  <>
+                    <p>{SPELL_NAMES[item]}</p>
+                    <b>{character.spellSlots[item].current}/{character.spellSlots[item].max}</b>
+                  </>
+                }
+              </div>
+            }
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   )
 }
