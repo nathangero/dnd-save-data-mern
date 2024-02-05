@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { updateCharacter } from "../../../utils/shared-functions";
@@ -105,17 +105,14 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
    * @param {String} value 
    */
   const onChangeExistingSpellSlotCurrent = (index, current, max) => {
-    console.log("@onChangeExistingSpellSlotCurrent");
     let maxNum = Number(max);
-    let maxCurrent = Number(current);
+    let currentNum = Number(current);
     const level = getSpellLevel(index);
 
-    console.log("level:", level);
-
     // If the spell slot current amount is higher than the level's set max, make it equal to the max.
-    if (maxCurrent > maxNum) maxCurrent = maxNum;
+    if (currentNum > maxNum) currentNum = maxNum;
 
-    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: maxCurrent, [SPELL_SLOT_KEYS.MAX]: maxNum }
+    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: currentNum, [SPELL_SLOT_KEYS.MAX]: maxNum }
     const updatedList = { ...spellSlots, [level]: updatedSlot };
     setSpellSlots(updatedList);
   }
@@ -126,13 +123,14 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
    * @param {String} value 
    */
   const onChangeExistingSpellSlotMax = (index, max) => {
-    console.log("@onChangeExistingSpellSlotMax");
-    let maxNum = Number(max);
     const level = getSpellLevel(index);
+    let currentNum = spellSlots[level][SPELL_SLOT_KEYS.CURRENT];
+    let maxNum = Number(max);
 
-    console.log("level:", level);
+    // If the spell slot current amount is higher than the level's set max, make it equal to the max.
+    if (currentNum > maxNum) currentNum = maxNum;
 
-    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: spellSlots[level][SPELL_SLOT_KEYS.CURRENT], [SPELL_SLOT_KEYS.MAX]: maxNum }
+    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: currentNum, [SPELL_SLOT_KEYS.MAX]: maxNum }
     const updatedList = { ...spellSlots, [level]: updatedSlot };
     setSpellSlots(updatedList);
   }
@@ -185,6 +183,61 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
     }
   }
 
+  const onClickUpdate = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    character.spellSlots = spellSlots; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELL_SLOTS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setSpellSlots(character.spellSlots);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.SPELL_SLOTS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
+  const onClickDelete = async (indexToRemove) => {
+    const updatedList = { ...spellSlots };
+    updatedList[getSpellLevel(indexToRemove)] = null;
+    character.spellSlots = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELL_SLOTS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setSpellSlots(character.spellSlots);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.SPELL_SLOTS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
 
   const renderEditing = () => {
 
@@ -209,20 +262,27 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
         {Object.keys(spellSlots)?.map((item, index) => (
           <React.Fragment key={index}>
             {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
-              <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
+              <div id={makeIdFromSpellSlot(item)}>
                 {!spellSlots[item] ? null :
-                  <>
-                    <p>{SPELL_NAMES[item]}</p>
+                  <form className="new-entry spell-slot" onSubmit={onClickUpdate}>
+                    <div className="stat-row">
+                      <p>{SPELL_NAMES[item]}</p>
 
-                    <div>
-                      <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.CURRENT]} onChange={(e) => { onChangeExistingSpellSlotCurrent(index, e.target.value, spellSlots?.[item][SPELL_SLOT_KEYS.MAX]) }} placeholder=""
-                      />
+                      <div>
+                        <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.CURRENT]} onChange={(e) => { onChangeExistingSpellSlotCurrent(index, e.target.value, spellSlots?.[item][SPELL_SLOT_KEYS.MAX]) }} placeholder=""
+                        />
 
-                      <b> / </b>
+                        <b> / </b>
 
-                      <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.MAX]} onChange={(e) => { onChangeExistingSpellSlotMax(index, e.target.value) }} placeholder="" />
+                        <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.MAX]} onChange={(e) => { onChangeExistingSpellSlotMax(index, e.target.value) }} placeholder="" />
+                      </div>
                     </div>
-                  </>
+
+                    <div className="d-flex justify-content-evenly">
+                      <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+                      <button type="submit" className="btn fs-3 button-update button-add-prof">Update</button>
+                    </div>
+                  </form>
                 }
               </div>
             }
