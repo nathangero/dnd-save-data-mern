@@ -195,7 +195,11 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
           <div key={index} id={makeIdFromName(item.name)}>
             <div className="stat-row">
               <p>{item.name}</p>
-              <b>{item.proficiency}</b>
+              <select value={capitalizeFirst(item[LANGUAGE_KEYS.PROFICIENCY])} onChange={(e) => onChangeExistingProficiency(index, e.target.value)}>
+                {Object.values(LANGUAGE_TYPES).map((type, index) => (
+                  <option key={index}>{capitalizeFirst(type)}</option>
+                ))}
+              </select>
             </div>
             <hr />
           </div>
