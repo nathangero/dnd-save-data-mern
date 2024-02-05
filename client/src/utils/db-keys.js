@@ -19,6 +19,12 @@ export const PROFICIENCIES_KEYS = {
 }
 
 
+export const SPELL_SLOT_KEYS = {
+  CURRENT: "current",
+  MAX: "max",
+}
+
+
 export const TREASURE_KEYS = {
   AMOUNT: "amount",
   DESCRIPTION: "description",

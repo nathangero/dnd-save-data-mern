@@ -4,10 +4,50 @@ import Alert from "../../Alert";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
-import { CHARACTER_VIEW_ID, SPELL_NAMES } from "../../../utils/enums";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { updateCharacter } from "../../../utils/shared-functions";
+import { SPELL_SLOT_KEYS } from "../../../utils/db-keys";
 
 export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellSlots, toggleEditing, isEditing }) {
   const character = { ...char }
+
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  const [spellSlots, setSpellSlots] = useState(character.spellSlots);
+  const [spellLevel, setSpellLevel] = useState("");
+  const [spellAmount, setSpellAmount] = useState("");
+
+
+  useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-spell-slots").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
+    setSpellLevel(findFirstUnsetLevel());
+  }, [])
+
+
+  // Disables "Add Feat/Trait" button if form isn't filled out
+  useEffect(() => {
+    let addButton = document.querySelector(".button-add-spell-slot");
+    if (addButton && spellAmount) addButton.removeAttribute("disabled");
+    else if (addButton) addButton.setAttribute("disabled", null);
+  }, [spellAmount]);
+
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) {
+      setSpellSlots(character.spellSlots);
+      setSpellAmount("");
+    }
+  }, [isEditing])
 
   /**
    * Creates a div id from the spell name
@@ -20,11 +60,174 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
   }
 
 
+  /**
+   * Gets the key used in the db to store the spell slot data.
+   * 
+   * Get the first index where the character doesn't have any spell slots. 
+   * If a character doesn't have level 2 spell slots, it'll get the index for level 2 spell slots.
+   * 
+   * Then it uses the enum `SPELL_KEYS` to return the db key of the first spell slot that needs to be added.
+   * If a character already has level 1 spell slots, it'll return the key "level_2"
+   * 
+   * @returns The spell slot db key. E.g. "level_1";
+   */
+  const findFirstUnsetLevel = () => {
+    const index = Object.keys(character.spellSlots).findIndex((level, index) => {
+      if (!character.spellSlots[level]) {
+        return index;
+      }
+    })
+
+    return getSpellLevel(index);
+  }
+
+
+  /**
+   * Uses the index passed in and return the appropriate Spell Slot db key.
+   * 
+   * E.g. if index === 1, return "level_1"
+   *      if index === 2, return "level_2"
+   * 
+   * Since Cantrips don't have spell slots, it's completely ignored.
+   * 
+   * @param {Number} index 
+   * @returns A spell slot key. E.g. "level_1"
+   */
+  const getSpellLevel = (index) => {
+    const key = Object.keys(SPELL_KEYS)[index];
+    return SPELL_KEYS[key];
+  }
+
+
+  /**
+   * Change the name of a Spell Slot given the specific level, current and max count.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingSpellSlotCurrent = (index, current, max) => {
+    console.log("@onChangeExistingSpellSlotCurrent");
+    let maxNum = Number(max);
+    let maxCurrent = Number(current);
+    const level = getSpellLevel(index);
+
+    console.log("level:", level);
+
+    // If the spell slot current amount is higher than the level's set max, make it equal to the max.
+    if (maxCurrent > maxNum) maxCurrent = maxNum;
+
+    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: maxCurrent, [SPELL_SLOT_KEYS.MAX]: maxNum }
+    const updatedList = { ...spellSlots, [level]: updatedSlot };
+    setSpellSlots(updatedList);
+  }
+
+  /**
+   * Change the name of a Spell Slot given the specific level, current and max count.
+   * @param {Number} index 
+   * @param {String} value 
+   */
+  const onChangeExistingSpellSlotMax = (index, max) => {
+    console.log("@onChangeExistingSpellSlotMax");
+    let maxNum = Number(max);
+    const level = getSpellLevel(index);
+
+    console.log("level:", level);
+
+    const updatedSlot = { [SPELL_SLOT_KEYS.CURRENT]: spellSlots[level][SPELL_SLOT_KEYS.CURRENT], [SPELL_SLOT_KEYS.MAX]: maxNum }
+    const updatedList = { ...spellSlots, [level]: updatedSlot };
+    setSpellSlots(updatedList);
+  }
+
+
+  const onChangeSpellAmount = ({ target }) => {
+    const num = Number(target.value);
+
+    // Check if the input is a number. If not, then don't update the state value
+    if (isNaN(num)) setSpellAmount("");
+    else setSpellAmount(num);
+  }
+
+
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
+  const onClickUpdateCharacter = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newEntry = {
+      [SPELL_SLOT_KEYS.CURRENT]: spellAmount,
+      [SPELL_SLOT_KEYS.MAX]: spellAmount,
+    }
+
+    // Create a copy of the spell slots
+    const updatedList = { ...character.spellSlots };
+    updatedList[spellLevel] = newEntry; // Add the new spell slot
+    character.spellSlots = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELL_SLOTS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setSpellSlots(character.spellSlots);
+
+      setSpellLevel(findFirstUnsetLevel());
+      setSpellAmount("");
+    }
+  }
+
+
   const renderEditing = () => {
 
     return (
       <>
+        <form className="new-entry spell-slot" onSubmit={onClickUpdateCharacter}>
+          <div className="stat-row">
+            <p>Level #</p>
+            <p>{SPELL_NAMES[findFirstUnsetLevel()]}</p>
+          </div>
 
+          <div className="stat-row">
+            <p>Amount</p>
+            <input className="edit-input" type="number" inputMode="numeric" value={spellAmount} onChange={onChangeSpellAmount} placeholder="" />
+          </div>
+
+          <button type="submit" className="btn fs-3 button-update button-add-spell-slot" disabled>Add {SPELL_NAMES[spellLevel]} Slot</button>
+
+          <hr />
+        </form>
+
+        {Object.keys(spellSlots)?.map((item, index) => (
+          <React.Fragment key={index}>
+            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
+              <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
+                {!spellSlots[item] ? null :
+                  <>
+                    <p>{SPELL_NAMES[item]}</p>
+
+                    <div>
+                      <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.CURRENT]} onChange={(e) => { onChangeExistingSpellSlotCurrent(index, e.target.value, spellSlots?.[item][SPELL_SLOT_KEYS.MAX]) }} placeholder=""
+                      />
+
+                      <b> / </b>
+
+                      <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.MAX]} onChange={(e) => { onChangeExistingSpellSlotMax(index, e.target.value) }} placeholder="" />
+                    </div>
+                  </>
+                }
+              </div>
+            }
+          </React.Fragment>
+        ))}
       </>
     )
   }
@@ -34,7 +237,20 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
 
     return (
       <>
-
+        {Object.keys(character.spellSlots)?.map((item, index) => (
+          <React.Fragment key={index}>
+            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
+              <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
+                {!character.spellSlots[item] ? null :
+                  <>
+                    <p>{SPELL_NAMES[item]}</p>
+                    <b>{character.spellSlots[item].current}/{character.spellSlots[item].max}</b>
+                  </>
+                }
+              </div>
+            }
+          </React.Fragment>
+        ))}
       </>
     )
   }
@@ -56,20 +272,14 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
       </div>
 
       <div id={CHARACTER_VIEW_ID.SPELL_SLOTS} className="collapse show">
-        {Object.keys(character.spellSlots)?.map((item, index) => (
-          <React.Fragment key={index}>
-            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
-              <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
-                {!character.spellSlots[item] ? null :
-                  <>
-                    <p>{SPELL_NAMES[item]}</p>
-                    <b>{character.spellSlots[item].current}/{character.spellSlots[item].max}</b>
-                  </>
-                }
-              </div>
-            }
-          </React.Fragment>
-        ))}
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
+
+      <div className="alert-modal-spell-slots">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )
