@@ -183,10 +183,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
     }
   }
 
-  const onClickUpdate = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
+  const onClickUpdate = async () => {
     character.spellSlots = spellSlots; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELL_SLOTS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
@@ -264,7 +261,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
             {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
               <div id={makeIdFromSpellSlot(item)}>
                 {!spellSlots[item] ? null :
-                  <form className="new-entry spell-slot" onSubmit={onClickUpdate}>
+                  <form className="new-entry spell-slot">
                     <div className="stat-row">
                       <p>{SPELL_NAMES[item]}</p>
 
@@ -278,9 +275,8 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
                       </div>
                     </div>
 
-                    <div className="d-flex justify-content-evenly">
-                      <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
-                      <button type="submit" className="btn fs-3 button-update button-add-prof">Update</button>
+                    <div className="d-flex justify-content-center">
+                      <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete {SPELL_NAMES[getSpellLevel(index)]}</button>
                     </div>
                   </form>
                 }
@@ -288,6 +284,8 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
             }
           </React.Fragment>
         ))}
+
+        <button type="submit" className="btn fs-3 mt-3 button-update button-add-prof" onClick={() => onClickUpdate()}>Update All Slots</button>
       </>
     )
   }
