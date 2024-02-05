@@ -80,6 +80,12 @@ export const FEAT_TRAIT_TYPES = {
   OTHER: "other",
 }
 
+export const LANGUAGE_TYPES = {
+  FLUENT: "fluent",
+  SPOKEN: "spoken",
+  WRITTEN: "written",
+}
+
 export const SKILL_KEYS = {
   ACROBATICS: "acrobatics",
   ANIMAL_HANDLING: "animalHandling",

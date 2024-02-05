@@ -9,7 +9,7 @@ import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../u
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
-import { FEATURE_TRAIT_KEYS, PROFICIENCIES_KEYS } from "../../../utils/db-keys";
+import { PROFICIENCIES_KEYS } from "../../../utils/db-keys";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
   const character = { ...char }

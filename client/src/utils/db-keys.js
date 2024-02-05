@@ -13,6 +13,11 @@ export const FEATURE_TRAIT_KEYS = {
   USES: "uses",
 }
 
+export const LANGUAGE_KEYS = {
+  NAME: "name",
+  PROFICIENCY: "proficiency"
+}
+
 export const PROFICIENCIES_KEYS = {
   DESCRIPTION: "description",
   NAME: "name",
