@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
@@ -24,7 +24,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
   const [weapons, setWeapons] = useState(character.weapons);
   const [weaponAmount, setWeaponAmount] = useState("");
-  const [weaponAtkDmgStat, setWeaponAtkDmgStat] = useState("");
+  const [weaponAtkDmgScore, setWeaponAtkDmgScore] = useState("");
   const [weaponCategory, setWeaponCategory] = useState("");
   const [weaponDescription, setWeaponDescription] = useState("");
   const [weaponDieType, setWeaponDieType] = useState("");
@@ -43,15 +43,45 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   // Disables "Add Feat/Trait" button if form isn't filled out
   useEffect(() => {
     let addButton = document.querySelector(".button-add-weapon");
-    if (addButton && weaponAmount && weaponAtkDmgStat && weaponCategory && weaponDieType && weaponName && weaponProficiency) addButton.removeAttribute("disabled");
+    if (addButton && weaponAmount && weaponAtkDmgScore && weaponCategory && weaponDieType && weaponName && weaponProficiency) addButton.removeAttribute("disabled");
     else if (addButton) addButton.setAttribute("disabled", null);
-  }, [weaponAmount, weaponAtkDmgStat, weaponCategory, weaponDieType, weaponName, weaponProficiency]);
+  }, [weaponAmount, weaponAtkDmgScore, weaponCategory, weaponDieType, weaponName, weaponProficiency]);
 
 
   // Reset the local variable when starting to edit
   useEffect(() => {
     if (isEditing) setWeapons(character.weapons);
   }, [isEditing])
+
+
+
+  const onChangeWeaponName = ({ target }) => {
+    setWeaponName(target.value);
+  }
+
+  const onChangeWeaponAmount = ({ target }) => {
+    setWeaponAmount(target.value);
+  }
+
+  const onChangeWeaponAtkDmgStat = ({ target }) => {
+    setWeaponAtkDmgScore(target.value);
+  }
+
+  const onChangeWeaponCategory = ({ target }) => {
+    setWeaponCategory(target.value);
+  }
+
+  const onChangeWeaponDescription = ({ target }) => {
+    setWeaponDescription(target.value);
+  }
+
+  const onChangeWeaponDieType = ({ target }) => {
+    setWeaponDieType(target.value);
+  }
+
+  const onChangeWeaponProficiency = ({ target }) => {
+    setWeaponProficiency(target.value);
+  }
 
 
   /**
@@ -67,7 +97,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
     const newEntry = {
       [WEAPON_KEYS.AMOUNT]: weaponAmount,
-      [WEAPON_KEYS.ATK_DMG_STAT]: weaponAtkDmgStat.toLowerCase(),
+      [WEAPON_KEYS.ATK_DMG_STAT]: weaponAtkDmgScore.toLowerCase(),
       [WEAPON_KEYS.CATEGORY]: weaponCategory,
       [WEAPON_KEYS.DESCRIPTION]: weaponDescription,
       [WEAPON_KEYS.DIE_TYPE]: weaponDieType,
@@ -93,7 +123,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
       setWeapons(character.weapons);
 
       setWeaponAmount("");
-      setWeaponAtkDmgStat("");
+      setWeaponAtkDmgScore("");
       setWeaponCategory("");
       setWeaponDescription("");
       setWeaponDieType("");
@@ -158,17 +188,27 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   const renderEditing = () => {
     return (
       <>
-        
+        <form className="new-entry weapons" onSubmit={onClickUpdateCharacter}>
+          <input className="edit-input title" value={weaponName} onChange={onChangeWeaponName} placeholder="New Weapon" />
+
+          <select value={weaponAtkDmgScore} onChange={onChangeWeaponAtkDmgStat}>
+            {Object.values(ABILITY_SCORE_KEYS).map((key, index) => (
+              <option key={index}>{ABILITY_SCORE_NAMES[key]}</option>
+            ))}
+          </select>
+          <hr />
+        </form>
+
         {character.weapons?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <h3><u>{item.name} x{item.amount}</u></h3>
             <div className="stat-row">
               <p>Attack Mod</p>
-              <b>{calcScoreWithProficiency(character.scores[item.attackDamageStat], character.level, item.proficient, true)} ({getScoreName(item.attackDamageStat)})</b>
+              <b>{calcScoreWithProficiency(character.scores[item.attackDamageScore], character.level, item.proficient, true)} ({getScoreName(item.attackDamageScore)})</b>
             </div>
             <div className="stat-row">
               <p>Damage Mod</p>
-              <b>{calcScoreMod(character.scores[item.attackDamageStat], true)} ({getScoreName(item.attackDamageStat)})</b>
+              <b>{calcScoreMod(character.scores[item.attackDamageScore], true)} ({getScoreName(item.attackDamageScore)})</b>
             </div>
             <div className="stat-row">
               <p>Die Type</p>
@@ -199,11 +239,11 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
             <h3><u>{item.name} x{item.amount}</u></h3>
             <div className="stat-row">
               <p>Attack Mod</p>
-              <b>{calcScoreWithProficiency(character.scores[item.attackDamageStat], character.level, item.proficient, true)} ({getScoreName(item.attackDamageStat)})</b>
+              <b>{calcScoreWithProficiency(character.scores[item.attackDamageScore], character.level, item.proficient, true)} ({getScoreName(item.attackDamageScore)})</b>
             </div>
             <div className="stat-row">
               <p>Damage Mod</p>
-              <b>{calcScoreMod(character.scores[item.attackDamageStat], true)} ({getScoreName(item.attackDamageStat)})</b>
+              <b>{calcScoreMod(character.scores[item.attackDamageScore], true)} ({getScoreName(item.attackDamageScore)})</b>
             </div>
             <div className="stat-row">
               <p>Die Type</p>

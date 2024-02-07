@@ -323,7 +323,7 @@ mutation UpdateCharacter($_id: String!, $character: CharacterInput!) {
     weapons {
       _id
       amount
-      attackDamageStat
+      attackDamageScore
       category
       description
       dieType

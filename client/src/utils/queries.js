@@ -326,7 +326,7 @@ query GetMe {
       weapons {
         _id
         amount
-        attackDamageStat
+        attackDamageScore
         category
         description
         dieType

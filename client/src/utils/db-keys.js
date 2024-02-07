@@ -38,7 +38,7 @@ export const TREASURE_KEYS = {
 
 export const WEAPON_KEYS = {
   AMOUNT: "amount",
-  ATK_DMG_STAT: "attackDamageStat",
+  ATK_DMG_SCORE: "attackDamageScore",
   CATEGORY: "category",
   DESCRIPTION: "description",
   DIE_TYPE: "dieType",

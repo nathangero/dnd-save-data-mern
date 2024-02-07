@@ -180,7 +180,7 @@ const typeDefs = `
   type Weapon {
     _id: ID
     amount: Int!
-    attackDamageStat: String!
+    attackDamageScore: String!
     category: String
     description: String
     dieType: String!
@@ -363,7 +363,7 @@ const typeDefs = `
   input WeaponInput {
     _id: ID
     amount: Int!
-    attackDamageStat: String!
+    attackDamageScore: String!
     category: String
     description: String
     dieType: String!

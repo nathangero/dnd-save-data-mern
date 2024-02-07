@@ -5,7 +5,7 @@ const Weapon = new Schema({
     type: Number,
     require: true
   },
-  attackDamageStat: {
+  attackDamageScore: {
     type: String,
     require: true,
     trim: true
