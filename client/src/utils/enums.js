@@ -82,6 +82,15 @@ export const ACTION_TYPES = {
   PASSIVE: "passive",
 }
 
+export const DIE_TYPES = {
+  D4: "d4",
+  D6: "d6",
+  D8: "d8",
+  D10: "d10",
+  D12: "d12",
+  D20: "d12",
+}
+
 export const FEAT_TRAIT_TYPES = {
   NONE: "none",
   CLASS: "class",
@@ -187,4 +196,10 @@ export const SPELL_NAMES = {
   [SPELL_KEYS.LEVEL_7]: "Level 7",
   [SPELL_KEYS.LEVEL_8]: "Level 8",
   [SPELL_KEYS.LEVEL_9]: "Level 9",
+}
+
+export const WEAPON_CATEGORIES = {
+  SIMPLE: "simple",
+  MARTIAL: "martial",
+  IMPROVISED: "improvised",
 }

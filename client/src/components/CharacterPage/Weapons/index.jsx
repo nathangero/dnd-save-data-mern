@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, ABILITY_SCORE_NAMES_TO_KEY, CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, ABILITY_SCORE_NAMES_TO_KEY, CHARACTER_VIEW_ID, DIE_TYPES, SECTION_TITLE, SECTION_TITLE_NAME, WEAPON_CATEGORIES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { calcScoreMod, calcScoreWithProficiency, capitalizeFirst, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { WEAPON_KEYS } from "../../../utils/db-keys";
 
 export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, toggleEditing, isEditing }) {
@@ -196,8 +196,26 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
           <div className="stat-row">
             <p>Attack Mod</p>
             <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
-              {Object.values(ABILITY_SCORE_KEYS).map((key, index) => (
-                <option key={index}>{ABILITY_SCORE_NAMES[key]}</option>
+              {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
+                <option key={index}>{ABILITY_SCORE_NAMES[value]}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="stat-row">
+            <p>Die Type</p>
+            <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+              {Object.values(DIE_TYPES).map((value, index) => (
+                <option key={index}>{value}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="stat-row">
+            <p>Category</p>
+            <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+              {Object.values(WEAPON_CATEGORIES).map((value, index) => (
+                <option key={index}>{capitalizeFirst(value)}</option>
               ))}
             </select>
           </div>
