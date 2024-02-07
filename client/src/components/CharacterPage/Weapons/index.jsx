@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, ABILITY_SCORE_NAMES_TO_KEY, CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
@@ -25,6 +25,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   const [weapons, setWeapons] = useState(character.weapons);
   const [weaponAmount, setWeaponAmount] = useState("");
   const [weaponAtkDmgScore, setWeaponAtkDmgScore] = useState("");
+  const [weaponAtkDmgScoreName, setWeaponAtkDmgScoreName] = useState("");
   const [weaponCategory, setWeaponCategory] = useState("");
   const [weaponDescription, setWeaponDescription] = useState("");
   const [weaponDieType, setWeaponDieType] = useState("");
@@ -64,7 +65,8 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }
 
   const onChangeWeaponAtkDmgStat = ({ target }) => {
-    setWeaponAtkDmgScore(target.value);
+    setWeaponAtkDmgScore(ABILITY_SCORE_NAMES_TO_KEY[target.value]);
+    setWeaponAtkDmgScoreName(target.value);
   }
 
   const onChangeWeaponCategory = ({ target }) => {
@@ -191,11 +193,14 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         <form className="new-entry weapons" onSubmit={onClickUpdateCharacter}>
           <input className="edit-input title" value={weaponName} onChange={onChangeWeaponName} placeholder="New Weapon" />
 
-          <select value={weaponAtkDmgScore} onChange={onChangeWeaponAtkDmgStat}>
-            {Object.values(ABILITY_SCORE_KEYS).map((key, index) => (
-              <option key={index}>{ABILITY_SCORE_NAMES[key]}</option>
-            ))}
-          </select>
+          <div className="stat-row">
+            <p>Attack Mod</p>
+            <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+              {Object.values(ABILITY_SCORE_KEYS).map((key, index) => (
+                <option key={index}>{ABILITY_SCORE_NAMES[key]}</option>
+              ))}
+            </select>
+          </div>
           <hr />
         </form>
 

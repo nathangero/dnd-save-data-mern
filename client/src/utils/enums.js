@@ -66,6 +66,15 @@ export const ABILITY_SCORE_NAMES = {
   [ABILITY_SCORE_KEYS.CHA]: "Charisma"
 }
 
+export const ABILITY_SCORE_NAMES_TO_KEY = {
+  "Strength": ABILITY_SCORE_KEYS.STR, 
+  "Dexterity": ABILITY_SCORE_KEYS.DEX, 
+  "Constitution": ABILITY_SCORE_KEYS.CON, 
+  "Intelligence": ABILITY_SCORE_KEYS.INT, 
+  "Wisdom": ABILITY_SCORE_KEYS.WIS, 
+  "Charisma": ABILITY_SCORE_KEYS.CHA, 
+}
+
 export const ACTION_TYPES = {
   NONE: "none",
   ACTION: "action",
