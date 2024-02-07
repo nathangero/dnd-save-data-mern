@@ -1,14 +1,14 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import Alert from "../../Alert";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { CHARACTER_VIEW_ID, LANGUAGE_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { capitalizeFirst, makeIdFromName, updateCharacter } from "../../../utils/shared-functions";
 import { LANGUAGE_KEYS } from "../../../utils/db-keys";
 
 export default function Languages({ char, toggleSectionShowing, isShowingLanguages, toggleEditing, isEditing }) {

@@ -1,19 +1,230 @@
 import "./style.css";
+import Alert from "../../Alert";
 import PropTypes from "prop-types";
-import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
-import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID } from "../../../utils/enums";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
+import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { calcScoreMod, calcScoreWithProficiency, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { WEAPON_KEYS } from "../../../utils/db-keys";
 
 export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, toggleEditing, isEditing }) {
   const character = { ...char }
 
   const [jumpToMenu, setMenu] = useState({});
 
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  const [weapons, setWeapons] = useState(character.weapons);
+  const [weaponAmount, setWeaponAmount] = useState("");
+  const [weaponAtkDmgStat, setWeaponAtkDmgStat] = useState("");
+  const [weaponCategory, setWeaponCategory] = useState("");
+  const [weaponDescription, setWeaponDescription] = useState("");
+  const [weaponDieType, setWeaponDieType] = useState("");
+  const [weaponName, setWeaponName] = useState("");
+  const [weaponProficiency, setWeaponProficiency] = useState(false);
+
   useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-weapons").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
     // Make jump to menu
     setMenu(makeJumpToForSection(character.weapons));
   }, [])
+
+  // Disables "Add Feat/Trait" button if form isn't filled out
+  useEffect(() => {
+    let addButton = document.querySelector(".button-add-weapon");
+    if (addButton && weaponAmount && weaponAtkDmgStat && weaponCategory && weaponDieType && weaponName && weaponProficiency) addButton.removeAttribute("disabled");
+    else if (addButton) addButton.setAttribute("disabled", null);
+  }, [weaponAmount, weaponAtkDmgStat, weaponCategory, weaponDieType, weaponName, weaponProficiency]);
+
+
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) setWeapons(character.weapons);
+  }, [isEditing])
+
+
+  /**
+   * First, updates the `character` variable's value.
+   * Second, calls the `updateCharacter()` function to push the changes to the db.
+   * Lastly, if the update worked, then update the redux store with the updated `character` value.
+   * 
+   * If there's an error during `updateCharacter` then an alert dialogue will pop up notifying the user.
+   */
+  const onClickUpdateCharacter = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const newEntry = {
+      [WEAPON_KEYS.AMOUNT]: weaponAmount,
+      [WEAPON_KEYS.ATK_DMG_STAT]: weaponAtkDmgStat.toLowerCase(),
+      [WEAPON_KEYS.CATEGORY]: weaponCategory,
+      [WEAPON_KEYS.DESCRIPTION]: weaponDescription,
+      [WEAPON_KEYS.DIE_TYPE]: weaponDieType,
+      [WEAPON_KEYS.NAME]: weaponName,
+      [WEAPON_KEYS.PROFICIENT]: weaponProficiency,
+    }
+
+    // Create a copy of the feats
+    const updatedList = [...character.weapons];
+    updatedList.push(newEntry); // Add the new feat
+    character.weapons = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setWeapons(character.weapons);
+
+      setWeaponAmount("");
+      setWeaponAtkDmgStat("");
+      setWeaponCategory("");
+      setWeaponDescription("");
+      setWeaponDieType("");
+      setWeaponName("");
+      setWeaponProficiency(false);
+    }
+  }
+
+  const onClickUpdate = async () => {
+    character.weapons = weapons; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setLanguages(character.weapons);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
+  const onClickDelete = async (indexToRemove) => {
+    // Filter out the feat to remove;
+    const updatedList = weapons.filter((_, index) => index !== indexToRemove);
+    character.weapons = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update local variable
+      setLanguages(character.weapons);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
+
+  const renderEditing = () => {
+    return (
+      <>
+        
+        {character.weapons?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name} x{item.amount}</u></h3>
+            <div className="stat-row">
+              <p>Attack Mod</p>
+              <b>{calcScoreWithProficiency(character.scores[item.attackDamageStat], character.level, item.proficient, true)} ({getScoreName(item.attackDamageStat)})</b>
+            </div>
+            <div className="stat-row">
+              <p>Damage Mod</p>
+              <b>{calcScoreMod(character.scores[item.attackDamageStat], true)} ({getScoreName(item.attackDamageStat)})</b>
+            </div>
+            <div className="stat-row">
+              <p>Die Type</p>
+              <b>{item.dieType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Category</p>
+              <b>{item.category}</b>
+            </div>
+            <div className="stat-row">
+              <p>Proficient?</p>
+              <b>{item.proficient ? "Yes" : "No"}</b>
+            </div>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
+      </>
+    )
+  }
+
+  const renderViewing = () => {
+    return (
+      <>
+        {character.weapons?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item.name)}>
+            <h3><u>{item.name} x{item.amount}</u></h3>
+            <div className="stat-row">
+              <p>Attack Mod</p>
+              <b>{calcScoreWithProficiency(character.scores[item.attackDamageStat], character.level, item.proficient, true)} ({getScoreName(item.attackDamageStat)})</b>
+            </div>
+            <div className="stat-row">
+              <p>Damage Mod</p>
+              <b>{calcScoreMod(character.scores[item.attackDamageStat], true)} ({getScoreName(item.attackDamageStat)})</b>
+            </div>
+            <div className="stat-row">
+              <p>Die Type</p>
+              <b>{item.dieType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Category</p>
+              <b>{item.category}</b>
+            </div>
+            <div className="stat-row">
+              <p>Proficient?</p>
+              <b>{item.proficient ? "Yes" : "No"}</b>
+            </div>
+            <p className="description">{item.description}</p>
+
+            <hr />
+          </div>
+        ))}
+      </>
+    )
+  }
 
   return (
     <div className="fs-3">
@@ -51,34 +262,14 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
       </div>
 
       <div id={CHARACTER_VIEW_ID.WEAPONS} className="collapse show">
-        {character.weapons?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
-            <h3><u>{item.name} x{item.amount}</u></h3>
-            <div className="stat-row">
-              <p>Attack Mod</p>
-              <b>{calcScoreWithProficiency(character.scores[item.attackDamageStat], character.level, item.proficient, true)} ({getScoreName(item.attackDamageStat)})</b>
-            </div>
-            <div className="stat-row">
-              <p>Damage Mod</p>
-              <b>{calcScoreMod(character.scores[item.attackDamageStat], true)} ({getScoreName(item.attackDamageStat)})</b>
-            </div>
-            <div className="stat-row">
-              <p>Die Type</p>
-              <b>{item.dieType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Category</p>
-              <b>{item.category}</b>
-            </div>
-            <div className="stat-row">
-              <p>Proficient?</p>
-              <b>{item.proficient ? "Yes" : "No"}</b>
-            </div>
-            <p className="description">{item.description}</p>
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
 
-            <hr />
-          </div>
-        ))}
+      <div className="alert-modal-weapons">
+        <Alert title={alertTitle} />
       </div>
     </div>
   )

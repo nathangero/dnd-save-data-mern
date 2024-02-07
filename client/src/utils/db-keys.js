@@ -35,3 +35,13 @@ export const TREASURE_KEYS = {
   DESCRIPTION: "description",
   NAME: "name",
 }
+
+export const WEAPON_KEYS = {
+  AMOUNT: "amount",
+  ATK_DMG_STAT: "attackDamageStat",
+  CATEGORY: "category",
+  DESCRIPTION: "description",
+  DIE_TYPE: "dieType",
+  NAME: "name",
+  PROFICIENT: "proficient",
+}
