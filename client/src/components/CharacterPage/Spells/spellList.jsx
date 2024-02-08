@@ -238,7 +238,7 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
                 <p>Range</p>
                 <div className="d-flex flex-row align-items-baseline">
                   <div className="d-flex flex-row align-items-baseline">
-                    <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.CASTING_TIME]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.RANGE)} placeholder="" />
+                    <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.RANGE]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.RANGE)} placeholder="" />
                     <p>ft</p>
                   </div>
 
