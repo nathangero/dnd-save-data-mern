@@ -67,12 +67,12 @@ export const ABILITY_SCORE_NAMES = {
 }
 
 export const ABILITY_SCORE_NAMES_TO_KEY = {
-  "Strength": ABILITY_SCORE_KEYS.STR, 
-  "Dexterity": ABILITY_SCORE_KEYS.DEX, 
-  "Constitution": ABILITY_SCORE_KEYS.CON, 
-  "Intelligence": ABILITY_SCORE_KEYS.INT, 
-  "Wisdom": ABILITY_SCORE_KEYS.WIS, 
-  "Charisma": ABILITY_SCORE_KEYS.CHA, 
+  "Strength": ABILITY_SCORE_KEYS.STR,
+  "Dexterity": ABILITY_SCORE_KEYS.DEX,
+  "Constitution": ABILITY_SCORE_KEYS.CON,
+  "Intelligence": ABILITY_SCORE_KEYS.INT,
+  "Wisdom": ABILITY_SCORE_KEYS.WIS,
+  "Charisma": ABILITY_SCORE_KEYS.CHA,
 }
 
 export const ACTION_TYPES = {
@@ -172,6 +172,13 @@ export const SKILL_PROFICIENCY = {
   EXPERTISE: "expertise",
 }
 
+export const SPELL_DURATION_TYPES = {
+  INSTANT: "instant",
+  SECONDS: "seconds",
+  MINUTES: "minutes",
+  HOURS: "hours",
+}
+
 export const SPELL_LEVEL_KEYS = {
   CANTRIPS: "cantrips",
   LEVEL_1: "level_1",
@@ -196,6 +203,19 @@ export const SPELL_LEVEL_NAMES = {
   [SPELL_LEVEL_KEYS.LEVEL_7]: "Level 7",
   [SPELL_LEVEL_KEYS.LEVEL_8]: "Level 8",
   [SPELL_LEVEL_KEYS.LEVEL_9]: "Level 9",
+}
+
+export const SPELL_LEVEL_NAMES_TO_KEY = {
+  "Cantrips": SPELL_LEVEL_KEYS.CANTRIPS,
+  "Level 1": [SPELL_LEVEL_KEYS.LEVEL_1],
+  "Level 2": [SPELL_LEVEL_KEYS.LEVEL_2],
+  "Level 3": [SPELL_LEVEL_KEYS.LEVEL_3],
+  "Level 4": [SPELL_LEVEL_KEYS.LEVEL_4],
+  "Level 5": [SPELL_LEVEL_KEYS.LEVEL_5],
+  "Level 6": [SPELL_LEVEL_KEYS.LEVEL_6],
+  "Level 7": [SPELL_LEVEL_KEYS.LEVEL_7],
+  "Level 8": [SPELL_LEVEL_KEYS.LEVEL_8],
+  "Level 9": [SPELL_LEVEL_KEYS.LEVEL_9],
 }
 
 export const WEAPON_CATEGORIES = {
