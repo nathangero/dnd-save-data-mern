@@ -58,58 +58,24 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
   }
 
   /**
-   * Goes through all the spell levels and calls the helper function `makeSpellObject` to add any spells for a specific spell level to the spell menu.
-   * 
-   * This specifically calls all 10 spell levels instead of using a loop to avoid having nested loops. Since `makeSpellObject` uses a loop,
-   * naming each spell level specifically prevents a nested loop.
+   * Makes the "Jump to" menu for all spells under a specific level.
    * 
    * @param {String} spellLevel 
    * @returns An object containing the spell level and the names of the spells in the corresponding level for the dropdown menu.
    */
   const makeJumpToSpells = () => {
-    const fullSpellMenu = {};
+    const fullSpellMenu = {}; // Contains all spells under a spell level
 
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
-    makeSpellObject(spellLevel, fullSpellMenu);
+    const spellsObj = {}; // Contains all the spells under a spell level by spell name and id
+
+    character?.spells[spellLevel]?.map(spell => {
+      const id = makeIdFromSpell(spellLevel, spell[SPELL_KEYS.NAME]);
+      spellsObj[spell[SPELL_KEYS.NAME]] = id; // Add the new name with its div id
+    });
+    
+    fullSpellMenu[spellLevel] = spellsObj; // Update the menu's spell level with the object of spells
 
     return fullSpellMenu;
-  }
-
-  /**
-   * This loops through the character's spells inside of a spell level, takes the name and converts it to an HTML element id, and then updates the `menu` object.
-   * 
-   * First it checks if there are any spells associated with that spell level.
-   * If nothing, then end the function and don't update the menu.
-   * If something, then iterate through it and make a new object where the key is the spell name and the value is the new id.
-   * Then update the `menu` with the new object.
-   * 
-   * Example of how the new object will look
-   * If spell level Cantrips has 2 Cantrips called "Eldritch Blast" and "Fire Bolt", the object returning will look like:
-   *   Cantrips: {
-   *    "Eldritch Blast": spell-cantrip-eldritch-blast,
-   *    "Fire Bolt": spell-cantrip-fire-bolt
-   *   }
-   * @param {String} spellLevel 
-   * @param {Object} menu Object that's updated inside the function
-   * @returns 
-   */
-  const makeSpellObject = (spellLevel, menu) => {
-    const spellObj = {};
-
-    spells?.map(spell => {
-      const id = makeIdFromSpell(spellLevel, spell.name);
-      spellObj[spell.name] = id; // Add the new name with its div id
-    });
-
-    menu[spellLevel] = spellObj; // Update the menu's spell level with the object of spells
   }
 
 
@@ -175,9 +141,13 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
   }
 
   const onClickDelete = async (indexToRemove) => {
-    // Filter out the feat to remove;
+    // Filter out the index to remove;
+    
+
+    const allSpells = { ...character.spells }; // get a copy of the spells
     const updatedList = spells.filter((_, index) => index !== indexToRemove);
-    character.spells = updatedList; // update the `character` variable
+    allSpells[spellLevel] = updatedList; // Update the copy
+    character.spells = allSpells; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
