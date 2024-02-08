@@ -1,17 +1,15 @@
 import PropTypes from "prop-types";
-import { Character } from "../../models/Character";
 
 import "./style.css";
 import { Link } from "react-router-dom";
 import ROUTES from "../../utils/routes";
 
-export default function CharacterSummary(props) {
-  const character = new Character(props.character);
+export default function CharacterSummary({ character }) {
 
   return (
     <div className="p-2 summary">
       <Link
-        to={`${ROUTES.CHARACTERS}/${props.characterId}`}
+        to={`${ROUTES.CHARACTERS}/${character._id}`}
         className="link-to-page"
       >
 
@@ -35,5 +33,4 @@ export default function CharacterSummary(props) {
 
 CharacterSummary.propTypes = {
   character: PropTypes.object,
-  characterId: PropTypes.number
 }

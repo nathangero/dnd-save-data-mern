@@ -19,6 +19,10 @@ section.character-view {
   width: 50%;
 }
 
+p {
+  white-space: pre-line;
+}
+
 .btn {
   font-size: large;
 }
@@ -59,6 +63,26 @@ section.character-view {
   color: white;
 }
 
+.button-update {
+  background-color: var(--button-positive-color);
+  color: white;
+}
+
+.button-delete {
+  background-color: var(--button-negative-color);
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: var(--button-negative-hover-color);
+  color: white;
+}
+
+.button-update:hover {
+  background-color: var(--button-positive-hover-color);
+  color: white;
+}
+
 .character-page {
   display: flex;
   flex-direction: column;
@@ -83,6 +107,23 @@ section.character-view {
   border: 2px solid var(--bs-description-border);
   border-radius: 5px;
   padding: 5px 10px;
+}
+
+.edit-input,
+.edit-input:focus {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  outline: none;
+  text-align: center;
+  width: 70px;
+  padding-top: 10px;
+}
+
+.edit-input.title {
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .hide-dropdown {
@@ -123,6 +164,15 @@ section.character-view {
   border-bottom: none;
 }
 
+.new-entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-entry textarea {
+  resize: none;
+}
+
 /* Make titles have a uniform spaced box around them, and try to keep it center */
 .section-title {
   min-width: 217px;
@@ -134,6 +184,18 @@ section.character-view {
 .stat-row {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+}
+
+.edit-input:disabled {
+  border: none;
+  font-weight: bold;
+  background-color: transparent;
+  color: black;
+}
+
+.stat-row select {
+  padding: 5px;
 }
 
 .sticky-top {

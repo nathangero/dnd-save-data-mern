@@ -1,4 +1,21 @@
 export const SECTION_TITLE = {
+  BACKGROUND: "character-section-background",
+  CHARACTER_INFO: "character-section-info",
+  ABILITY_SCORES: "character-section-scores",
+  SAVING_THROWS: "character-section-saving-throws",
+  SKILLS: "character-section-skills",
+  FEATURES_TRAITS: "character-section-features-traits",
+  WEAPONS: "character-section-weapons",
+  SPELL_SLOTS: "character-section-spell-slots",
+  SPELLS: "character-section-spells",
+  PROFICIENCIES: "character-section-proficiencies",
+  EQUIPMENT: "character-section-equipment",
+  LANGUAGES: "character-section-languages",
+  TREASURES: "character-section-treasures",
+  BACKUP: "backup-character",
+}
+
+export const CHARACTER_VIEW_ID = {
   BACKGROUND: "character-view-background",
   CHARACTER_INFO: "character-view-info",
   ABILITY_SCORES: "character-view-scores",
@@ -12,7 +29,22 @@ export const SECTION_TITLE = {
   EQUIPMENT: "character-view-equipment",
   LANGUAGES: "character-view-languages",
   TREASURES: "character-view-treasures",
-  BACKUP: "backup-character",
+}
+
+export const SECTION_TITLE_NAME = {
+  BACKGROUND: "Background",
+  CHARACTER_INFO: "Character Info",
+  ABILITY_SCORES: "Ability Scores",
+  SAVING_THROWS: "Saving Throws",
+  SKILLS: "Skills",
+  FEATURES_TRAITS: "Feats & Traits",
+  WEAPONS: "Weapons",
+  SPELL_SLOTS: "Spell Slots",
+  SPELLS: "Spells",
+  PROFICIENCIES: "Proficiencies",
+  EQUIPMENT: "Equipment",
+  LANGUAGES: "Languages",
+  TREASURES: "Treasures",
 }
 
 
@@ -32,6 +64,44 @@ export const ABILITY_SCORE_NAMES = {
   [ABILITY_SCORE_KEYS.INT]: "Intelligence",
   [ABILITY_SCORE_KEYS.WIS]: "Wisdom",
   [ABILITY_SCORE_KEYS.CHA]: "Charisma"
+}
+
+export const ABILITY_SCORE_NAMES_TO_KEY = {
+  "Strength": ABILITY_SCORE_KEYS.STR,
+  "Dexterity": ABILITY_SCORE_KEYS.DEX,
+  "Constitution": ABILITY_SCORE_KEYS.CON,
+  "Intelligence": ABILITY_SCORE_KEYS.INT,
+  "Wisdom": ABILITY_SCORE_KEYS.WIS,
+  "Charisma": ABILITY_SCORE_KEYS.CHA,
+}
+
+export const ACTION_TYPES = {
+  NONE: "none",
+  ACTION: "action",
+  BONUS: "bonus",
+  PASSIVE: "passive",
+}
+
+export const DIE_TYPES = {
+  D4: "d4",
+  D6: "d6",
+  D8: "d8",
+  D10: "d10",
+  D12: "d12",
+  D20: "d12",
+}
+
+export const FEAT_TRAIT_TYPES = {
+  NONE: "none",
+  CLASS: "class",
+  RACE: "racial",
+  OTHER: "other",
+}
+
+export const LANGUAGE_TYPES = {
+  FLUENT: "fluent",
+  SPOKEN: "spoken",
+  WRITTEN: "written",
 }
 
 export const SKILL_KEYS = {
@@ -97,7 +167,19 @@ export const SKILL_NAME_SCORES = {
   [SKILL_KEYS.SURVIVAL]: "wis",
 }
 
-export const SPELL_KEYS = {
+export const SKILL_PROFICIENCY = {
+  PROFICIENT: "proficient",
+  EXPERTISE: "expertise",
+}
+
+export const SPELL_DURATION_TYPES = {
+  INSTANT: "instant",
+  SECONDS: "seconds",
+  MINUTES: "minutes",
+  HOURS: "hours",
+}
+
+export const SPELL_LEVEL_KEYS = {
   CANTRIPS: "cantrips",
   LEVEL_1: "level_1",
   LEVEL_2: "level_2",
@@ -110,15 +192,34 @@ export const SPELL_KEYS = {
   LEVEL_9: "level_9",
 }
 
-export const SPELL_NAMES = {
-  [SPELL_KEYS.CANTRIPS]: "Cantrips",
-  [SPELL_KEYS.LEVEL_1]: "Level 1",
-  [SPELL_KEYS.LEVEL_2]: "Level 2",
-  [SPELL_KEYS.LEVEL_3]: "Level 3",
-  [SPELL_KEYS.LEVEL_4]: "Level 4",
-  [SPELL_KEYS.LEVEL_5]: "Level 5",
-  [SPELL_KEYS.LEVEL_6]: "Level 6",
-  [SPELL_KEYS.LEVEL_7]: "Level 7",
-  [SPELL_KEYS.LEVEL_8]: "Level 8",
-  [SPELL_KEYS.LEVEL_9]: "Level 9",
+export const SPELL_LEVEL_NAMES = {
+  [SPELL_LEVEL_KEYS.CANTRIPS]: "Cantrips",
+  [SPELL_LEVEL_KEYS.LEVEL_1]: "Level 1",
+  [SPELL_LEVEL_KEYS.LEVEL_2]: "Level 2",
+  [SPELL_LEVEL_KEYS.LEVEL_3]: "Level 3",
+  [SPELL_LEVEL_KEYS.LEVEL_4]: "Level 4",
+  [SPELL_LEVEL_KEYS.LEVEL_5]: "Level 5",
+  [SPELL_LEVEL_KEYS.LEVEL_6]: "Level 6",
+  [SPELL_LEVEL_KEYS.LEVEL_7]: "Level 7",
+  [SPELL_LEVEL_KEYS.LEVEL_8]: "Level 8",
+  [SPELL_LEVEL_KEYS.LEVEL_9]: "Level 9",
+}
+
+export const SPELL_LEVEL_NAMES_TO_KEY = {
+  "Cantrips": SPELL_LEVEL_KEYS.CANTRIPS,
+  "Level 1": [SPELL_LEVEL_KEYS.LEVEL_1],
+  "Level 2": [SPELL_LEVEL_KEYS.LEVEL_2],
+  "Level 3": [SPELL_LEVEL_KEYS.LEVEL_3],
+  "Level 4": [SPELL_LEVEL_KEYS.LEVEL_4],
+  "Level 5": [SPELL_LEVEL_KEYS.LEVEL_5],
+  "Level 6": [SPELL_LEVEL_KEYS.LEVEL_6],
+  "Level 7": [SPELL_LEVEL_KEYS.LEVEL_7],
+  "Level 8": [SPELL_LEVEL_KEYS.LEVEL_8],
+  "Level 9": [SPELL_LEVEL_KEYS.LEVEL_9],
+}
+
+export const WEAPON_CATEGORIES = {
+  SIMPLE: "simple",
+  MARTIAL: "martial",
+  IMPROVISED: "improvised",
 }

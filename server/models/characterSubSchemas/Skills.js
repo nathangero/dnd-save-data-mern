@@ -1,76 +1,77 @@
 import { Schema } from "mongoose";
+import SkillProficiency from "./SkillProficiency.js";
 
 const Skills = new Schema({
   acrobatics: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   animalHandling: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   arcana: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   athletics: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   deception: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   history: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   insight: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   intimidation: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   investigation: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   medicine: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   nature: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   perception: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   performance: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   persuasion: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   religion: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   sleightOfHand: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   stealth: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
   survival: {
-    type: Boolean,
+    type: SkillProficiency,
     required: true
   },
 });

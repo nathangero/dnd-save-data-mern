@@ -41,7 +41,6 @@ const characterData = [
       current: 15,
       dieType: "1d8",
       dieAmountCurrent: 5,
-      dieAmountMax: 5,
       max: 15,
       temp: 0,
     },
@@ -153,7 +152,7 @@ const characterData = [
     weapons: [
       {
         amount: 1,
-        attackDamageStat: "dex",
+        attackDamageScore: "dex",
         category: "Simple",
         description: "Must reload after every shot. Reload takes one full action. \n\nRange: 40-80ft",
         dieType: "d6",
@@ -162,7 +161,7 @@ const characterData = [
       },
       {
         amount: 1,
-        attackDamageStat: "dex",
+        attackDamageScore: "dex",
         category: "Simple",
         description: "Range: 150ft/300ft",
         dieType: "d8",

@@ -2,8 +2,6 @@ import "./style.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Collapse } from "bootstrap/dist/js/bootstrap.min.js";
-import { Character } from "../../models/Character";
 import ROUTES from "../../utils/routes";
 import Background from "./Background";
 import CharacterInfo from "./CharacterInfo";
@@ -18,15 +16,13 @@ import Proficiencies from "./Proficiencies";
 import Languages from "./Languages";
 import FeaturesTraits from "./FeaturesTraits";
 import Equipment from "./Equipment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SECTION_TITLE } from "../../utils/enums";
 
 export default function CharacterPage() {
 
   const { characters } = useSelector(state => state.user);
   const { characterId } = useParams();
-
-  // const [jumpToMenu, setJumpToMenu] = useState(null);
 
   const [isShowingInfo, showInfo] = useState(true);
   const [isShowingScores, showScores] = useState(true);
@@ -41,24 +37,28 @@ export default function CharacterPage() {
   const [isShowingLanguages, showLanguages] = useState(true);
   const [isShowingTreasures, showTreasures] = useState(true);
 
-  const character = new Character(characters[characterId]);
-
-  useEffect(() => {
-    // Initiate menu
-    // const jumpMenu = document.getElementById("menu-jump-to");
-    // setJumpToMenu(new Collapse(jumpMenu, { toggle: false })); // Keep menu closed upon creation
-  }, [])
-
+  const [isEditingInfo, editInfo] = useState(false);
+  const [isEditingScores, editScores] = useState(false);
+  const [isEditingSavingThrows, editSavingThrows] = useState(false);
+  const [isEditingSkills, editSkills] = useState(false);
+  const [isEditingFeatureTraits, editFeatureTraits] = useState(false);
+  const [isEditingWeapons, editWeapons] = useState(false);
+  const [isEditingSpellSlots, editSpellSlots] = useState(false);
+  const [isEditingSpells, editSpells] = useState(false);
+  const [isEditingProficiencies, editProficiencies] = useState(false);
+  const [isEditingEquipment, editEquipment] = useState(false);
+  const [isEditingLanguages, editLanguages] = useState(false);
+  const [isEditingTreasures, editTreasures] = useState(false);
+  
   /**
    * Scroll to the appropriate section title.
    * @param {String} sectionId The div id
    */
   const scrollToSection = (sectionId) => {
-    // jumpToMenu.hide(); // Close the jump-to menu after clicking a link
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
       const sectionTop = sectionElement.getBoundingClientRect().top;
-      const adjustedScrollTop = sectionTop + window.scrollY - 100;
+      const adjustedScrollTop = sectionTop + window.scrollY - 50;
       window.scrollTo({ top: adjustedScrollTop, behavior: 'smooth' });
     }
   }
@@ -160,114 +160,138 @@ export default function CharacterPage() {
         </div>
       </nav>
 
-      <section id="character-view-background" className="text-center fs-4 mt-3">
-        <Background character={character} />
+      <section id={SECTION_TITLE.BACKGROUND} className="text-center fs-4 mt-3">
+        <Background char={characters[characterId]} />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.CHARACTER_INFO} className="character-view text-center">
         <CharacterInfo
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.CHARACTER_INFO)}
           isShowingInfo={isShowingInfo}
+          toggleEditing={() => editInfo(!isEditingInfo)}
+          isEditing={isEditingInfo}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.ABILITY_SCORES} className="character-view text-center">
         <AbilityScores
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.ABILITY_SCORES)}
           isShowingScores={isShowingScores}
+          toggleEditing={() => editScores(!isEditingScores)}
+          isEditing={isEditingScores}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SAVING_THROWS} className="character-view text-center">
         <SavingThrows
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SAVING_THROWS)}
           isShowingSavingThrows={isShowingSavingThrows}
+          toggleEditing={() => editSavingThrows(!isEditingSavingThrows)}
+          isEditing={isEditingSavingThrows}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SKILLS} className="character-view text-center">
         <Skills
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SKILLS)}
           isShowingSkills={isShowingSkills}
+          toggleEditing={() => editSkills(!isEditingSkills)}
+          isEditing={isEditingSkills}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.FEATURES_TRAITS} className="character-view text-center">
         <FeaturesTraits
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.FEATURES_TRAITS)}
           isShowingFeatureTraits={isShowingFeatureTraits}
+          toggleEditing={() => editFeatureTraits(!isEditingFeatureTraits)}
+          isEditing={isEditingFeatureTraits}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.WEAPONS} className="character-view text-center">
         <Weapons
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.WEAPONS)}
           isShowingWeapons={isShowingWeapons}
+          toggleEditing={() => editWeapons(!isEditingWeapons)}
+          isEditing={isEditingWeapons}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SPELL_SLOTS} className="character-view text-center">
         <SpellSlots
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELL_SLOTS)}
           isShowingSpellSlots={isShowingSpellSlots}
+          toggleEditing={() => editSpellSlots(!isEditingSpellSlots)}
+          isEditing={isEditingSpellSlots}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.SPELLS} className="character-view text-center">
         <Spells
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.SPELLS)}
           isShowingSpells={isShowingSpells}
+          toggleEditing={() => editSpells(!isEditingSpells)}
+          isEditing={isEditingSpells}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.PROFICIENCIES} className="character-view text-center">
         <Proficiencies
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)}
-          isShowingProficiencies={isShowingProficiencies}
+          isShowingProficiencies={isShowingProficiencies} 
+          toggleEditing={() => editProficiencies(!isEditingProficiencies)}
+          isEditing={isEditingProficiencies}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.EQUIPMENT} className="character-view text-center">
         <Equipment
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.EQUIPMENT)}
           isShowingEquipment={isShowingEquipment}
+          toggleEditing={() => editEquipment(!isEditingEquipment)}
+          isEditing={isEditingEquipment}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.LANGUAGES} className="character-view text-center">
         <Languages
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.LANGUAGES)}
           isShowingLanguages={isShowingLanguages}
+          toggleEditing={() => editLanguages(!isEditingLanguages)}
+          isEditing={isEditingLanguages}
         />
         <hr />
       </section>
 
-      <section className="character-view text-center">
+      <section id={SECTION_TITLE.TREASURES} className="character-view text-center">
         <Treasures
-          character={character}
+          char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.TREASURES)}
           isShowingTreasures={isShowingTreasures}
+          toggleEditing={() => editTreasures(!isEditingTreasures )}
+          isEditing={isEditingTreasures }
         />
         <hr />
       </section>

@@ -1,5 +1,20 @@
-.bi-p-square::before {
+.editing .bi-p-square::before {
   border-radius: 5px;
   background-color: var(--button-positive-color);
   color: white;
+}
+
+.editing .bi-p-square:hover::before {
+  border-radius: 5px;
+  background-color: var(--button-positive-hover-color);
+  color: white;
+}
+
+.bi-p-square.viewing::before {
+  border-radius: 5px;
+  color: var(--button-positive-color);
+}
+
+.editing {
+  cursor: pointer;
 }

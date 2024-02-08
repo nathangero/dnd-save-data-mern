@@ -238,7 +238,7 @@ export default function Login() {
       </div>
 
       <div className="alert-modal-error">
-        <Alert title={alertTitle} body={alertBody} centered={true} />
+        <Alert title={alertTitle} body={alertBody} />
       </div>
 
       <div className="alert-modal-reset-password">

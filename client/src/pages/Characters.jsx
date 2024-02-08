@@ -1,6 +1,8 @@
 
 import { useSelector } from "react-redux";
 import CharacterSummary from "../components/CharacterSummary";
+import { Link } from "react-router-dom";
+import ROUTES from "../utils/routes";
 
 export default function Characters() {
 
@@ -9,9 +11,12 @@ export default function Characters() {
   return (
     <section className="page">
       <h1 className="text-center mb-3">Your Characters</h1>
-      {characters.map((character, index) => (
+      
+      {/* <Link className="btn btn-primary" to={ROUTES.CHARACTER_CREATE}>Create Character</Link> */}
+
+      {Object.values(characters).map((character, index) => (
         <div key={index}>
-          <CharacterSummary character={character} characterId={index}/>
+          <CharacterSummary character={character}/>
           <br />
         </div>
       ))}

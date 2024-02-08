@@ -1,3 +1,47 @@
+/**
+ * This function will be reused in the same exact way for each different Character Section component. This will help keep the code DRY.
+ * @param {Character} character Updated character
+ * @param {String} sectionTitle Component's section title
+ * @param {Function} updateCharacter GraphQL Resolver
+ * @param {Function} setAlertTitle Component's alert title
+ * @param {Function} modalAlert Component's modal
+ * @param {Function} toggleEditing Component's editing boolean
+ * @returns 
+ */
+export const updateCharacter = async (character, sectionTitle, updateCharacter, setAlertTitle, modalAlert, toggleEditing) => {
+  
+  try {
+    const { data } = await updateCharacter({
+      variables: {
+        _id: character._id,
+        character
+      }
+    });
+    
+    if (!data?.updateCharacter) {
+      console.log("didn't update character but didn't throw");
+      setAlertTitle(`Couldn't update ${sectionTitle}`);
+      modalAlert.toggle();
+      return false;
+    }
+
+
+    setAlertTitle(`Updated ${sectionTitle} for ${character.name}`);
+    modalAlert.toggle();
+    toggleEditing();
+    console.log("sucessfully updated character")
+    return true;
+
+  } catch (error) {
+    console.log("@error Couldn't update character");
+    console.error(error);
+    setAlertTitle(`Couldn't update ${sectionTitle}`);
+    modalAlert.toggle();
+    return false;
+  }
+}
+
+
 export const calcPassivePerception = (wis, level, proficient, showSign = false) => {
   const bonus = proficient ? calcProficiencyBonus(level) : 0;
   const calc = 10 + calcScoreMod(wis) + bonus;
@@ -18,6 +62,10 @@ export const calcScoreWithProficiency = (score, level, proficient, showSign = fa
 export const calcScoreMod = (score, showSign = false) => {
   const calc = Math.floor((score - 10) / 2);
   return showSign ? getStatBonusSign(calc) : calc;
+}
+
+export const capitalizeFirst = (word) => {
+  return word[0].toUpperCase() + word.slice(1);
 }
 
 export const getScoreName = (score) => {
