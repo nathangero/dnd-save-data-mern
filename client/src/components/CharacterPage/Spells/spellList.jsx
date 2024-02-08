@@ -1,17 +1,42 @@
 import PropTypes from "prop-types";
+import Alert from "../../Alert";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
+import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { SPELL_LEVEL_NAMES } from "../../../utils/enums";
+import { UPDATE_CHARACTER } from "../../../utils/mutations";
+import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { makeIdFromName, scrollToListItem } from "../../../utils/shared-functions";
+import { SPELL_KEYS } from "../../../utils/db-keys";
 
-export default function SpellList({ spells, spellLevel }) {
+export default function SpellList({ characterSpells, spellLevel, isEditing }) {
   const OFFSET_SPELL_NAME = 160;
 
   const [jumpToSpell, setJumpSpell] = useState({});
 
+  const dispatch = useDispatch();
+  const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
+
+  const [modalAlert, setModalAlert] = useState(null);
+  const [alertTitle, setAlertTitle] = useState("");
+
+  const [spells, setSpells] = useState(characterSpells);
+
   useEffect(() => {
+    // Initiate modal
+    const modalError = document.querySelector(".alert-modal-spells").querySelector("#alertModal");
+    setModalAlert(new Modal(modalError));
+
     // Make jump to menu
     setJumpSpell(makeJumpToSpells());
   }, [])
+
+  
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) setSpells(characterSpells);
+  }, [isEditing])
 
   /**
    * Creates a div id from the spell name
@@ -84,13 +109,65 @@ export default function SpellList({ spells, spellLevel }) {
    */
   const makeSpellObject = (spellLevel, menu) => {
     const spellObj = {};
-    
+
     spells?.map(spell => {
       const id = makeIdFromSpell(spellLevel, spell.name);
       spellObj[spell.name] = id; // Add the new name with its div id
     });
 
     menu[spellLevel] = spellObj; // Update the menu's spell level with the object of spells
+  }
+
+
+  const renderEditing = () => {
+    return (
+      <>
+        editing
+        {spells?.map((spell, spellIndex) => (
+          <div key={spellIndex} id={makeIdFromSpell(spellLevel, spell.name)}>
+            <p className="text-start"><b>{spell.name}</b></p>
+            <div className="stat-row">
+              <p>Cast Time</p>
+              <b>{spell.castingTime} actions(s)</b>
+            </div>
+            <div className="stat-row">
+              <p>Duration</p>
+              <b>{spell.duration} {spell.durationType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Range</p>
+              <b>{spell.range} ft</b>
+            </div>
+            <p className="description">{spell.description}</p>
+          </div>
+        ))}
+      </>
+    )
+  }
+
+  const renderViewing = () => {
+    return (
+      <>
+        {spells?.map((spell, spellIndex) => (
+          <div key={spellIndex} id={makeIdFromSpell(spellLevel, spell[SPELL_KEYS.NAME])}>
+            <p className="text-start"><b>{spell.name}</b></p>
+            <div className="stat-row">
+              <p>Cast Time</p>
+              <b>{spell.castingTime} actions(s)</b>
+            </div>
+            <div className="stat-row">
+              <p>Duration</p>
+              <b>{spell.duration} {spell.durationType}</b>
+            </div>
+            <div className="stat-row">
+              <p>Range</p>
+              <b>{spell.range} ft</b>
+            </div>
+            <p className="description">{spell.description}</p>
+          </div>
+        ))}
+      </>
+    )
   }
 
   return (
@@ -119,30 +196,21 @@ export default function SpellList({ spells, spellLevel }) {
           </div>
         </div>
 
-        {spells?.map((spell, spellIndex) => (
-          <div key={spellIndex} id={makeIdFromSpell(spellLevel, spell.name)}>
-            <p className="text-start"><b>{spell.name}</b></p>
-            <div className="stat-row">
-              <p>Cast Time</p>
-              <b>{spell.castingTime} actions(s)</b>
-            </div>
-            <div className="stat-row">
-              <p>Duration</p>
-              <b>{spell.duration} {spell.durationType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Range</p>
-              <b>{spell.range} ft</b>
-            </div>
-            <p className="description">{spell.description}</p>
-          </div>
-        ))}
+        {isEditing ?
+          renderEditing() :
+          renderViewing()
+        }
+      </div>
+
+      <div className="alert-modal-spells">
+        <Alert title={alertTitle} />
       </div>
     </div >
   )
 }
 
 SpellList.propTypes = {
-  spells: PropTypes.array,
+  characterSpells: PropTypes.array,
   spellLevel: PropTypes.string,
+  isEditing: PropTypes.bool,
 }
