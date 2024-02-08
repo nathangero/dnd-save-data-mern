@@ -10,7 +10,7 @@ import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { capitalizeFirst, makeIdFromName, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { SPELL_KEYS } from "../../../utils/db-keys";
 
-export default function SpellList({ char, spellLevel, isEditing, toggleEditing }) {
+export default function SpellList({ char, spellLevel, isEditing, toggleEditing, setAlertTitle, modalAlert }) {
   const OFFSET_SPELL_NAME = 160;
   const character = { ...char };
 
@@ -19,16 +19,9 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing }
   const dispatch = useDispatch();
   const [updateCharMutation] = useMutation(UPDATE_CHARACTER);
 
-  const [modalAlert, setModalAlert] = useState(null);
-  const [alertTitle, setAlertTitle] = useState("");
-
   const [spells, setSpells] = useState(character.spells[spellLevel]);
 
   useEffect(() => {
-    // Initiate modal
-    const modalError = document.querySelector(".alert-modal-spells").querySelector("#alertModal");
-    setModalAlert(new Modal(modalError));
-
     // Make jump to menu
     setJumpSpell(makeJumpToSpells());
   }, [])
@@ -151,7 +144,10 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing }
     event.preventDefault();
     event.stopPropagation();
 
-    character.weapons = spells; // update the `character` variable
+    const allSpells = { ...character.spells }; // get a copy of the spells
+    const updatedList = spells; // update the spells in the level
+    allSpells[spellLevel] = updatedList; // Update the copy
+    character.spells = allSpells; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -181,7 +177,7 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing }
   const onClickDelete = async (indexToRemove) => {
     // Filter out the feat to remove;
     const updatedList = spells.filter((_, index) => index !== indexToRemove);
-    character.weapons = updatedList; // update the `character` variable
+    character.spells = updatedList; // update the `character` variable
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -251,6 +247,10 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing }
 
               <textarea className="rounded p-1 mb-4" value={item[SPELL_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, SPELL_KEYS.DESCRIPTION)} rows={4} placeholder="Spell Details" />
 
+              <div className="d-flex justify-content-evenly">
+                <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+                <button type="submit" className="btn fs-3 button-update button-add-weapon">Update</button>
+              </div>
               <hr />
             </form>
           </div>
@@ -315,17 +315,15 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing }
           renderViewing()
         }
       </div>
-
-      <div className="alert-modal-spells">
-        <Alert title={alertTitle} />
-      </div>
     </div >
   )
 }
 
 SpellList.propTypes = {
-  char: PropTypes.array,
+  char: PropTypes.object,
   spellLevel: PropTypes.string,
   isEditing: PropTypes.bool,
   toggleEditing: PropTypes.func,
+  setAlertTitle: PropTypes.func,
+  modalAlert: PropTypes.object,
 }

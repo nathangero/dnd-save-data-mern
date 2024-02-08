@@ -271,43 +271,43 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
         }
 
         {character.spells[SPELL_LEVEL_KEYS.CANTRIPS]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.CANTRIPS} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.CANTRIPS} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_1]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_1} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_1} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_2]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_2} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_2} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_3]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_3} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_3} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_4]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_4} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_4} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_5]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_5} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_5} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_6]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_6} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_6} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_7]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_7} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_7} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_8]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_8} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_8} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_9]?.length === 0 ? null :
-          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_9} isEditing={isEditing} toggleEditing={toggleEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_9} isEditing={isEditing} toggleEditing={toggleEditing} setAlertTitle={setAlertTitle} modalAlert={modalAlert}/>
         }
       </div>
 
