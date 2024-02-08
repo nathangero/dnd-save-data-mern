@@ -1,6 +1,6 @@
 import "./style.css";
-import Alert from "../../Alert";
 import PropTypes from "prop-types";
+import Alert from "../../Alert";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
@@ -55,12 +55,6 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     if (isEditing) setWeapons(character.weapons);
   }, [isEditing])
 
-
-  const onChangeExistingWeaponName = (index, value) => {
-    const updatedList = [...weapons];
-    updatedList[index] = { ...updatedList[index], [WEAPON_KEYS.NAME]: value };
-    setWeapons(updatedList);
-  }
 
   const onChangeExistingString = (index, value, key) => {
     const updatedList = [...weapons];

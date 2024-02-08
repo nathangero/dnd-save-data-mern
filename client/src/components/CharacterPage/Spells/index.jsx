@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Character } from "../../../models/Character";
 import { useEffect, useState } from "react";
 import { scrollToListItem } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SPELL_LEVEL_KEYS, SPELL_LEVEL_NAMES } from "../../../utils/enums";
 import SpellList from "./spellList";
 
 export default function Spells({ char, toggleSectionShowing, isShowingSpells, toggleEditing, isEditing }) {
@@ -36,10 +36,10 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
     const jumpToMenu = {};
 
     Object.keys(character.spells)?.map(spellLevel => {
-      if (!SPELL_NAMES[spellLevel]) return; // Ignore _typename and _id
+      if (!SPELL_LEVEL_NAMES[spellLevel]) return; // Ignore _typename and _id
       if (!character.spells[spellLevel].length > 0) return; // Ignore any spell level that doesn't have spells
       const id = makeIdFromSpellLevel(spellLevel);
-      jumpToMenu[SPELL_NAMES[spellLevel]] = id; // Add the new name with its div id
+      jumpToMenu[SPELL_LEVEL_NAMES[spellLevel]] = id; // Add the new name with its div id
     });
 
     return jumpToMenu;
@@ -81,44 +81,44 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
       </div>
 
       <div id={CHARACTER_VIEW_ID.SPELLS} className="collapse show">
-        {character.spells[SPELL_KEYS.CANTRIPS]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.CANTRIPS]} spellLevel={SPELL_KEYS.CANTRIPS} />
+        {character.spells[SPELL_LEVEL_KEYS.CANTRIPS]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.CANTRIPS]} spellLevel={SPELL_LEVEL_KEYS.CANTRIPS} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_1]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_1]} spellLevel={SPELL_KEYS.LEVEL_1} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_1]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_1]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_1} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_2]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_2]} spellLevel={SPELL_KEYS.LEVEL_2} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_2]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_2]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_2} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_3]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_3]} spellLevel={SPELL_KEYS.LEVEL_3} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_3]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_3]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_3} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_4]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_4]} spellLevel={SPELL_KEYS.LEVEL_4} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_4]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_4]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_4} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_5]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_5]} spellLevel={SPELL_KEYS.LEVEL_5} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_5]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_5]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_5} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_6]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_6]} spellLevel={SPELL_KEYS.LEVEL_6} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_6]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_6]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_6} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_7]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_7]} spellLevel={SPELL_KEYS.LEVEL_7} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_7]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_7]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_7} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_8]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_8]} spellLevel={SPELL_KEYS.LEVEL_8} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_8]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_8]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_8} />
         }
 
-        {character.spells[SPELL_KEYS.LEVEL_9]?.length === 0 ? null :
-          <SpellList spells={character.spells[SPELL_KEYS.LEVEL_9]} spellLevel={SPELL_KEYS.LEVEL_9} />
+        {character.spells[SPELL_LEVEL_KEYS.LEVEL_9]?.length === 0 ? null :
+          <SpellList spells={character.spells[SPELL_LEVEL_KEYS.LEVEL_9]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_9} />
         }
       </div>
     </div >

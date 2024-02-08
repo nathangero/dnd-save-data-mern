@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { SPELL_NAMES } from "../../../utils/enums";
+import { SPELL_LEVEL_NAMES } from "../../../utils/enums";
 import { makeIdFromName, scrollToListItem } from "../../../utils/shared-functions";
 
 export default function SpellList({ spells, spellLevel }) {
@@ -97,7 +97,7 @@ export default function SpellList({ spells, spellLevel }) {
     <div id={makeIdFromSpellLevel(spellLevel)} className="">
       <div className="spell-info">
         <div className="character-view-header sticky-top align-items-baseline pb-3 spell-level">
-          <h3 className="section-title"><b><u>{SPELL_NAMES[spellLevel]}</u></b></h3>
+          <h3 className="section-title"><b><u>{SPELL_LEVEL_NAMES[spellLevel]}</u></b></h3>
 
           <div className="dropdown">
             <button

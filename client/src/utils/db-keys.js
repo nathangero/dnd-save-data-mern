@@ -23,6 +23,14 @@ export const PROFICIENCIES_KEYS = {
   NAME: "name",
 }
 
+export const SPELL_KEYS = {
+  CASTING_TIME: "castingTime",
+  DESCRIPTION: "description",
+  DURATION: "duration",
+  DURATION_TYPE: "durationType",
+  NAME: "name",
+  RANGE: "range",
+}
 
 export const SPELL_SLOT_KEYS = {
   CURRENT: "current",

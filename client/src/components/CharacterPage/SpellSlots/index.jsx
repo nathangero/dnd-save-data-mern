@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME, SPELL_KEYS, SPELL_NAMES } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME, SPELL_LEVEL_KEYS, SPELL_LEVEL_NAMES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 import { updateCharacter } from "../../../utils/shared-functions";
@@ -66,7 +66,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
    * Get the first index where the character doesn't have any spell slots. 
    * If a character doesn't have level 2 spell slots, it'll get the index for level 2 spell slots.
    * 
-   * Then it uses the enum `SPELL_KEYS` to return the db key of the first spell slot that needs to be added.
+   * Then it uses the enum `SPELL_LEVEL_KEYS` to return the db key of the first spell slot that needs to be added.
    * If a character already has level 1 spell slots, it'll return the key "level_2"
    * 
    * @returns The spell slot db key. E.g. "level_1";
@@ -94,8 +94,8 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
    * @returns A spell slot key. E.g. "level_1"
    */
   const getSpellLevel = (index) => {
-    const key = Object.keys(SPELL_KEYS)[index];
-    return SPELL_KEYS[key];
+    const key = Object.keys(SPELL_LEVEL_KEYS)[index];
+    return SPELL_LEVEL_KEYS[key];
   }
 
 
@@ -240,12 +240,12 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
 
     return (
       <>
-        {spellSlots[SPELL_KEYS.LEVEL_9] ? // If level 9 slots exist, don't allow adding more.
+        {spellSlots[SPELL_LEVEL_KEYS.LEVEL_9] ? // If level 9 slots exist, don't allow adding more.
           <p>No more spell slots to add.</p> :
           <form className="new-entry spell-slot" onSubmit={onClickUpdateCharacter}>
             <div className="stat-row">
               <p>Level #</p>
-              <p>{SPELL_NAMES[findFirstUnsetLevel()]}</p>
+              <p>{SPELL_LEVEL_NAMES[findFirstUnsetLevel()]}</p>
             </div>
 
             <div className="stat-row">
@@ -253,7 +253,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
               <input className="edit-input" type="number" inputMode="numeric" value={spellAmount} onChange={onChangeSpellAmount} placeholder="" />
             </div>
 
-            <button type="submit" className="btn fs-3 button-update button-add-spell-slot" disabled>Add {SPELL_NAMES[spellLevel]} Slot</button>
+            <button type="submit" className="btn fs-3 button-update button-add-spell-slot" disabled>Add {SPELL_LEVEL_NAMES[spellLevel]} Slot</button>
 
             <hr />
           </form>
@@ -261,12 +261,12 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
 
         {Object.keys(spellSlots)?.map((item, index) => (
           <React.Fragment key={index}>
-            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
+            {!SPELL_LEVEL_NAMES[item] ? null : // Ignore _typename and _id
               <div id={makeIdFromSpellSlot(item)}>
                 {!spellSlots[item] ? null :
                   <form className="new-entry spell-slot">
                     <div className="stat-row">
-                      <p>{SPELL_NAMES[item]}</p>
+                      <p>{SPELL_LEVEL_NAMES[item]}</p>
 
                       <div>
                         <input className="edit-input" type="number" inputMode="numeric" value={spellSlots?.[item][SPELL_SLOT_KEYS.CURRENT]} onChange={(e) => { onChangeExistingSpellSlotCurrent(index, e.target.value, spellSlots?.[item][SPELL_SLOT_KEYS.MAX]) }} placeholder=""
@@ -279,7 +279,7 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
                     </div>
 
                     <div className="d-flex justify-content-center">
-                      <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete {SPELL_NAMES[getSpellLevel(index)]}</button>
+                      <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete {SPELL_LEVEL_NAMES[getSpellLevel(index)]}</button>
                     </div>
                   </form>
                 }
@@ -300,11 +300,11 @@ export default function SpellSlots({ char, toggleSectionShowing, isShowingSpellS
       <>
         {Object.keys(character.spellSlots)?.map((item, index) => (
           <React.Fragment key={index}>
-            {!SPELL_NAMES[item] ? null : // Ignore _typename and _id
+            {!SPELL_LEVEL_NAMES[item] ? null : // Ignore _typename and _id
               <div id={makeIdFromSpellSlot(item)} className="d-flex justify-content-between">
                 {!character.spellSlots[item] ? null :
                   <>
-                    <p>{SPELL_NAMES[item]}</p>
+                    <p>{SPELL_LEVEL_NAMES[item]}</p>
                     <b>{character.spellSlots[item].current}/{character.spellSlots[item].max}</b>
                   </>
                 }
