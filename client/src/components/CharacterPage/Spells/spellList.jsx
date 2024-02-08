@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
-import Alert from "../../Alert";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
-import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { SECTION_TITLE, SECTION_TITLE_NAME, SPELL_DURATION_TYPES, SPELL_LEVEL_NAMES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
@@ -31,6 +29,13 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
   useEffect(() => {
     if (isEditing) setSpells(character.spells[spellLevel]);
   }, [isEditing])
+  
+  // Whenever the state is updated, trigger a rerender to update the spellList component
+  useEffect(() => {
+    // console.log("state char spells updated");
+    setSpells(character.spells[spellLevel]);
+    setJumpSpell(makeJumpToSpells());
+  }, [character.spells])
 
   /**
    * Creates a div id from the spell name
@@ -142,7 +147,6 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
 
   const onClickDelete = async (indexToRemove) => {
     // Filter out the index to remove;
-    
 
     const allSpells = { ...character.spells }; // get a copy of the spells
     const updatedList = spells.filter((_, index) => index !== indexToRemove);
