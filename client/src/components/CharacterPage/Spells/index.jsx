@@ -271,43 +271,43 @@ export default function Spells({ char, toggleSectionShowing, isShowingSpells, to
         }
 
         {character.spells[SPELL_LEVEL_KEYS.CANTRIPS]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.CANTRIPS]} spellLevel={SPELL_LEVEL_KEYS.CANTRIPS} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.CANTRIPS} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_1]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_1]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_1} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_1} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_2]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_2]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_2} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_2} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_3]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_3]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_3} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_3} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_4]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_4]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_4} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_4} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_5]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_5]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_5} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_5} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_6]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_6]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_6} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_6} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_7]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_7]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_7} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_7} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_8]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_8]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_8} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_8} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
 
         {character.spells[SPELL_LEVEL_KEYS.LEVEL_9]?.length === 0 ? null :
-          <SpellList characterSpells={character.spells[SPELL_LEVEL_KEYS.LEVEL_9]} spellLevel={SPELL_LEVEL_KEYS.LEVEL_9} isEditing={isEditing}/>
+          <SpellList char={character} spellLevel={SPELL_LEVEL_KEYS.LEVEL_9} isEditing={isEditing} toggleEditing={toggleEditing}/>
         }
       </div>
 

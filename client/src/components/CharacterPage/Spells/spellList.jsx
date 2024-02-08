@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
-import { SPELL_LEVEL_NAMES } from "../../../utils/enums";
+import { SECTION_TITLE, SECTION_TITLE_NAME, SPELL_DURATION_TYPES, SPELL_LEVEL_NAMES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { makeIdFromName, scrollToListItem } from "../../../utils/shared-functions";
+import { capitalizeFirst, makeIdFromName, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { SPELL_KEYS } from "../../../utils/db-keys";
 
-export default function SpellList({ characterSpells, spellLevel, isEditing }) {
+export default function SpellList({ char, spellLevel, isEditing, toggleEditing }) {
   const OFFSET_SPELL_NAME = 160;
+  const character = { ...char };
 
   const [jumpToSpell, setJumpSpell] = useState({});
 
@@ -21,7 +22,7 @@ export default function SpellList({ characterSpells, spellLevel, isEditing }) {
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState("");
 
-  const [spells, setSpells] = useState(characterSpells);
+  const [spells, setSpells] = useState(character.spells[spellLevel]);
 
   useEffect(() => {
     // Initiate modal
@@ -32,10 +33,10 @@ export default function SpellList({ characterSpells, spellLevel, isEditing }) {
     setJumpSpell(makeJumpToSpells());
   }, [])
 
-  
+
   // Reset the local variable when starting to edit
   useEffect(() => {
-    if (isEditing) setSpells(characterSpells);
+    if (isEditing) setSpells(character.spells[spellLevel]);
   }, [isEditing])
 
   /**
@@ -119,26 +120,139 @@ export default function SpellList({ characterSpells, spellLevel, isEditing }) {
   }
 
 
+  const onChangeExistingString = (index, value, key) => {
+    const updatedList = [...spells];
+    updatedList[index] = { ...updatedList[index], [key]: value };
+    setSpells(updatedList);
+  }
+
+  const onChangeExistingDurationType = (index, value) => {
+    const updatedList = [...spells];
+    if (value.toLowerCase() === SPELL_DURATION_TYPES.INSTANT) {
+      updatedList[index] = { ...updatedList[index], [SPELL_KEYS.DURATION_TYPE]: value, [SPELL_KEYS.DURATION]: 0 };
+    } else {
+      updatedList[index] = { ...updatedList[index], [SPELL_KEYS.DURATION_TYPE]: value };
+    }
+    setSpells(updatedList);
+  }
+
+  const onChangeExistingNumber = (index, value, key) => {
+    // Check if the input is a number. If not, then give it the previous Number value.
+    let num = Number(value);
+    if (isNaN(num) || num < 0) num = Number(character.spells[spellLevel][index][key]);
+
+    const updatedList = [...spells];
+    updatedList[index] = { ...updatedList[index], [key]: num };
+    setSpells(updatedList);
+  }
+
+
+  const onClickUpdateExisting = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    character.weapons = spells; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update jump to menu
+      setJumpSpell(makeJumpToSpells());
+
+      // Update local variable
+      setSpells(character.spells[spellLevel]);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.SPELLS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
+  const onClickDelete = async (indexToRemove) => {
+    // Filter out the feat to remove;
+    const updatedList = spells.filter((_, index) => index !== indexToRemove);
+    character.weapons = updatedList; // update the `character` variable
+
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.SPELLS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+
+    // Only update the UI if the database was updated
+    if (didUpdate) {
+      dispatch({
+        type: CHARACTER_ACTIONS.EDIT,
+        updatedCharacter: character
+      });
+
+      // Update jump to menu
+      setJumpSpell(makeJumpToSpells());
+
+      // Update local variable
+      setSpells(character.spells[spellLevel]);
+
+      // Scroll to the top of the section
+      const sectionElement = document.getElementById(SECTION_TITLE.SPELLS);
+      if (sectionElement) {
+        const sectionTop = sectionElement.getBoundingClientRect().top;
+        const adjustedScrollTop = sectionTop + window.scrollY - 50;
+        window.scrollTo({ top: adjustedScrollTop, behavior: 'instant' });
+      }
+    }
+  }
+
   const renderEditing = () => {
     return (
       <>
         editing
-        {spells?.map((spell, spellIndex) => (
-          <div key={spellIndex} id={makeIdFromSpell(spellLevel, spell.name)}>
-            <p className="text-start"><b>{spell.name}</b></p>
-            <div className="stat-row">
-              <p>Cast Time</p>
-              <b>{spell.castingTime} actions(s)</b>
-            </div>
-            <div className="stat-row">
-              <p>Duration</p>
-              <b>{spell.duration} {spell.durationType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Range</p>
-              <b>{spell.range} ft</b>
-            </div>
-            <p className="description">{spell.description}</p>
+        {spells?.map((item, index) => (
+          <div key={index} id={makeIdFromSpell(spellLevel, item[SPELL_KEYS.NAME])}>
+            <form className="new-entry spell" onSubmit={onClickUpdateExisting}>
+              <input className="edit-input title" value={item[SPELL_KEYS.NAME]} onChange={(e) => { onChangeExistingString(index, e.target.value, SPELL_KEYS.NAME) }} placeholder="Spell Name" />
+
+              <div className="stat-row">
+                <p>Cast Time</p>
+                <div className="d-flex flex-row align-items-baseline">
+                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.CASTING_TIME]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.CASTING_TIME)} placeholder="" />
+                  <p>action(s)</p>
+                </div>
+              </div>
+
+              <div className="stat-row">
+                <p>Duration</p>
+                <div className="d-flex flex-row align-items-baseline">
+                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.DURATION]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.DURATION)} placeholder="" />
+
+                  <select value={capitalizeFirst(item[SPELL_KEYS.DURATION_TYPE])} onChange={(e) => { onChangeExistingDurationType(index, e.target.value) }} >
+                    {Object.values(SPELL_DURATION_TYPES).map((type, index) => (
+                      <option key={index}>{capitalizeFirst(type)}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="stat-row">
+                <p>Range</p>
+                <div className="d-flex flex-row align-items-baseline">
+                  <div className="d-flex flex-row align-items-baseline">
+                    <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.CASTING_TIME]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.RANGE)} placeholder="" />
+                    <p>ft</p>
+                  </div>
+
+                </div>
+              </div>
+
+              <textarea className="rounded p-1 mb-4" value={item[SPELL_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, SPELL_KEYS.DESCRIPTION)} rows={4} placeholder="Spell Details" />
+
+              <hr />
+            </form>
           </div>
         ))}
       </>
@@ -210,7 +324,8 @@ export default function SpellList({ characterSpells, spellLevel, isEditing }) {
 }
 
 SpellList.propTypes = {
-  characterSpells: PropTypes.array,
+  char: PropTypes.array,
   spellLevel: PropTypes.string,
   isEditing: PropTypes.bool,
+  toggleEditing: PropTypes.func,
 }
