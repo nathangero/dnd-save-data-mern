@@ -56,12 +56,53 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }, [isEditing])
 
 
+  const onChangeExistingWeaponName = (index, value) => {
+    const updatedList = [...weapons];
+    updatedList[index] = { ...updatedList[index], [WEAPON_KEYS.NAME]: value };
+    setWeapons(updatedList);
+  }
+
+  const onChangeExistingString = (index, value, key) => {
+    const updatedList = [...weapons];
+    updatedList[index] = { ...updatedList[index], [key]: value };
+    setWeapons(updatedList);
+  }
+
+
+  const onChangeExistingNumber = (index, value, key) => {
+    // TODO: Prevent negatives
+    // Check if the input is a number. If not, then give it the previous Number value.
+    let num = Number(value);
+    if (isNaN(num)) num = Number(character.weapons[index][key]);
+
+    const updatedList = [...weapons];
+    updatedList[index] = { ...updatedList[index], [key]: num };
+    setWeapons(updatedList);
+  }
+
+  const onChangeExistingBoolean = (index, value, key) => {
+    const bool = (value === "Yes") ? true : false;
+
+    const updatedList = [...weapons];
+    updatedList[index] = { ...updatedList[index], [key]: bool };
+    setWeapons(updatedList);
+  }  
+
+  const onChangeExistingScore = (index, value, key) => {
+    const score = ABILITY_SCORE_NAMES_TO_KEY[value];
+
+    const updatedList = [...weapons];
+    updatedList[index] = { ...updatedList[index], [key]: score };
+    setWeapons(updatedList);
+  }
+
 
   const onChangeWeaponName = ({ target }) => {
     setWeaponName(target.value);
   }
 
   const onChangeWeaponAmount = ({ target }) => {
+    // TODO: Prevent negatives
     const num = Number(target.value);
 
     // Check if the input is a number. If not, then don't update the state value
@@ -83,8 +124,6 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }
 
   const onChangeWeaponDieType = ({ target }) => {
-    console.log("@onChangeWeaponDieType")
-    console.log("value:", target.value);
     setWeaponDieType(target.value);
   }
 
@@ -146,10 +185,13 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     }
   }
 
-  const onClickUpdate = async () => {
+  const onClickUpdateExisting = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     character.weapons = weapons; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.WEAPONS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -157,7 +199,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
-      
+
       // Update jump to menu
       setMenu(makeJumpToForSection(character.weapons));
 
@@ -165,7 +207,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
       setWeapons(character.weapons);
 
       // Scroll to the top of the section
-      const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
+      const sectionElement = document.getElementById(SECTION_TITLE.WEAPONS);
       if (sectionElement) {
         const sectionTop = sectionElement.getBoundingClientRect().top;
         const adjustedScrollTop = sectionTop + window.scrollY - 50;
@@ -179,7 +221,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     const updatedList = weapons.filter((_, index) => index !== indexToRemove);
     character.weapons = updatedList; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.WEAPONS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -195,7 +237,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
       setWeapons(character.weapons);
 
       // Scroll to the top of the section
-      const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
+      const sectionElement = document.getElementById(SECTION_TITLE.WEAPONS);
       if (sectionElement) {
         const sectionTop = sectionElement.getBoundingClientRect().top;
         const adjustedScrollTop = sectionTop + window.scrollY - 50;
@@ -261,32 +303,60 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
           <hr />
         </form>
 
-        {character.weapons?.map((item, index) => (
-          <div key={index} id={makeIdFromName(item.name)}>
-            <h3><u>{item.name} x{item.amount}</u></h3>
-            <div className="stat-row">
-              <p>Attack Mod</p>
-              <b>{calcScoreWithProficiency(character.scores[item.attackDamageScore], character.level, item.proficient, true)} ({getScoreName(item.attackDamageScore)})</b>
-            </div>
-            <div className="stat-row">
-              <p>Damage Mod</p>
-              <b>{calcScoreMod(character.scores[item.attackDamageScore], true)} ({getScoreName(item.attackDamageScore)})</b>
-            </div>
-            <div className="stat-row">
-              <p>Die Type</p>
-              <b>{item.dieType}</b>
-            </div>
-            <div className="stat-row">
-              <p>Category</p>
-              <b>{item.category}</b>
-            </div>
-            <div className="stat-row">
-              <p>Proficient?</p>
-              <b>{item.proficient ? "Yes" : "No"}</b>
-            </div>
-            <p className="description">{item.description}</p>
+        {weapons?.map((item, index) => (
+          <div key={index} id={makeIdFromName(item[WEAPON_KEYS.NAME])}>
+            <form className="new-entry weapon" onSubmit={onClickUpdateExisting}>
+              <input className="edit-input title" value={item[WEAPON_KEYS.NAME]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.NAME) }} placeholder="Weapon Name" />
 
-            <hr />
+
+              <div className="stat-row">
+                <p>Amount</p>
+                <input className="edit-input" type="number" inputMode="numeric" value={item[WEAPON_KEYS.AMOUNT]} onChange={(e) => onChangeExistingNumber(index, e.target.value, WEAPON_KEYS.AMOUNT)} placeholder="" />
+              </div>
+
+              <div className="stat-row">
+                <p>Attack Mod</p>
+                <select value={ABILITY_SCORE_NAMES[item[WEAPON_KEYS.ATK_DMG_SCORE]]} onChange={(e) => { onChangeExistingScore(index, e.target.value, WEAPON_KEYS.ATK_DMG_SCORE) }}>
+                  {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
+                    <option key={index}>{ABILITY_SCORE_NAMES[value]}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="stat-row">
+                <p>Die Type</p>
+                <select value={item[WEAPON_KEYS.DIE_TYPE]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.DIE_TYPE) }}>
+                  {Object.values(DIE_TYPES).map((value, index) => (
+                    <option key={index}>{value}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="stat-row">
+                <p>Category</p>
+                <select value={item[WEAPON_KEYS.CATEGORY]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.CATEGORY) }}>
+                  {Object.values(WEAPON_CATEGORIES).map((value, index) => (
+                    <option key={index}>{capitalizeFirst(value)}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="stat-row">
+                <p>Proficient?</p>
+                <select value={item[WEAPON_KEYS.PROFICIENT] ? "Yes" : "No"} onChange={(e) => onChangeExistingBoolean(index, e.target.value, WEAPON_KEYS.PROFICIENT)}>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+
+              <textarea className="rounded p-1 mb-4" value={item[WEAPON_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.DESCRIPTION) }} rows={4} placeholder="Additional Details" />
+
+              <div className="d-flex justify-content-evenly">
+                <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
+                <button type="submit" className="btn fs-3 button-update button-add-weapon">Update</button>
+              </div>
+              <hr />
+            </form>
           </div>
         ))}
       </>
