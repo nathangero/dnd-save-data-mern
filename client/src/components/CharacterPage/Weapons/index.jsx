@@ -31,6 +31,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   const [weaponDieType, setWeaponDieType] = useState("");
   const [weaponName, setWeaponName] = useState("");
   const [weaponProficiency, setWeaponProficiency] = useState(false);
+  const [weaponProficiencyText, setWeaponProficiencyText] = useState("");
 
   useEffect(() => {
     // Initiate modal
@@ -61,7 +62,11 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }
 
   const onChangeWeaponAmount = ({ target }) => {
-    setWeaponAmount(target.value);
+    const num = Number(target.value);
+
+    // Check if the input is a number. If not, then don't update the state value
+    if (isNaN(num)) setWeaponAmount("");
+    else setWeaponAmount(num);
   }
 
   const onChangeWeaponAtkDmgStat = ({ target }) => {
@@ -78,11 +83,15 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }
 
   const onChangeWeaponDieType = ({ target }) => {
+    console.log("@onChangeWeaponDieType")
+    console.log("value:", target.value);
     setWeaponDieType(target.value);
   }
 
   const onChangeWeaponProficiency = ({ target }) => {
-    setWeaponProficiency(target.value);
+    setWeaponProficiencyText(target.value);
+    setWeaponProficiency(target.value === "Yes" ? true : false);
+
   }
 
 
@@ -99,8 +108,8 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
     const newEntry = {
       [WEAPON_KEYS.AMOUNT]: weaponAmount,
-      [WEAPON_KEYS.ATK_DMG_STAT]: weaponAtkDmgScore.toLowerCase(),
-      [WEAPON_KEYS.CATEGORY]: weaponCategory,
+      [WEAPON_KEYS.ATK_DMG_SCORE]: weaponAtkDmgScore.toLowerCase(),
+      [WEAPON_KEYS.CATEGORY]: weaponCategory.toLowerCase(),
       [WEAPON_KEYS.DESCRIPTION]: weaponDescription,
       [WEAPON_KEYS.DIE_TYPE]: weaponDieType,
       [WEAPON_KEYS.NAME]: weaponName,
@@ -109,10 +118,10 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
     // Create a copy of the feats
     const updatedList = [...character.weapons];
-    updatedList.push(newEntry); // Add the new feat
+    updatedList.push(newEntry); // Add the new weapon
     character.weapons = updatedList; // update the `character` variable
 
-    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.LANGUAGES, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
+    const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.WEAPONS, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
     // Only update the UI if the database was updated
     if (didUpdate) {
@@ -120,6 +129,9 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
+
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.weapons));
 
       // Update local variable
       setWeapons(character.weapons);
@@ -145,9 +157,12 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         type: CHARACTER_ACTIONS.EDIT,
         updatedCharacter: character
       });
+      
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.weapons));
 
       // Update local variable
-      setLanguages(character.weapons);
+      setWeapons(character.weapons);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
@@ -173,8 +188,11 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         updatedCharacter: character
       });
 
+      // Update jump to menu
+      setMenu(makeJumpToForSection(character.weapons));
+
       // Update local variable
-      setLanguages(character.weapons);
+      setWeapons(character.weapons);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.LANGUAGES);
@@ -194,31 +212,52 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
           <input className="edit-input title" value={weaponName} onChange={onChangeWeaponName} placeholder="New Weapon" />
 
           <div className="stat-row">
+            <p>Amount</p>
+            <input className="edit-input" type="number" inputMode="numeric" value={weaponAmount} onChange={onChangeWeaponAmount} placeholder="" />
+          </div>
+
+          <div className="stat-row">
             <p>Attack Mod</p>
             <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+              <option></option>
               {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
                 <option key={index}>{ABILITY_SCORE_NAMES[value]}</option>
               ))}
             </select>
           </div>
-          
+
           <div className="stat-row">
             <p>Die Type</p>
-            <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+            <select value={weaponDieType} onChange={onChangeWeaponDieType}>
+              <option></option>
               {Object.values(DIE_TYPES).map((value, index) => (
                 <option key={index}>{value}</option>
               ))}
             </select>
           </div>
-          
+
           <div className="stat-row">
             <p>Category</p>
-            <select value={weaponAtkDmgScoreName} onChange={onChangeWeaponAtkDmgStat}>
+            <select value={weaponCategory} onChange={onChangeWeaponCategory}>
+              <option></option>
               {Object.values(WEAPON_CATEGORIES).map((value, index) => (
                 <option key={index}>{capitalizeFirst(value)}</option>
               ))}
             </select>
           </div>
+
+          <div className="stat-row">
+            <p>Proficient?</p>
+            <select value={weaponProficiencyText} onChange={onChangeWeaponProficiency}>
+              <option></option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <textarea className="rounded p-1 mb-4" value={weaponDescription} onChange={onChangeWeaponDescription} rows={4} placeholder="Additional Details" />
+
+          <button type="submit" className="btn fs-3 button-update button-add-weapon" disabled>Add Weapon</button>
           <hr />
         </form>
 
