@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, CLASS_HIT_DIE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { HP_KEYS } from "../../../utils/db-keys";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -59,6 +60,17 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       setInspiration(character.inspiration);
     }
   }, [isEditing])
+
+
+  const getHitDieType = () => {
+    if (CLASS_HIT_DIE[character.class.toLowerCase()]) {
+      return CLASS_HIT_DIE[character.class.toLowerCase()]
+    } else {
+      // Return if class doesn't exist or a custom class
+      return character.hp[HP_KEYS.DIE_TYPE];
+    }
+  }
+
 
   /**
    * First, updates the `character` variable's value.
@@ -119,7 +131,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
-          <input className="edit-input" value={character.hp.dieType} disabled />
+          <input className="edit-input" value={getHitDieType()} disabled />
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
@@ -204,7 +216,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
-          <b>{character.hp.dieType}</b>
+          <b>{getHitDieType()}</b>
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>

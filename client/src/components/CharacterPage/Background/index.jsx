@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { SECTION_TITLE_NAME } from "../../../utils/enums";
-import { updateCharacter } from "../../../utils/shared-functions";
+import { capitalizeFirst, updateCharacter } from "../../../utils/shared-functions";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
 
@@ -87,7 +87,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
       <>
         <h1>{character.name}</h1>
         <p>{character.race}</p>
-        <p>{character.class}</p>
+        <p>{capitalizeFirst(character.class)}</p>
         <p>{character.background}</p>
         <p>{character.alignment}</p>
       </>

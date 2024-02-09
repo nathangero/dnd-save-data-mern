@@ -13,6 +13,14 @@ export const FEATURE_TRAIT_KEYS = {
   USES: "uses",
 }
 
+export const HP_KEYS = {
+  CURRENT: "current",
+  DIE_TYPE: "dieType",
+  DIE_AMT_CURRENT: "dieAmountCurrent",
+  MAX: "max",
+  TEMP: "temp",
+}
+
 export const LANGUAGE_KEYS = {
   NAME: "name",
   PROFICIENCY: "proficiency"
