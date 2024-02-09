@@ -65,6 +65,7 @@ export const calcScoreMod = (score, showSign = false) => {
 }
 
 export const capitalizeFirst = (word) => {
+  if (!word) return ""; // Make a null/empty string check;
   return word[0].toUpperCase() + word.slice(1);
 }
 
