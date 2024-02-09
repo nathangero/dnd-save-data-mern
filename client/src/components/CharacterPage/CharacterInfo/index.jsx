@@ -48,6 +48,18 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     setModalAlert(new Modal(modalError));
   }, []);
 
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) {
+      setLevel(character.level)
+      setArmor(character.armor);
+      setSpeed(character.speed);
+      setHp(character.hp);
+      setDeathSaves(character.deathSaves);
+      setInspiration(character.inspiration);
+    }
+  }, [isEditing])
+
   /**
    * First, updates the `character` variable's value.
    * Second, calls the `updateCharacter()` function to push the changes to the db.
@@ -79,11 +91,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <>
         <div className="stat-row">
           <p>Level</p>
-          <input className="edit-input" value={level} onChange={onChangeLevel} />
+          <input type="number" className="edit-input" value={level} onChange={onChangeLevel} />
         </div>
         <div className="stat-row">
           <p>Armor Class</p>
-          <input className="edit-input" value={armor} onChange={onChangeArmor} />
+          <input type="number" className="edit-input" value={armor} onChange={onChangeArmor} />
         </div>
         <div className="stat-row">
           <p>Initiative</p>
@@ -91,19 +103,19 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Speed (ft.)</p>
-          <input className="edit-input" value={speed} onChange={onChangeSpeed} />
+          <input type="number" className="edit-input" value={speed} onChange={onChangeSpeed} />
         </div>
         <div className="stat-row">
           <p>Current HP</p>
           <div>
-            <input className="edit-input" value={hp.current} onChange={onChangeHpCurrent} />
+            <input type="number" className="edit-input" value={hp.current} onChange={onChangeHpCurrent} />
             <label className="px-2">/</label>
-            <input className="edit-input" value={hp.max} onChange={onChangeHpMax} />
+            <input type="number" className="edit-input" value={hp.max} onChange={onChangeHpMax} />
           </div>
         </div>
         <div className="stat-row">
           <p>Temp HP</p>
-          <input className="edit-input" value={hp.temp} onChange={onChangeHpTemp} />
+          <input type="number" className="edit-input" value={hp.temp} onChange={onChangeHpTemp} />
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
@@ -156,7 +168,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Inspiration</p>
-          <input className="edit-input" value={inspiration} onChange={onChangeInspriation} />
+          <input type="number" className="edit-input" value={inspiration} onChange={onChangeInspriation} />
         </div>
         <button type="button" className="btn fs-3 button-update" onClick={() => onClickUpdateCharacter()}>Update {SECTION_TITLE_NAME.CHARACTER_INFO}</button>
       </>
