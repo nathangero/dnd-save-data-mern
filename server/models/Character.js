@@ -44,6 +44,11 @@ const characterSchema = new Schema({
     require: false,
     trim: true
   },
+  classSpecialization: {
+    type: String,
+    require: false,
+    trim: true
+  },
   deathSaves: {
     type: DeathSaves,
     require: true

@@ -22,6 +22,7 @@ query GetMe {
       background
       class
       classCustom
+      classSpecialization
       deathSaves {
         _id
         failures

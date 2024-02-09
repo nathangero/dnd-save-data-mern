@@ -22,10 +22,11 @@ export default function Background({ char, toggleEditing, isEditing }) {
   const [name, setName] = useState(character.name);
   const [race, setRace] = useState(character.race);
   const [charClass, setClass] = useState(character.class);
-  const [customClass, setCustomClass] = useState("");
+  const [classCustom, setCustomClass] = useState(character.classCustom ? character.classCustom : "");
+  const [classSpecialization, setSpecialization] = useState(character.classSpecialization ? character.classSpecialization : "");
   const [background, setBackground] = useState(character.background);
   const [alignment, setAlignment] = useState(character.alignment);
-  const [customAlignment, setCustomAlignment] = useState("");
+  const [alignmentCustom, setCustomAlignment] = useState(character.alignmentCustom ? character.alignmentCustom : "");
 
 
   useEffect(() => {
@@ -72,13 +73,14 @@ export default function Background({ char, toggleEditing, isEditing }) {
     character.race = race;
     character.class = charClass.toLowerCase();
     character.classCustom = "";
+    character.classSpecialization = classSpecialization;
     character.background = background;
     character.alignment = alignment.toLowerCase();
     character.alignmentCustom = "";
 
     // If anything custom is being used, then add this to the database
-    if (character.class === CHARACTER_CLASSES.CUSTOM) character.classCustom = customClass;
-    if (character.alignment === ALIGNMENTS.CUSTOM) character.alignmentCustom = customAlignment;
+    if (character.class === CHARACTER_CLASSES.CUSTOM) character.classCustom = classCustom;
+    if (character.alignment === ALIGNMENTS.CUSTOM) character.alignmentCustom = alignmentCustom;
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.BACKGROUND, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -113,12 +115,17 @@ export default function Background({ char, toggleEditing, isEditing }) {
           </select>
         </div>
 
-        {charClass === capitalizeFirst(CHARACTER_CLASSES.CUSTOM) ?
+        {charClass === CHARACTER_CLASSES.CUSTOM ?
           <div className="stat-row">
             <p>Custom Class</p>
-            <input className="edit-input w-50" value={customClass} onChange={(e) => setCustomClass(e.target.value)} />
+            <input className="edit-input w-50" value={classCustom} onChange={(e) => setCustomClass(e.target.value)} />
           </div> : null
         }
+
+        <div className="stat-row">
+          <p>Specialization</p>
+          <input className="edit-input w-50" value={classSpecialization} onChange={(e) => setSpecialization(e.target.value)} />
+        </div>
 
         <div className="stat-row">
           <p>Background</p>
@@ -137,7 +144,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
         {alignment === ALIGNMENTS.CUSTOM ?
           <div className="stat-row">
             <p>Custom Alignment</p>
-            <input className="edit-input w-50" value={customAlignment} onChange={(e) => setCustomAlignment(e.target.value)} />
+            <input className="edit-input w-50" value={alignmentCustom} onChange={(e) => setCustomAlignment(e.target.value)} />
           </div> : null
         }
 
@@ -157,6 +164,8 @@ export default function Background({ char, toggleEditing, isEditing }) {
           <p>{capitalizeFirst(character.classCustom)}</p> :
           <p>{capitalizeFirst(character.class)}</p>
         }
+
+        <p>{character.classSpecialization}</p>
 
         <p>{character.background}</p>
         {character.alignment === ALIGNMENTS.CUSTOM ?

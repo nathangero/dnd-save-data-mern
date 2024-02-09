@@ -15,6 +15,7 @@ const typeDefs = `
     background: String
     class: String
     classCustom: String
+    classSpecialization: String
     deathSaves: DeathSaves
     equipment: [Equipment]
     featureTraits: [FeatureTrait]
@@ -200,6 +201,7 @@ const typeDefs = `
     background: String
     class: String
     classCustom: String
+    classSpecialization: String
     deathSaves: DeathSavesInput
     equipment: [EquipmentInput]
     featureTraits: [FeatureTraitInput]
