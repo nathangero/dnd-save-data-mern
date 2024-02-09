@@ -82,6 +82,45 @@ export const ACTION_TYPES = {
   PASSIVE: "passive",
 }
 
+export const ALIGNMENTS = {
+  LAW_GOOD: "lawful_good",
+  LAW_NEU: "lawful_neutral",
+  LAW_EVIL: "lawful_evil",
+  NEU_GOOD: "neutral_good",
+  TRUE_NEU: "true_neutral",
+  NEU_EVIL: "neutral_evil",
+  CHA_GOOD: "chaotic_good",
+  CHA_NEU: "chaotic_neutral",
+  CHA_EVIL: "chaotic_evil",
+  CUSTOM: "custom",
+}
+
+export const ALIGNMENT_NAMES = {
+  [ALIGNMENTS.LAW_GOOD]: "Lawful Good",
+  [ALIGNMENTS.LAW_NEU]: "Lawful Neutral",
+  [ALIGNMENTS.LAW_EVIL]: "Lawful Evil",
+  [ALIGNMENTS.NEU_GOOD]: "Neutral Good",
+  [ALIGNMENTS.TRUE_NEU]: "True Neutral",
+  [ALIGNMENTS.NEU_EVIL]: "Neutral Evil",
+  [ALIGNMENTS.CHA_GOOD]: "Chaotic Good",
+  [ALIGNMENTS.CHA_NEU]: "Chaotic Neutral",
+  [ALIGNMENTS.CHA_EVIL]: "Chaotic Evil",
+  [ALIGNMENTS.CUSTOM]: "Custom",
+}
+
+export const ALIGNMENT_NAMES_TO_KEY = {
+  "Lawful Good": ALIGNMENTS.LAW_GOOD,
+  "Lawful Neutral": ALIGNMENTS.LAW_NEU,
+  "Lawful Evil": ALIGNMENTS.LAW_EVIL,
+  "Neutral Good": ALIGNMENTS.NEU_GOOD,
+  "True Neutral": ALIGNMENTS.TRUE_NEU,
+  "Neutral Evil": ALIGNMENTS.NEU_EVIL,
+  "Chaotic Good": ALIGNMENTS.CHA_GOOD,
+  "Chaotic Neutral": ALIGNMENTS.CHA_NEU,
+  "Chaotic Evil": ALIGNMENTS.CHA_EVIL,
+  "Custom": ALIGNMENTS.CUSTOM,
+}
+
 export const CHARACTER_CLASSES = {
   BARBARIAN: "barbarian",
   BARD: "bard",
