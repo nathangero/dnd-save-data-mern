@@ -1,14 +1,14 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import Alert from "../../Alert";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { ACTION_TYPES, CHARACTER_VIEW_ID, FEAT_TRAIT_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { capitalizeFirst, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { capitalizeFirst, makeIdFromName, makeJumpToForSection, onChangeExistingNumber, onChangeExistingString, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { FEATURE_TRAIT_KEYS } from "../../../utils/db-keys";
 
 export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFeatureTraits, toggleEditing, isEditing }) {
@@ -50,66 +50,6 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
   useEffect(() => {
     if (isEditing) setFeatsTraits(character.featureTraits);
   }, [isEditing])
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingFeatName = (index, value) => {
-    const updatedList = [...featureTraits];
-    updatedList[index] = { ...updatedList[index], [FEATURE_TRAIT_KEYS.NAME]: value };
-    setFeatsTraits(updatedList);
-  }
-
-  /**
-   * Change the trait of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingFeatTrait = (index, value) => {
-    const updatedList = [...featureTraits];
-    updatedList[index] = { ...updatedList[index], [FEATURE_TRAIT_KEYS.TRAIT]: value.toLowerCase() };
-    setFeatsTraits(updatedList);
-  }
-
-  /**
-   * Change the action of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingFeatAction = (index, value) => {
-    const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.ACTION]: value.toLowerCase() };
-    setFeatsTraits(updatedFeats);
-  }
-
-  /**
-   * Change the uses of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingFeatUses = (index, value) => {
-    // Check if the input is a number. If not, then give it the previous Number value.
-    let num = Number(value);
-    if (isNaN(num)) num = Number(character.featureTraits[index][FEATURE_TRAIT_KEYS.USES]);
-
-    const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.USES]: num };
-    setFeatsTraits(updatedFeats);
-  }
-
-  /**
-   * Change the description of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingFeatDescription = (index, value) => {
-    const updatedFeats = [...featureTraits];
-    updatedFeats[index] = { ...updatedFeats[index], [FEATURE_TRAIT_KEYS.DESCRIPTION]: value };
-    setFeatsTraits(updatedFeats);
-  }
-
 
 
   const onChangeFeatName = ({ target }) => {
@@ -288,11 +228,11 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
         {featureTraits?.map((item, index) => (
           <div key={index} id={makeIdFromName(featureTraits[index][FEATURE_TRAIT_KEYS.NAME])}>
             <form className="new-entry feats" onSubmit={onClickUpdateFeat}>
-              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => { onChangeExistingFeatName(index, e.target.value) }} placeholder="Feat/Trait Name" />
+              <input className="edit-input title" value={item[FEATURE_TRAIT_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, featureTraits, setFeatsTraits, FEATURE_TRAIT_KEYS.NAME)} placeholder="Feat/Trait Name" />
 
               <div className="stat-row">
                 <p>Trait Type</p>
-                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.TRAIT])} onChange={(e) => { onChangeExistingFeatTrait(index, e.target.value) }} >
+                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.TRAIT])} onChange={(e) => onChangeExistingString(index, e.target.value, featureTraits, setFeatsTraits, FEATURE_TRAIT_KEYS.TRAIT)} >
                   {Object.values(FEAT_TRAIT_TYPES).map((type, index) => (
                     <option key={index}>{capitalizeFirst(type)}</option>
                   ))}
@@ -301,7 +241,7 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
               <div className="stat-row">
                 <p>Action Type</p>
-                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.ACTION])} onChange={(e) => { onChangeExistingFeatAction(index, e.target.value) }} >
+                <select value={capitalizeFirst(item[FEATURE_TRAIT_KEYS.ACTION])} onChange={(e) => onChangeExistingString(index, e.target.value, featureTraits, setFeatsTraits, FEATURE_TRAIT_KEYS.ACTION)} >
                   {Object.values(ACTION_TYPES).map((type, index) => (
                     <option key={index}>{capitalizeFirst(type)}</option>
                   ))}
@@ -310,10 +250,10 @@ export default function FeaturesTraits({ char, toggleSectionShowing, isShowingFe
 
               <div className="stat-row">
                 <p># of Uses</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => { onChangeExistingFeatUses(index, e.target.value) }} placeholder="" />
+                <input className="edit-input" type="number" inputMode="numeric" value={item[FEATURE_TRAIT_KEYS.USES]} onChange={(e) => onChangeExistingNumber(index, e.target.value, featureTraits, setFeatsTraits, FEATURE_TRAIT_KEYS.USES)} placeholder="" />
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingFeatDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
+              <textarea className="rounded p-1 mb-4" value={item[FEATURE_TRAIT_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, featureTraits, setFeatsTraits, FEATURE_TRAIT_KEYS.DESCRIPTION)} rows={4} placeholder="How does this work?" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDeleteFeat(index)}>Delete</button>

@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { makeIdFromName, makeJumpToForSection, onChangeExistingNumber, onChangeExistingString, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { TREASURE_KEYS } from "../../../utils/db-keys";
 
 export default function Treasures({ char, toggleSectionShowing, isShowingTreasures, toggleEditing, isEditing }) {
@@ -49,43 +49,6 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
   useEffect(() => {
     if (isEditing) setTreasures(character.treasures);
   }, [isEditing])
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingTreasureName = (index, value) => {
-    const updatedList = [...treasures];
-    updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.NAME]: value };
-    setTreasures(updatedList);
-  }
-
-  /**
-   * Change the uses of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingTreasureAmount = (index, value) => {
-    // Check if the input is a number. If not, then give it the previous Number value.
-    let num = Number(value);
-    if (isNaN(num)) num = Number(character.treasures[index][TREASURE_KEYS.USES]);
-
-    const updatedList = [...treasures];
-    updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.AMOUNT]: num };
-    setTreasures(updatedList);
-  }
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingTreasureDescription = (index, value) => {
-    const updatedList = [...treasures];
-    updatedList[index] = { ...updatedList[index], [TREASURE_KEYS.DESCRIPTION]: value };
-    setTreasures(updatedList);
-  }
 
 
   const onChangeTreasureName = ({ target }) => {
@@ -229,14 +192,14 @@ export default function Treasures({ char, toggleSectionShowing, isShowingTreasur
         {treasures?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <form className="new-entry treasure" onSubmit={onClickUpdateExiting}>
-              <input className="edit-input title" value={item[TREASURE_KEYS.NAME]} onChange={(e) => { onChangeExistingTreasureName(index, e.target.value) }} placeholder="Treasure Name" />
+              <input className="edit-input title" value={item[TREASURE_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, treasures, setTreasures, TREASURE_KEYS.NAME)} placeholder="Treasure Name" />
 
               <div className="stat-row">
                 <p>Amount</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={item[TREASURE_KEYS.AMOUNT]} onChange={(e) => { onChangeExistingTreasureAmount(index, e.target.value) }} placeholder="" />
+                <input className="edit-input" type="number" inputMode="numeric" value={item[TREASURE_KEYS.AMOUNT]} onChange={(e) => onChangeExistingNumber(index, e.target.value, treasures, setTreasures, TREASURE_KEYS.AMOUNT)} placeholder="" />
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[TREASURE_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingTreasureDescription(index, e.target.value) }} rows={4} placeholder="What is it?" />
+              <textarea className="rounded p-1 mb-4" value={item[TREASURE_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, treasures, setTreasures, TREASURE_KEYS.DESCRIPTION)} rows={4} placeholder="What is it?" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>

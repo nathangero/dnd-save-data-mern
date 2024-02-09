@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { makeIdFromName, makeJumpToForSection, onChangeExistingString, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { PROFICIENCIES_KEYS } from "../../../utils/db-keys";
 
 export default function Proficiencies({ char, toggleSectionShowing, isShowingProficiencies, toggleEditing, isEditing }) {
@@ -47,30 +47,6 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
   useEffect(() => {
     if (isEditing) setProficiencies(character.proficiencies);
   }, [isEditing])
-
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingProfName = (index, value) => {
-    const updatedList = [...proficiencies];
-    updatedList[index] = { ...updatedList[index], [PROFICIENCIES_KEYS.NAME]: value };
-    setProficiencies(updatedList);
-  }
-
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingProfDescription = (index, value) => {
-    const updatedList = [...proficiencies];
-    updatedList[index] = { ...updatedList[index], [PROFICIENCIES_KEYS.DESCRIPTION]: value };
-    setProficiencies(updatedList);
-  }
 
 
   const onChangeProfName = ({ target }) => {
@@ -201,9 +177,9 @@ export default function Proficiencies({ char, toggleSectionShowing, isShowingPro
         {proficiencies?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <form className="new-entry proficiencies" onSubmit={onClickUpdate}>
-              <input className="edit-input title" value={item[PROFICIENCIES_KEYS.NAME]} onChange={(e) => { onChangeExistingProfName(index, e.target.value) }} placeholder="Proficiency Name" />
+              <input className="edit-input title" value={item[PROFICIENCIES_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, proficiencies, setProficiencies, PROFICIENCIES_KEYS.NAME)} placeholder="Proficiency Name" />
 
-              <textarea className="rounded p-1 mb-4" value={item[PROFICIENCIES_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingProfDescription(index, e.target.value) }} rows={4} placeholder="How does this work?" />
+              <textarea className="rounded p-1 mb-4" value={item[PROFICIENCIES_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, proficiencies, setProficiencies, PROFICIENCIES_KEYS.DESCRIPTION)} rows={4} placeholder="How does this work?" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>

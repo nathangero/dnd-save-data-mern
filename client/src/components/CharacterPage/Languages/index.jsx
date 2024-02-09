@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { CHARACTER_VIEW_ID, LANGUAGE_TYPES, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { capitalizeFirst, makeIdFromName, updateCharacter } from "../../../utils/shared-functions";
+import { capitalizeFirst, makeIdFromName, onChangeExistingString, updateCharacter } from "../../../utils/shared-functions";
 import { LANGUAGE_KEYS } from "../../../utils/db-keys";
 
 export default function Languages({ char, toggleSectionShowing, isShowingLanguages, toggleEditing, isEditing }) {
@@ -42,30 +42,6 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
   useEffect(() => {
     if (isEditing) setLanguages(character.languages);
   }, [isEditing])
-
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingLanguageName = (index, value) => {
-    const updatedList = [...languages];
-    updatedList[index] = { ...updatedList[index], [LANGUAGE_KEYS.NAME]: value };
-    setLanguages(updatedList);
-  }
-
-
-  /**
-   * Change the name of a Feat/Trait at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingProficiency = (index, value) => {
-    const updatedList = [...languages];
-    updatedList[index] = { ...updatedList[index], [LANGUAGE_KEYS.PROFICIENCY]: value };
-    setLanguages(updatedList);
-  }
 
 
   const onChangeLanguageName = ({ target }) => {
@@ -191,9 +167,9 @@ export default function Languages({ char, toggleSectionShowing, isShowingLanguag
         {languages?.map((item, index) => (
           <div key={index} id={makeIdFromName(item[LANGUAGE_KEYS.NAME])}>
             <div className="stat-row">
-              <input className="edit-input title" value={item[LANGUAGE_KEYS.NAME]} onChange={(e) => { onChangeExistingLanguageName(index, e.target.value) }} placeholder="Language Name" />
+              <input className="edit-input title" value={item[LANGUAGE_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, languages, setLanguages, LANGUAGE_KEYS.NAME)} placeholder="Language Name" />
 
-              <select value={capitalizeFirst(item[LANGUAGE_KEYS.PROFICIENCY])} onChange={(e) => onChangeExistingProficiency(index, e.target.value)}>
+              <select value={capitalizeFirst(item[LANGUAGE_KEYS.PROFICIENCY])} onChange={(e) => onChangeExistingString(index, e.target.value, languages, setLanguages, LANGUAGE_KEYS.PROFICIENCY)}>
                 {Object.values(LANGUAGE_TYPES).map((type, index) => (
                   <option key={index}>{capitalizeFirst(type)}</option>
                 ))}

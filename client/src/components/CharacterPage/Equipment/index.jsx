@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { CHARACTER_VIEW_ID, SECTION_TITLE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { makeIdFromName, makeJumpToForSection, onChangeExistingNumber, onChangeExistingString, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { EQUIPMENT_KEYS } from "../../../utils/db-keys";
 
 export default function Equipment({ char, toggleSectionShowing, isShowingEquipment, toggleEditing, isEditing }) {
@@ -22,7 +22,7 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
   const [modalAlert, setModalAlert] = useState(null);
   const [alertTitle, setAlertTitle] = useState("");
 
-  const [equipment, setTreasures] = useState(character.equipment);
+  const [equipment, setEquipment] = useState(character.equipment);
   const [equipmentName, setEquipmentName] = useState("");
   const [equipmentAmount, setEquipmentAmount] = useState("");
   const [equipmentDescription, setEquipmentDescription] = useState("");
@@ -47,45 +47,8 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
 
   // Reset the local variable when starting to edit
   useEffect(() => {
-    if (isEditing) setTreasures(character.equipment);
+    if (isEditing) setEquipment(character.equipment);
   }, [isEditing])
-
-  /**
-   * Change the name of an Equipment at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingEquipmentName = (index, value) => {
-    const updatedList = [...equipment];
-    updatedList[index] = { ...updatedList[index], [EQUIPMENT_KEYS.NAME]: value };
-    setTreasures(updatedList);
-  }
-
-  /**
-   * Change the uses of an Equipment at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingEquipmentAmount = (index, value) => {
-    // Check if the input is a number. If not, then give it the previous Number value.
-    let num = Number(value);
-    if (isNaN(num)) num = Number(character.equipment[index][EQUIPMENT_KEYS.USES]);
-
-    const updatedList = [...equipment];
-    updatedList[index] = { ...updatedList[index], [EQUIPMENT_KEYS.AMOUNT]: num };
-    setTreasures(updatedList);
-  }
-
-  /**
-   * Change the name of an Equipment at the specific index with the changed value.
-   * @param {Number} index 
-   * @param {String} value 
-   */
-  const onChangeExistingEquipmentDescription = (index, value) => {
-    const updatedList = [...equipment];
-    updatedList[index] = { ...updatedList[index], [EQUIPMENT_KEYS.DESCRIPTION]: value };
-    setTreasures(updatedList);
-  }
 
 
   const onChangeEquipmentName = ({ target }) => {
@@ -140,7 +103,7 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
       setMenu(makeJumpToForSection(character.equipment));
 
       // Update local variable
-      setTreasures(character.equipment);
+      setEquipment(character.equipment);
 
       setEquipmentName("");
       setEquipmentDescription("");
@@ -166,7 +129,7 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
       setMenu(makeJumpToForSection(character.equipment));
 
       // Update local variable
-      setTreasures(character.equipment);
+      setEquipment(character.equipment);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.EQUIPMENT);
@@ -196,7 +159,7 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
       setMenu(makeJumpToForSection(character.equipment));
 
       // Update local variable
-      setTreasures(character.equipment);
+      setEquipment(character.equipment);
 
       // Scroll to the top of the section
       const sectionElement = document.getElementById(SECTION_TITLE.EQUIPMENT);
@@ -230,14 +193,14 @@ export default function Equipment({ char, toggleSectionShowing, isShowingEquipme
         {equipment?.map((item, index) => (
           <div key={index} id={makeIdFromName(item.name)}>
             <form className="new-entry equipment" onSubmit={onClickUpdateExiting}>
-              <input className="edit-input title" value={item[EQUIPMENT_KEYS.NAME]} onChange={(e) => { onChangeExistingEquipmentName(index, e.target.value) }} placeholder="Treasure Name" />
+              <input className="edit-input title" value={item[EQUIPMENT_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, equipment, setEquipment, EQUIPMENT_KEYS.NAME)} placeholder="Treasure Name" />
 
               <div className="stat-row">
                 <p>Amount</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={item[EQUIPMENT_KEYS.AMOUNT]} onChange={(e) => { onChangeExistingEquipmentAmount(index, e.target.value) }} placeholder="" />
+                <input className="edit-input" type="number" inputMode="numeric" value={item[EQUIPMENT_KEYS.AMOUNT]} onChange={(e) => onChangeExistingNumber(index, e.target.value, equipment, setEquipment, EQUIPMENT_KEYS.AMOUNT)} placeholder="" />
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[EQUIPMENT_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingEquipmentDescription(index, e.target.value) }} rows={4} placeholder="What is it?" />
+              <textarea className="rounded p-1 mb-4" value={item[EQUIPMENT_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, equipment, setEquipment, EQUIPMENT_KEYS.DESCRIPTION)} rows={4} placeholder="What is it?" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>

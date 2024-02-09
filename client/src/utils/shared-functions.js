@@ -9,7 +9,7 @@
  * @returns 
  */
 export const updateCharacter = async (character, sectionTitle, updateCharacter, setAlertTitle, modalAlert, toggleEditing) => {
-  
+
   try {
     const { data } = await updateCharacter({
       variables: {
@@ -17,7 +17,7 @@ export const updateCharacter = async (character, sectionTitle, updateCharacter, 
         character
       }
     });
-    
+
     if (!data?.updateCharacter) {
       console.log("didn't update character but didn't throw");
       setAlertTitle(`Couldn't update ${sectionTitle}`);
@@ -139,4 +139,39 @@ export const makeJumpToForSection = (list) => {
   })
 
   return jumpToMenu
+}
+
+/**
+ * Change the Number value of a CharacterPage component.
+ * 
+ * Convert the string value to a Number value
+ * @param {Number} index Index of the list
+ * @param {String} value Updated value
+ * @param {Object} objToUpdate The object to update. e.g. `weapons`
+ * @param {Function} updateObj Function to update `objToUpdate`
+ * @param {String} key The db key for the object
+ */
+export const onChangeExistingNumber = (index, value, objToUpdate, updateObj, key) => {
+  // Check if the input is a number. If not, then give it the previous Number value.
+  let num = Number(value);
+  if (isNaN(num) || num < 0) num = 0;
+
+  const updatedList = [...objToUpdate];
+  updatedList[index] = { ...updatedList[index], [key]: num };
+  updateObj(updatedList);
+}
+
+/**
+ * Change the String value of a CharacterPage component.
+ * 
+ * @param {Number} index Index of the list
+ * @param {String} value Updated value
+ * @param {Object} objToUpdate The object to update. e.g. `weapons`
+ * @param {Function} updateObj Function to update `objToUpdate`
+ * @param {String} key The db key for the object
+ */
+export const onChangeExistingString = (index, value, objToUpdate, updateObj, key) => {
+  const updatedList = [...objToUpdate];
+  updatedList[index] = { ...updatedList[index], [key]: value };
+  updateObj(updatedList);
 }
