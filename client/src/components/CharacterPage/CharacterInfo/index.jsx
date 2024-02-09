@@ -252,7 +252,6 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <div className="alert-modal-info">
         <Alert title={alertTitle} />
       </div>
-
     </div>
   )
 }

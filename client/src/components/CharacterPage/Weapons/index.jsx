@@ -42,7 +42,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     setMenu(makeJumpToForSection(character.weapons));
   }, [])
 
-  // Disables "Add Feat/Trait" button if form isn't filled out
+  // Disables "New Entry" button if form isn't filled out
   useEffect(() => {
     let addButton = document.querySelector(".button-add-weapon");
     if (addButton && weaponAmount && weaponAtkDmgScore && weaponCategory && weaponDieType && weaponName && weaponProficiency) addButton.removeAttribute("disabled");
