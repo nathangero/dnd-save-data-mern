@@ -46,6 +46,15 @@ export default function Background({ char, toggleEditing, isEditing }) {
     }
   }, [isEditing])
 
+  useEffect(() => {
+    const updateButton = document.querySelector(".button-update.background");
+    if (updateButton) {
+      if ((charClass === CHARACTER_CLASSES.CUSTOM && !classCustom) || (alignment === ALIGNMENTS.CUSTOM && !alignmentCustom)) updateButton.setAttribute("disabled", null);
+      else updateButton.removeAttribute("disabled");
+    }
+  }, [charClass, classCustom, alignment, alignmentCustom])
+
+
 
   const onChangeClass = ({ target }) => {
     // If the class isn't custom, delete the custom class
@@ -53,7 +62,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
       setCustomClass("");
     }
 
-    setClass(target.value);
+    setClass(target.value.toLowerCase());
   }
 
   const onChangeAlignment = ({ target }) => {
@@ -148,7 +157,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
           </div> : null
         }
 
-        <button type="submit" className="btn fs-3 button-update">Update {SECTION_TITLE_NAME.BACKGROUND}</button>
+        <button type="submit" className="btn fs-3 button-update background">Update {SECTION_TITLE_NAME.BACKGROUND}</button>
 
         <hr />
       </form>
@@ -161,7 +170,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
         <h1>{character.name}</h1>
         <p>{character.race}</p>
         {character.class === CHARACTER_CLASSES.CUSTOM ?
-          <p>{capitalizeFirst(character.classCustom)}</p> :
+          <p>{capitalizeFirst(character?.classCustom)}</p> :
           <p>{capitalizeFirst(character.class)}</p>
         }
 
@@ -169,7 +178,7 @@ export default function Background({ char, toggleEditing, isEditing }) {
 
         <p>{character.background}</p>
         {character.alignment === ALIGNMENTS.CUSTOM ?
-          <p>{capitalizeFirst(character.alignmentCustom)}</p> :
+          <p>{capitalizeFirst(character?.alignmentCustom)}</p> :
           <p>{capitalizeFirst(ALIGNMENT_NAMES[character.alignment])}</p>
         }
       </>
