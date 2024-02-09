@@ -56,9 +56,6 @@ export default function Background({ char, toggleEditing, isEditing }) {
   }
 
   const onChangeAlignment = ({ target }) => {
-    console.log("@onChangeAlignment");
-    console.log("value:", target.value);
-    console.log("actual key:", ALIGNMENT_NAMES_TO_KEY[target.value]);
     // If the class isn't custom, delete the custom class
     if (target.value !== ALIGNMENTS.CUSTOM) {
       setCustomAlignment("");
@@ -73,9 +70,15 @@ export default function Background({ char, toggleEditing, isEditing }) {
 
     character.name = name;
     character.race = race;
-    character.class = charClass;
+    character.class = charClass.toLowerCase();
+    character.classCustom = "";
     character.background = background;
-    character.alignment = alignment;
+    character.alignment = alignment.toLowerCase();
+    character.alignmentCustom = "";
+
+    // If anything custom is being used, then add this to the database
+    if (character.class === CHARACTER_CLASSES.CUSTOM) character.classCustom = customClass;
+    if (character.alignment === ALIGNMENTS.CUSTOM) character.alignmentCustom = customAlignment;
 
     const didUpdate = await updateCharacter(character, SECTION_TITLE_NAME.BACKGROUND, updateCharMutation, setAlertTitle, modalAlert, toggleEditing);
 
@@ -150,9 +153,16 @@ export default function Background({ char, toggleEditing, isEditing }) {
       <>
         <h1>{character.name}</h1>
         <p>{character.race}</p>
-        <p>{capitalizeFirst(character.class)}</p>
+        {character.class === CHARACTER_CLASSES.CUSTOM ?
+          <p>{capitalizeFirst(character.classCustom)}</p> :
+          <p>{capitalizeFirst(character.class)}</p>
+        }
+
         <p>{character.background}</p>
-        <p>{character.alignment}</p>
+        {character.alignment === ALIGNMENTS.CUSTOM ?
+          <p>{capitalizeFirst(character.alignmentCustom)}</p> :
+          <p>{capitalizeFirst(ALIGNMENT_NAMES[character.alignment])}</p>
+        }
       </>
     )
   }

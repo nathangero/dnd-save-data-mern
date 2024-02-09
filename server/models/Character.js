@@ -20,6 +20,11 @@ const characterSchema = new Schema({
     require: true,
     trim: true
   },
+  alignmentCustom: {
+    type: String,
+    require: false,
+    trim: true
+  },
   armor: {
     type: Number,
     require: true,
@@ -32,6 +37,11 @@ const characterSchema = new Schema({
   class: {
     type: String,
     require: true,
+    trim: true
+  },
+  classCustom: {
+    type: String,
+    require: false,
     trim: true
   },
   deathSaves: {
