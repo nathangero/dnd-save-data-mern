@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { updateCharacter, calcPassivePerception, calcProficiencyBonus, calcScoreMod, getScoreName } from "../../../utils/shared-functions";
-import { CHARACTER_VIEW_ID, SECTION_TITLE_NAME } from "../../../utils/enums";
+import { CHARACTER_VIEW_ID, CLASS_HIT_DIE, SECTION_TITLE_NAME } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
+import { HP_KEYS } from "../../../utils/db-keys";
 
 export default function CharacterInfo({ char, toggleSectionShowing, isShowingInfo, toggleEditing, isEditing }) {
   const character = { ...char }
@@ -48,6 +49,29 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
     setModalAlert(new Modal(modalError));
   }, []);
 
+  // Reset the local variable when starting to edit
+  useEffect(() => {
+    if (isEditing) {
+      setLevel(character.level)
+      setArmor(character.armor);
+      setSpeed(character.speed);
+      setHp(character.hp);
+      setDeathSaves(character.deathSaves);
+      setInspiration(character.inspiration);
+    }
+  }, [isEditing])
+
+
+  const getHitDieType = () => {
+    if (CLASS_HIT_DIE[character.class.toLowerCase()]) {
+      return CLASS_HIT_DIE[character.class.toLowerCase()]
+    } else {
+      // Return if class doesn't exist or a custom class
+      return character.hp[HP_KEYS.DIE_TYPE];
+    }
+  }
+
+
   /**
    * First, updates the `character` variable's value.
    * Second, calls the `updateCharacter()` function to push the changes to the db.
@@ -79,11 +103,11 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <>
         <div className="stat-row">
           <p>Level</p>
-          <input className="edit-input" value={level} onChange={onChangeLevel} />
+          <input type="number" className="edit-input" value={level} onChange={onChangeLevel} />
         </div>
         <div className="stat-row">
           <p>Armor Class</p>
-          <input className="edit-input" value={armor} onChange={onChangeArmor} />
+          <input type="number" className="edit-input" value={armor} onChange={onChangeArmor} />
         </div>
         <div className="stat-row">
           <p>Initiative</p>
@@ -91,23 +115,23 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Speed (ft.)</p>
-          <input className="edit-input" value={speed} onChange={onChangeSpeed} />
+          <input type="number" className="edit-input" value={speed} onChange={onChangeSpeed} />
         </div>
         <div className="stat-row">
           <p>Current HP</p>
           <div>
-            <input className="edit-input" value={hp.current} onChange={onChangeHpCurrent} />
+            <input type="number" className="edit-input" value={hp.current} onChange={onChangeHpCurrent} />
             <label className="px-2">/</label>
-            <input className="edit-input" value={hp.max} onChange={onChangeHpMax} />
+            <input type="number" className="edit-input" value={hp.max} onChange={onChangeHpMax} />
           </div>
         </div>
         <div className="stat-row">
           <p>Temp HP</p>
-          <input className="edit-input" value={hp.temp} onChange={onChangeHpTemp} />
+          <input type="number" className="edit-input" value={hp.temp} onChange={onChangeHpTemp} />
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
-          <input className="edit-input" value={character.hp.dieType} disabled />
+          <input className="edit-input" value={getHitDieType()} disabled />
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
@@ -156,7 +180,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>Inspiration</p>
-          <input className="edit-input" value={inspiration} onChange={onChangeInspriation} />
+          <input type="number" className="edit-input" value={inspiration} onChange={onChangeInspriation} />
         </div>
         <button type="button" className="btn fs-3 button-update" onClick={() => onClickUpdateCharacter()}>Update {SECTION_TITLE_NAME.CHARACTER_INFO}</button>
       </>
@@ -192,7 +216,7 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
         </div>
         <div className="stat-row">
           <p>HP Die Type</p>
-          <b>{character.hp.dieType}</b>
+          <b>{getHitDieType()}</b>
         </div>
         <div className="stat-row">
           <p>HP Die Count</p>
@@ -252,7 +276,6 @@ export default function CharacterInfo({ char, toggleSectionShowing, isShowingInf
       <div className="alert-modal-info">
         <Alert title={alertTitle} />
       </div>
-
     </div>
   )
 }

@@ -49,7 +49,7 @@ export default function CharacterPage() {
   const [isEditingEquipment, editEquipment] = useState(false);
   const [isEditingLanguages, editLanguages] = useState(false);
   const [isEditingTreasures, editTreasures] = useState(false);
-  
+
   /**
    * Scroll to the appropriate section title.
    * @param {String} sectionId The div id
@@ -130,7 +130,7 @@ export default function CharacterPage() {
               <i className="bi bi-chevron-left"></i> Characters
             </Link>
           </div>
-          
+
           <div className="dropdown-center">
             <button
               className="btn dropdown-toggle button-menu-jump ms-3"
@@ -161,7 +161,11 @@ export default function CharacterPage() {
       </nav>
 
       <section id={SECTION_TITLE.BACKGROUND} className="text-center fs-4 mt-3">
-        <Background char={characters[characterId]} />
+        <Background
+          char={characters[characterId]}
+          toggleEditing={() => editInfo(!isEditingInfo)}
+          isEditing={isEditingInfo}
+        />
       </section>
 
       <section id={SECTION_TITLE.CHARACTER_INFO} className="character-view text-center">
@@ -256,7 +260,7 @@ export default function CharacterPage() {
         <Proficiencies
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.PROFICIENCIES)}
-          isShowingProficiencies={isShowingProficiencies} 
+          isShowingProficiencies={isShowingProficiencies}
           toggleEditing={() => editProficiencies(!isEditingProficiencies)}
           isEditing={isEditingProficiencies}
         />
@@ -290,8 +294,8 @@ export default function CharacterPage() {
           char={characters[characterId]}
           toggleSectionShowing={() => toggleSectionShowing(SECTION_TITLE.TREASURES)}
           isShowingTreasures={isShowingTreasures}
-          toggleEditing={() => editTreasures(!isEditingTreasures )}
-          isEditing={isEditingTreasures }
+          toggleEditing={() => editTreasures(!isEditingTreasures)}
+          isEditing={isEditingTreasures}
         />
         <hr />
       </section>

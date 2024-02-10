@@ -10,9 +10,12 @@ const typeDefs = `
   type Character {
     _id: ID
     alignment: String
+    alignmentCustom: String
     armor: Int
     background: String
     class: String
+    classCustom: String
+    classSpecialization: String
     deathSaves: DeathSaves
     equipment: [Equipment]
     featureTraits: [FeatureTrait]
@@ -193,9 +196,12 @@ const typeDefs = `
   input CharacterInput {
     _id: ID
     alignment: String
+    alignmentCustom: String
     armor: Int
     background: String
     class: String
+    classCustom: String
+    classSpecialization: String
     deathSaves: DeathSavesInput
     equipment: [EquipmentInput]
     featureTraits: [FeatureTraitInput]

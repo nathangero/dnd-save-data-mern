@@ -82,6 +82,61 @@ export const ACTION_TYPES = {
   PASSIVE: "passive",
 }
 
+export const ALIGNMENTS = {
+  LAW_GOOD: "lawful_good",
+  LAW_NEU: "lawful_neutral",
+  LAW_EVIL: "lawful_evil",
+  NEU_GOOD: "neutral_good",
+  TRUE_NEU: "true_neutral",
+  NEU_EVIL: "neutral_evil",
+  CHA_GOOD: "chaotic_good",
+  CHA_NEU: "chaotic_neutral",
+  CHA_EVIL: "chaotic_evil",
+  CUSTOM: "custom",
+}
+
+export const ALIGNMENT_NAMES = {
+  [ALIGNMENTS.LAW_GOOD]: "Lawful Good",
+  [ALIGNMENTS.LAW_NEU]: "Lawful Neutral",
+  [ALIGNMENTS.LAW_EVIL]: "Lawful Evil",
+  [ALIGNMENTS.NEU_GOOD]: "Neutral Good",
+  [ALIGNMENTS.TRUE_NEU]: "True Neutral",
+  [ALIGNMENTS.NEU_EVIL]: "Neutral Evil",
+  [ALIGNMENTS.CHA_GOOD]: "Chaotic Good",
+  [ALIGNMENTS.CHA_NEU]: "Chaotic Neutral",
+  [ALIGNMENTS.CHA_EVIL]: "Chaotic Evil",
+  [ALIGNMENTS.CUSTOM]: "Custom",
+}
+
+export const ALIGNMENT_NAMES_TO_KEY = {
+  "Lawful Good": ALIGNMENTS.LAW_GOOD,
+  "Lawful Neutral": ALIGNMENTS.LAW_NEU,
+  "Lawful Evil": ALIGNMENTS.LAW_EVIL,
+  "Neutral Good": ALIGNMENTS.NEU_GOOD,
+  "True Neutral": ALIGNMENTS.TRUE_NEU,
+  "Neutral Evil": ALIGNMENTS.NEU_EVIL,
+  "Chaotic Good": ALIGNMENTS.CHA_GOOD,
+  "Chaotic Neutral": ALIGNMENTS.CHA_NEU,
+  "Chaotic Evil": ALIGNMENTS.CHA_EVIL,
+  "Custom": ALIGNMENTS.CUSTOM,
+}
+
+export const CHARACTER_CLASSES = {
+  BARBARIAN: "barbarian",
+  BARD: "bard",
+  CLERIC: "cleric",
+  DRUID: "druid",
+  FIGHTER: "fighter",
+  MONK: "monk",
+  PALADIN: "paladin",
+  RANGER: "ranger",
+  ROGUE: "rogue",
+  SORCERER: "sorcerer",
+  WARLOCK: "warlock",
+  WIZARD: "wizard",
+  CUSTOM: "custom",
+}
+
 export const DIE_TYPES = {
   D4: "d4",
   D6: "d6",
@@ -89,6 +144,22 @@ export const DIE_TYPES = {
   D10: "d10",
   D12: "d12",
   D20: "d12",
+}
+
+export const CLASS_HIT_DIE = {
+  [CHARACTER_CLASSES.BARBARIAN]: [DIE_TYPES.D12],
+  [CHARACTER_CLASSES.BARD]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.CLERIC]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.DRUID]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.FIGHTER]: [DIE_TYPES.D10],
+  [CHARACTER_CLASSES.MONK]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.PALADIN]: [DIE_TYPES.D10],
+  [CHARACTER_CLASSES.RANGER]: [DIE_TYPES.D10],
+  [CHARACTER_CLASSES.ROGUE]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.SORCERER]: [DIE_TYPES],
+  [CHARACTER_CLASSES.WARLOCK]: [DIE_TYPES.D8],
+  [CHARACTER_CLASSES.WIZARD]: [DIE_TYPES.D6],
+  [CHARACTER_CLASSES.CUSTOM]: "",
 }
 
 export const FEAT_TRAIT_TYPES = {

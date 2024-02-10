@@ -14,9 +14,12 @@ mutation UpdateCharacter($_id: String!, $character: CharacterInput!) {
   updateCharacter(_id: $_id, character: $character) {
     _id
     alignment
+    alignmentCustom
     armor
     background
     class
+    classCustom
+    classSpecialization
     deathSaves {
       _id
       failures

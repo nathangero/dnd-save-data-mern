@@ -8,7 +8,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.min.js";
 import { ABILITY_SCORE_KEYS, ABILITY_SCORE_NAMES, ABILITY_SCORE_NAMES_TO_KEY, CHARACTER_VIEW_ID, DIE_TYPES, SECTION_TITLE, SECTION_TITLE_NAME, WEAPON_CATEGORIES } from "../../../utils/enums";
 import { UPDATE_CHARACTER } from "../../../utils/mutations";
 import { CHARACTER_ACTIONS } from "../../../redux/reducer";
-import { calcScoreMod, calcScoreWithProficiency, capitalizeFirst, getScoreName, makeIdFromName, makeJumpToForSection, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
+import { calcScoreMod, calcScoreWithProficiency, capitalizeFirst, getScoreName, makeIdFromName, makeJumpToForSection, onChangeExistingNumber, onChangeExistingString, scrollToListItem, updateCharacter } from "../../../utils/shared-functions";
 import { WEAPON_KEYS } from "../../../utils/db-keys";
 
 export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, toggleEditing, isEditing }) {
@@ -42,7 +42,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     setMenu(makeJumpToForSection(character.weapons));
   }, [])
 
-  // Disables "Add Feat/Trait" button if form isn't filled out
+  // Disables "New Entry" button if form isn't filled out
   useEffect(() => {
     let addButton = document.querySelector(".button-add-weapon");
     if (addButton && weaponAmount && weaponAtkDmgScore && weaponCategory && weaponDieType && weaponName && weaponProficiency) addButton.removeAttribute("disabled");
@@ -56,31 +56,13 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
   }, [isEditing])
 
 
-  const onChangeExistingString = (index, value, key) => {
-    const updatedList = [...weapons];
-    updatedList[index] = { ...updatedList[index], [key]: value };
-    setWeapons(updatedList);
-  }
-
-
-  const onChangeExistingNumber = (index, value, key) => {
-    // TODO: Prevent negatives
-    // Check if the input is a number. If not, then give it the previous Number value.
-    let num = Number(value);
-    if (isNaN(num)) num = Number(character.weapons[index][key]);
-
-    const updatedList = [...weapons];
-    updatedList[index] = { ...updatedList[index], [key]: num };
-    setWeapons(updatedList);
-  }
-
   const onChangeExistingBoolean = (index, value, key) => {
     const bool = (value === "Yes") ? true : false;
 
     const updatedList = [...weapons];
     updatedList[index] = { ...updatedList[index], [key]: bool };
     setWeapons(updatedList);
-  }  
+  }
 
   const onChangeExistingScore = (index, value, key) => {
     const score = ABILITY_SCORE_NAMES_TO_KEY[value];
@@ -100,7 +82,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
     const num = Number(target.value);
 
     // Check if the input is a number. If not, then don't update the state value
-    if (isNaN(num)) setWeaponAmount("");
+    if (isNaN(num) || num < 0) setWeaponAmount("");
     else setWeaponAmount(num);
   }
 
@@ -300,17 +282,16 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
         {weapons?.map((item, index) => (
           <div key={index} id={makeIdFromName(item[WEAPON_KEYS.NAME])}>
             <form className="new-entry weapon" onSubmit={onClickUpdateExisting}>
-              <input className="edit-input title" value={item[WEAPON_KEYS.NAME]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.NAME) }} placeholder="Weapon Name" />
-
+              <input className="edit-input title" value={item[WEAPON_KEYS.NAME]} onChange={(e) => onChangeExistingString(index, e.target.value, weapons, setWeapons, WEAPON_KEYS.NAME)} placeholder="Weapon Name" />
 
               <div className="stat-row">
                 <p>Amount</p>
-                <input className="edit-input" type="number" inputMode="numeric" value={item[WEAPON_KEYS.AMOUNT]} onChange={(e) => onChangeExistingNumber(index, e.target.value, WEAPON_KEYS.AMOUNT)} placeholder="" />
+                <input className="edit-input" type="number" inputMode="numeric" value={item[WEAPON_KEYS.AMOUNT]} onChange={(e) => onChangeExistingNumber(index, e.target.value, weapons, setWeapons, WEAPON_KEYS.AMOUNT)} placeholder="" />
               </div>
 
               <div className="stat-row">
                 <p>Attack Mod</p>
-                <select value={ABILITY_SCORE_NAMES[item[WEAPON_KEYS.ATK_DMG_SCORE]]} onChange={(e) => { onChangeExistingScore(index, e.target.value, WEAPON_KEYS.ATK_DMG_SCORE) }}>
+                <select value={ABILITY_SCORE_NAMES[item[WEAPON_KEYS.ATK_DMG_SCORE]]} onChange={(e) => onChangeExistingScore(index, e.target.value, WEAPON_KEYS.ATK_DMG_SCORE)}>
                   {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
                     <option key={index}>{ABILITY_SCORE_NAMES[value]}</option>
                   ))}
@@ -319,7 +300,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
               <div className="stat-row">
                 <p>Die Type</p>
-                <select value={item[WEAPON_KEYS.DIE_TYPE]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.DIE_TYPE) }}>
+                <select value={item[WEAPON_KEYS.DIE_TYPE]} onChange={(e) => onChangeExistingString(index, e.target.value, weapons, setWeapons, WEAPON_KEYS.DIE_TYPE)}>
                   {Object.values(DIE_TYPES).map((value, index) => (
                     <option key={index}>{value}</option>
                   ))}
@@ -328,7 +309,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
 
               <div className="stat-row">
                 <p>Category</p>
-                <select value={item[WEAPON_KEYS.CATEGORY]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.CATEGORY) }}>
+                <select value={item[WEAPON_KEYS.CATEGORY]} onChange={(e) => onChangeExistingString(index, e.target.value, weapons, setWeapons, WEAPON_KEYS.CATEGORY)}>
                   {Object.values(WEAPON_CATEGORIES).map((value, index) => (
                     <option key={index}>{capitalizeFirst(value)}</option>
                   ))}
@@ -343,7 +324,7 @@ export default function Weapons({ char, toggleSectionShowing, isShowingWeapons, 
                 </select>
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[WEAPON_KEYS.DESCRIPTION]} onChange={(e) => { onChangeExistingString(index, e.target.value, WEAPON_KEYS.DESCRIPTION) }} rows={4} placeholder="Additional Details" />
+              <textarea className="rounded p-1 mb-4" value={item[WEAPON_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, weapons, setWeapons, WEAPON_KEYS.DESCRIPTION)} rows={4} placeholder="Additional Details" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>

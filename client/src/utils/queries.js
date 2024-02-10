@@ -17,9 +17,12 @@ query GetMe {
     characters {
       _id
       alignment
+      alignmentCustom
       armor
       background
       class
+      classCustom
+      classSpecialization
       deathSaves {
         _id
         failures

@@ -84,13 +84,13 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
   }
 
 
-  const onChangeExistingString = (index, value, key) => {
+  const onChangeExistingSpellString = (index, value, key) => {
     const updatedList = [...spells];
     updatedList[index] = { ...updatedList[index], [key]: value };
     setSpells(updatedList);
   }
 
-  const onChangeExistingDurationType = (index, value) => {
+  const onChangeExistingSpellDuration = (index, value) => {
     const updatedList = [...spells];
     if (value.toLowerCase() === SPELL_DURATION_TYPES.INSTANT) {
       updatedList[index] = { ...updatedList[index], [SPELL_KEYS.DURATION_TYPE]: value, [SPELL_KEYS.DURATION]: 0 };
@@ -100,7 +100,7 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
     setSpells(updatedList);
   }
 
-  const onChangeExistingNumber = (index, value, key) => {
+  const onChangeExistingSpellNumber = (index, value, key) => {
     // Check if the input is a number. If not, then give it the previous Number value.
     let num = Number(value);
     if (isNaN(num) || num < 0) num = Number(character.spells[spellLevel][index][key]);
@@ -185,12 +185,12 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
         {spells?.map((item, index) => (
           <div key={index} id={makeIdFromSpell(spellLevel, item[SPELL_KEYS.NAME])}>
             <form className="new-entry spell" onSubmit={onClickUpdateExisting}>
-              <input className="edit-input title" value={item[SPELL_KEYS.NAME]} onChange={(e) => { onChangeExistingString(index, e.target.value, SPELL_KEYS.NAME) }} placeholder="Spell Name" />
+              <input className="edit-input title" value={item[SPELL_KEYS.NAME]} onChange={(e) => { onChangeExistingSpellString(index, e.target.value, SPELL_KEYS.NAME) }} placeholder="Spell Name" />
 
               <div className="stat-row">
                 <p>Cast Time</p>
                 <div className="d-flex flex-row align-items-baseline">
-                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.CASTING_TIME]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.CASTING_TIME)} placeholder="" />
+                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.CASTING_TIME]} onChange={(e) => onChangeExistingSpellNumber(index, e.target.value, SPELL_KEYS.CASTING_TIME)} placeholder="" />
                   <p>action(s)</p>
                 </div>
               </div>
@@ -198,9 +198,9 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
               <div className="stat-row">
                 <p>Duration</p>
                 <div className="d-flex flex-row align-items-baseline">
-                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.DURATION]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.DURATION)} placeholder="" />
+                  <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.DURATION]} onChange={(e) => onChangeExistingSpellNumber(index, e.target.value, SPELL_KEYS.DURATION)} placeholder="" />
 
-                  <select value={capitalizeFirst(item[SPELL_KEYS.DURATION_TYPE])} onChange={(e) => { onChangeExistingDurationType(index, e.target.value) }} >
+                  <select value={capitalizeFirst(item[SPELL_KEYS.DURATION_TYPE])} onChange={(e) => { onChangeExistingSpellDuration(index, e.target.value) }} >
                     {Object.values(SPELL_DURATION_TYPES).map((type, index) => (
                       <option key={index}>{capitalizeFirst(type)}</option>
                     ))}
@@ -212,14 +212,14 @@ export default function SpellList({ char, spellLevel, isEditing, toggleEditing, 
                 <p>Range</p>
                 <div className="d-flex flex-row align-items-baseline">
                   <div className="d-flex flex-row align-items-baseline">
-                    <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.RANGE]} onChange={(e) => onChangeExistingNumber(index, e.target.value, SPELL_KEYS.RANGE)} placeholder="" />
+                    <input className="edit-input me-2" type="number" inputMode="numeric" value={item[SPELL_KEYS.RANGE]} onChange={(e) => onChangeExistingSpellNumber(index, e.target.value, SPELL_KEYS.RANGE)} placeholder="" />
                     <p>ft</p>
                   </div>
 
                 </div>
               </div>
 
-              <textarea className="rounded p-1 mb-4" value={item[SPELL_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingString(index, e.target.value, SPELL_KEYS.DESCRIPTION)} rows={4} placeholder="Spell Details" />
+              <textarea className="rounded p-1 mb-4" value={item[SPELL_KEYS.DESCRIPTION]} onChange={(e) => onChangeExistingSpellString(index, e.target.value, SPELL_KEYS.DESCRIPTION)} rows={4} placeholder="Spell Details" />
 
               <div className="d-flex justify-content-evenly">
                 <button type="button" className="btn fs-3 button-delete button-add-feat" onClick={() => onClickDelete(index)}>Delete</button>
