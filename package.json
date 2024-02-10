@@ -11,7 +11,7 @@
     "watch": "cd server && nodemon ./server.js",
     "seed": "cd server/seeders && node seeds.js",
     "build": "cd client && npm run build",
-    "start": "npm run build && cd server && node server.js",
+    "start": "npm run install && npm run build && cd server && node server.js",
     "preview": "concurrently \"cd server && npm run start\" \"cd client && npm run preview\""
   },
   "keywords": [],
