@@ -7,11 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "cd client && npm i && cd ../server && npm i",
+    "install:server": "cd server && npm i",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "watch": "cd server && nodemon ./server.js",
     "seed": "cd server/seeders && node seeds.js",
     "build": "cd client && npm run build",
     "start": "npm run build && cd server && node server.js",
+    "start:server": "cd server && node server.js",
     "preview": "concurrently \"cd server && npm run start\" \"cd client && npm run preview\""
   },
   "keywords": [],
