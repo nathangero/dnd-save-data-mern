@@ -5,7 +5,7 @@ import { capitalizeFirst } from "../../utils/shared-functions.js"
 export default function CharacterSheet() {
 
   return (
-    <section className="character-sheet m-3 p-2">
+    <section className="character-sheet p-2">
       <h2>Dungeons & Dragons 5E Character Sheet</h2>
 
       <div className="sheet-header row-sm">
@@ -116,8 +116,6 @@ export default function CharacterSheet() {
             </div>
           </div>
 
-          <br />
-
           <div className="d-flex justify-content-between align-items-center container-general">
             <h5>Passive Perception</h5>
             <h6>wis mod</h6>
@@ -125,13 +123,11 @@ export default function CharacterSheet() {
 
           <br />
 
-          <div className="container-general">
-            <div className="character-proficiencies">
-              <h5 className="text-center">Proficiences</h5>
-            </div>
-            <div className="character-languages">
-              <h5 className="text-center">Languages</h5>
-            </div>
+          <div className="character-proficiencies">
+            <h5 className="text-center">Proficiences</h5>
+          </div>
+          <div className="character-languages">
+            <h5 className="text-center">Languages</h5>
           </div>
         </div>
 
@@ -211,8 +207,8 @@ export default function CharacterSheet() {
           </div>
         </div>
 
-        <div className="column-three col-lg-3 border">
-          <div className="character-traits">
+        <div className="column-three col-lg-3">
+          <div className="character-personality">
             <div>
               <h5>Personality</h5>
               <textarea rows={5} />
@@ -232,6 +228,12 @@ export default function CharacterSheet() {
               <h5>Flaws</h5>
               <textarea rows={5} />
               <br />
+            </div>
+          </div>
+
+          <div className="character-feats">
+            <div>
+              <h5>Feats & Traits</h5>
             </div>
           </div>
         </div>

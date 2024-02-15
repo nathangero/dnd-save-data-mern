@@ -8,6 +8,8 @@ textarea {
 .character-sheet {
   border: 2px solid black;
   border-radius: 10px;
+  width: 75%;
+  margin: 10px auto;
 }
 
 .character-background {
@@ -65,7 +67,12 @@ textarea {
 
 .container-general,
 .container-score,
-.character-traits {
+.character-feats,
+.character-languages,
+.character-proficiencies,
+.character-spells,
+.character-weapons,
+.character-personality {
   border: 2px solid black;
   border-radius: 10px;
   text-align: center;
