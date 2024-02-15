@@ -1,3 +1,10 @@
+textarea {
+  resize: none;
+  min-width: 100%;
+  border-radius: 10px;
+  padding: 5px;
+}
+
 .character-sheet {
   border: 2px solid black;
   border-radius: 10px;
@@ -22,6 +29,11 @@
   font-weight: bold;
   padding: 5px;
   margin-bottom: 10px;
+}
+
+.character-traits {
+  display: flex;
+  flex-direction: column;
 }
 
 .edit-input,
@@ -51,16 +63,18 @@
   align-items: center;
 }
 
-.score-container {
+.container-general,
+.container-score,
+.character-traits {
   border: 2px solid black;
   border-radius: 10px;
   text-align: center;
   font-weight: bold;
-  padding: 5px 0px;
+  padding: 5px 10px;
   margin-bottom: 10px;
 }
 
-.score-container input {
+.container-score input {
   text-align: center;
 }
 

@@ -63,7 +63,7 @@ export default function CharacterSheet() {
           <div className="d-flex flex-row">
             <div className="character-scores col-lg pe-2">
               {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
-                <div key={index} className="score-container">
+                <div key={index} className="container-score">
                   <h5>{ABILITY_SCORE_NAMES[value]}</h5>
                   <h6>score mod</h6>
                   <input type="number" className="edit-input fs-5" />
@@ -72,19 +72,20 @@ export default function CharacterSheet() {
             </div>
 
             <div className="d-flex flex-column col-lg-8">
-              <div className="d-flex justify-content-between align-items-baseline">
-                <h5>Inspiration</h5>
-                <input type="number" className="edit-input fs-5" />
+              <div className="container-general">
+                <div className="d-flex justify-content-between align-items-baseline">
+                  <h5>Inspiration</h5>
+                  <input type="number" className="edit-input fs-5" />
+                </div>
+
+                <br />
+
+                <div className="d-flex justify-content-between align-items-baseline">
+                  <h5>Proficiency Bonus</h5>
+                  <h6>level mod</h6>
+                </div>
               </div>
 
-              <br />
-
-              <div className="d-flex justify-content-between align-items-baseline">
-                <h5>Proficiency Bonus</h5>
-                <h6>level mod</h6>
-              </div>
-
-              <br />
 
               <div className="character-saving-throws">
                 <h5 className="text-center">Saving Throws</h5>
@@ -117,14 +118,14 @@ export default function CharacterSheet() {
 
           <br />
 
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center container-general">
             <h5>Passive Perception</h5>
             <h6>wis mod</h6>
           </div>
 
           <br />
 
-          <div>
+          <div className="container-general">
             <div className="character-proficiencies">
               <h5 className="text-center">Proficiences</h5>
             </div>
@@ -133,7 +134,8 @@ export default function CharacterSheet() {
             </div>
           </div>
         </div>
-        <div className="column-two col-lg-4 border pe-2">
+
+        <div className="column-two col-lg-4 pe-2">
           <div className="d-flex justify-content-between container-general">
             <div className="d-flex flex-column align-items-center">
               <h5>Armor Class</h5>
@@ -198,9 +200,40 @@ export default function CharacterSheet() {
               </div>
             </div>
           </div>
+
+          <br />
+
+          <div className="character-weapons">
+            <h5>Attacks</h5>
+          </div>
+          <div className="character-spells">
+            <h5>Spells</h5>
+          </div>
         </div>
+
         <div className="column-three col-lg-3 border">
-          feats
+          <div className="character-traits">
+            <div>
+              <h5>Personality</h5>
+              <textarea rows={5} />
+              <br />
+            </div>
+            <div>
+              <h5>Ideals</h5>
+              <textarea rows={5} />
+              <br />
+            </div>
+            <div>
+              <h5>Bonds</h5>
+              <textarea rows={5} />
+              <br />
+            </div>
+            <div>
+              <h5>Flaws</h5>
+              <textarea rows={5} />
+              <br />
+            </div>
+          </div>
         </div>
       </div>
     </section>
