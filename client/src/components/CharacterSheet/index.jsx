@@ -62,36 +62,13 @@ export default function CharacterSheet() {
         <div className="column-one col-lg-5 pe-2">
           <div className="d-flex flex-row">
             <div className="character-scores col-lg pe-2">
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.STR]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.DEX]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.CON]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.INT]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.WIS]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
-              <div className="score-container">
-                <h5>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.CHA]}</h5>
-                <h6>score mod</h6>
-                <input type="number" className="edit-input fs-5" />
-              </div>
+              {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
+                <div key={index} className="score-container">
+                  <h5>{ABILITY_SCORE_NAMES[value]}</h5>
+                  <h6>score mod</h6>
+                  <input type="number" className="edit-input fs-5" />
+                </div>
+              ))}
             </div>
 
             <div className="d-flex flex-column col-lg-8">
