@@ -14,7 +14,8 @@
   margin-right: 5px;
 }
 
-.character-saving-throws {
+.character-saving-throws,
+.character-skills {
   border: 2px solid black;
   border-radius: 10px;
   text-align: left;
@@ -33,7 +34,8 @@
   width: 70px;
 }
 
-.container-saving-throws {
+.container-saving-throws,
+.container-skills {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
