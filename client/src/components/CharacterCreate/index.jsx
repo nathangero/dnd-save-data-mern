@@ -1,9 +1,8 @@
-import { Character } from "../../models/Character";
-
 import "./style.css";
 import { Link } from "react-router-dom";
 import ROUTES from "../../utils/routes";
 import { SECTION_TITLE } from "../../utils/enums";
+import CharacterSheet from "../CharacterSheet";
 
 export default function CharacterCreate() {
 
@@ -61,6 +60,8 @@ export default function CharacterCreate() {
           </div>
         </div>
       </nav>
+
+      <CharacterSheet />
     </div>
   )
 }

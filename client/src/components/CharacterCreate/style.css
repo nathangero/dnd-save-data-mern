@@ -1,0 +1,48 @@
+.character-create nav {
+  max-height: 56.66px;
+  background-color: var(--light-background);
+}
+
+.character-sheet {
+  border: 2px solid black;
+
+}
+
+.character-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.character-background {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.character-background div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+@media screen and (max-width: 500px) {
+  .character-header,
+  .character-background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .character-background div {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .character-background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

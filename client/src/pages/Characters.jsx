@@ -11,12 +11,14 @@ export default function Characters() {
   return (
     <section className="page">
       <h1 className="text-center mb-3">Your Characters</h1>
-      
-      {/* <Link className="btn btn-primary" to={ROUTES.CHARACTER_CREATE}>Create Character</Link> */}
+
+      <div className="d-flex justify-content-center">
+        <Link className="btn btn-primary mb-5" to={ROUTES.CHARACTER_CREATE}>Create New Character</Link>
+      </div>
 
       {Object.values(characters).map((character, index) => (
         <div key={index}>
-          <CharacterSummary character={character}/>
+          <CharacterSummary character={character} />
           <br />
         </div>
       ))}
