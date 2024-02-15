@@ -1,6 +1,6 @@
 .character-sheet {
   border: 2px solid black;
-
+  border-radius: 10px;
 }
 
 .character-background {
@@ -14,6 +14,15 @@
   margin-right: 5px;
 }
 
+.character-saving-throws {
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
 .edit-input,
 .edit-input:focus {
   border-left: none;
@@ -24,9 +33,16 @@
   width: 70px;
 }
 
+.container-saving-throws {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .score-container {
   border: 2px solid black;
-  border-radius: 10%;
+  border-radius: 10px;
   text-align: center;
   font-weight: bold;
   padding: 5px 0px;
