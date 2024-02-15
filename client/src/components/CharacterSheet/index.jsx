@@ -111,48 +111,15 @@ export default function CharacterSheet() {
 
               <div className="character-saving-throws">
                 <h5 className="text-center">Saving Throws</h5>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.STR]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
+                {Object.values(ABILITY_SCORE_KEYS).map((value, index) => (
+                  <div key={index} className="container-saving-throws">
+                    <h6>{ABILITY_SCORE_NAMES[value]}</h6>
+                    <div className="d-flex align-items-center">
+                      <h6 className="me-2">mod</h6>
+                      <i className="bi bi-p-square fs-3"></i>
+                    </div>
                   </div>
-                </div>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.DEX]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
-                  </div>
-                </div>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.CON]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
-                  </div>
-                </div>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.INT]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
-                  </div>
-                </div>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.WIS]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
-                  </div>
-                </div>
-                <div className="container-saving-throws">
-                  <h6>{ABILITY_SCORE_NAMES[ABILITY_SCORE_KEYS.CHA]}</h6>
-                  <div className="d-flex align-items-center">
-                    <h6 className="me-2">mod</h6>
-                    <i className="bi bi-p-square fs-3"></i>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="character-skills">
