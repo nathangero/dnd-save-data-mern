@@ -133,10 +133,73 @@ export default function CharacterSheet() {
             </div>
           </div>
         </div>
-        <div className="column-two col-lg-3 border">
-          armor
+        <div className="column-two col-lg-4 border pe-2">
+          <div className="d-flex justify-content-between container-general">
+            <div className="d-flex flex-column align-items-center">
+              <h5>Armor Class</h5>
+              <input type="number" className="edit-input fs-5" />
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <h5>Initiative</h5>
+              <input type="number" className="edit-input fs-5" value={0} disabled />
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <h5>Speed</h5>
+              <input type="number" className="edit-input fs-5" />
+            </div>
+          </div>
+
+          <br />
+
+          <div className="container-hp">
+            <h5>Hit Points</h5>
+            <div className="d-flex justify-content-between align-items-baseline">
+              <h5>Current/Max</h5>
+              <div>
+                <input type="number" className="edit-input fs-3" />
+                <label className="fs-3 px-2">/</label>
+                <input type="number" className="edit-input fs-3" />
+              </div>
+            </div>
+            <div className="d-flex justify-content-between align-items-baseline">
+              <h5>Temp Hp</h5>
+              <input type="number" className="edit-input fs-3" />
+            </div>
+            <br />
+            <div className="d-flex justify-content-between align-items-baseline">
+              <h5>Hit Dice</h5>
+              <div>
+                <input type="number" className="edit-input fs-3" />
+                <label className="fs-3 px-2">/</label>
+                <input type="number" className="edit-input fs-3" value={1} disabled />
+              </div>
+            </div>
+            <br />
+          </div>
+
+          <br />
+
+          <div className="container-death-saves">
+            <h5>Death Saves</h5>
+            <div className="d-flex justify-content-between align-items-baseline">
+              <h5>Successes</h5>
+              <div>
+                <input type="number" className="edit-input fs-3" />
+                <label className="fs-3 px-2">/</label>
+                <input type="number" className="edit-input fs-3" value={3} disabled />
+              </div>
+            </div>
+            <div className="d-flex justify-content-between align-items-baseline">
+              <h5>Failures</h5>
+              <div>
+                <input type="number" className="edit-input fs-3" />
+                <label className="fs-3 px-2">/</label>
+                <input type="number" className="edit-input fs-3" value={3} disabled />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="column-three col-lg-4 border">
+        <div className="column-three col-lg-3 border">
           feats
         </div>
       </div>

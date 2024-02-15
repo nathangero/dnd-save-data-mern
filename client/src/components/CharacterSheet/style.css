@@ -32,6 +32,15 @@
   outline: none;
   text-align: center;
   width: 70px;
+  padding: 0;
+}
+
+.container-hp,
+.container-death-saves {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
 }
 
 .container-saving-throws,
