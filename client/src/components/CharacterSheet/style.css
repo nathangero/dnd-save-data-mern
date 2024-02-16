@@ -67,6 +67,7 @@ textarea {
 
 .container-general,
 .container-score,
+.character-equipment,
 .character-feats,
 .character-languages,
 .character-proficiencies,
@@ -114,5 +115,11 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .character-sheet {
+    width: 100%;
   }
 }

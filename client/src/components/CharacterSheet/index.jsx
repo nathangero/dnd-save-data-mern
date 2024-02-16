@@ -202,6 +202,9 @@ export default function CharacterSheet() {
           <div className="character-weapons">
             <h5>Attacks</h5>
           </div>
+          <div className="character-equipment">
+            <h5>Equipment</h5>
+          </div>
           <div className="character-spells">
             <h5>Spells</h5>
           </div>
